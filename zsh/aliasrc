@@ -1,0 +1,79 @@
+# Regular alias
+alias please='sudo !!'
+alias fuck='please'
+alias fck='please'
+alias reboot='sudo reboot'
+alias poweroff='sudo poweroff'
+alias shutdown='sudo shutdown now'
+alias suspend='systemctl suspend'
+alias clear='clear && neofetch'
+alias cls='clear'
+alias ende='suspend && exit'
+alias tree='lsd --tree --icon always --color always' # tree listing
+alias vim='nvim'
+alias svim='sudo nvim'
+
+# sys
+alias sctl='sudo systemctl'
+alias blkid='sudo blkid -o export'
+alias dlist='sudo blkid -o list'
+alias hosts='vim /home/flmr799e/Documents/server/hosts && updatehosts'
+alias updatehosts='sudo cp /home/flmr799e/Documents/server/hosts /etc/hosts'
+
+# copy and moving
+alias cd..='cd ..'
+# alias rm='trash'
+# alias rm='rm -r'
+# alias frm='rm -rf'
+alias copy='ls && rsync -avh --progress'
+alias cp='cp -r'
+alias mv='mv'
+alias scp='sudo cp -r'
+
+# Changing "ls" to "exa"
+alias l='ls'
+alias ls='lsd --icon always --color always --group-dirs first' # my preferred listing
+alias ll='lsd -l --icon always --color always --group-dirs first' # long format
+alias la='lsd -a --icon always --color always --group-dirs first' # all files and dirs
+alias lal='lsd -la --icon always --color always --group-dirs first' # long format all files and dirs
+alias lg='lsd --git --icon always --color always --group-dirs first' # Display git status.  Directory git status is a reduction of included file statuses (recursively).
+alias lr='lsd -aR --icon always --color always --group-dirs first' # list recursively
+alias lt='tree' # tree listing# tree listing
+
+# help and history
+alias h='history'
+alias help='man'
+
+# git
+alias gt-switch='git switch'
+alias gt-merge='git merge'
+alias gt-c='git clone'
+alias gt-undocommit='git reset HEAD~'
+alias gt-newbranch='git switch -c'
+alias gt-delbranch='git branch -d'
+alias gt-log='git log --oneline --decorate --graph --all'
+alias gt-logall='git log --oneline --decorate --graph --all --full-history --simplify-by-decoration'
+alias gt-legacyNewBranch='git checkout -b'
+alias gt-legacySwitchBranch='git checkout'
+
+# Flatpak alias
+alias flatty='flatpak install flathub'
+alias rflatty='flatpak remove'
+
+alias sshConfig='vim ~/.ssh/config'
+alias nvimConfig='cd ~/.config/nvim && vim ~/.config/nvim/'
+
+# shell alias
+alias zshrc='vim ~/.zshrc' # Quick access to the ~/.zshrc file
+alias bashrc='vim ~/.bashrc' # Quick access to the ~/.bashrc file
+alias fishrc='vim ~/.config/fish/config.fish' # Quick access to the ~/.fishrc file
+alias aliasrc='vim ~/.alias/aliasrc' # Quick access to this file
+
+# nix alias
+alias nixrc='vim /etc/nixos/configuration.nix' # Quick access to the nixos configuration file
+alias homerc='vim /etc/nixos/home.nix' # Quick access to the home-manager configuration file
+alias nixcode='code /etc/nixos/'
+alias nixbuild='sudo nixos-rebuild switch' # Quick access to the nixos rebuild command
+alias nixclean='nix-collect-garbage -d'
+
+neofetch

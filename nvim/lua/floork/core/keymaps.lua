@@ -18,6 +18,9 @@ keymap.set("n", "<leader>s", ":w<CR>", { desc = "Quick Save in Normal Mode" })
 -- Save the current buffer in visual mode and return to normal mode
 keymap.set("v", "<leader>s", "<Esc>:w<CR>", { desc = "Quick Save in Visual Mode" })
 
+-- Copy to clipboard
+keymap.set("v", "<leader>cc", '"+y', { desc = "Copy to clipboard" })
+
 -- delete single character without copying into register
 -- keymap.set("n", "x", '"_x')
 

@@ -9,6 +9,10 @@ bindkey "\e[3~" delete-char
 
 export PATH=$PATH:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/games:/usr/local/games:/snap/bin
 
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$PATH"
+
+
 # Custom Variables
 export EDITOR=nvim
 export VISUAL=nvim

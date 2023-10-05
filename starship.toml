@@ -43,7 +43,7 @@ allow_windows = true
 disabled = false
 
 [cmd_duration]
-disabled=true
+disabled=false
 
 [shell]
 cmd_indicator = "_"

@@ -30,7 +30,7 @@ zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)               # Include hidden files.
-# zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' # for caseinsensite tab completion
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' # for caseinsensite tab completion
 
 # Custom ZSH Binds
 bindkey '^ ' autosuggest-accept

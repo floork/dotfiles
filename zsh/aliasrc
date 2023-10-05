@@ -62,6 +62,7 @@ alias rflatty='flatpak remove'
 
 alias sshConfig='vim ~/.ssh/config'
 alias nvimConfig='cd ~/.config/nvim && vim ~/.config/nvim/'
+alias dotfiles='cd ~/dotfiles && vim ~/dotfiles/'
 
 # shell alias
 alias zshrc='vim ~/.zshrc' # Quick access to the ~/.zshrc file

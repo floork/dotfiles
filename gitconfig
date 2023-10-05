@@ -10,7 +10,7 @@
 [core]
 	autocrlf = input
 	excludesFile = /home/flmr799e/.gitignore_global
-	editor = lvim
+	editor = nvim
 [credential "https://github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential

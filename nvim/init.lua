@@ -1,2 +1,2 @@
-require("floork.core")
-require("floork.lazy")
+require("configs.core")
+require("configs.lazy")

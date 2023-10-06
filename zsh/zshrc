@@ -12,6 +12,7 @@ export PATH=$PATH:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/l
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 
+export PATH="$HOME/.deno/bin:$PATH"
 
 # Custom Variables
 export EDITOR=nvim

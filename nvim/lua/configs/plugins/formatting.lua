@@ -6,19 +6,22 @@ return {
 
     conform.setup({
       formatters_by_ft = {
-        javascript = { "prettier" },
-        typescript = { "prettier" },
-        javascriptreact = { "prettier" },
-        typescriptreact = { "prettier" },
-        svelte = { "prettier" },
-        css = { "prettier" },
-        html = { "prettier" },
-        json = { "prettier" },
-        yaml = { "prettier" },
-        markdown = { "prettier" },
-        graphql = { "prettier" },
-        lua = { "stylua" },
-        python = { "isort", "black" },
+        bash = { "shfmt" }, -- Bash formatter (shfmt)
+        cpp = { "clang-format" }, -- C++ formatter (clang-format)
+        css = { "prettier" }, -- CSS formatter (prettier)
+        graphql = { "prettier" }, -- GraphQL formatter (prettier)
+        html = { "prettier" }, -- HTML formatter (prettier)
+        javascript = { "prettier" }, -- JavaScript formatter (prettier)
+        javascriptreact = { "prettier" }, -- JavaScript React formatter (prettier)
+        json = { "prettier" }, -- JSON formatter (prettier)
+        lua = { "stylua" }, -- Lua formatter (stylua)
+        markdown = { "prettier" }, -- Markdown formatter (prettier)
+        python = { "isort", "black" }, -- Python formatters (isort, black)
+        rust = { "rust_analyzer" }, -- Rust formatter (rustfmt)
+        svelte = { "prettier" }, -- Svelte formatter (prettier)
+        typescript = { "prettier" }, -- TypeScript formatter (prettier)
+        typescriptreact = { "prettier" }, -- TypeScript React formatter (prettier)
+        yml = { "prettier" }, -- YAML formatter (prettier)
       },
       format_on_save = {
         lsp_fallback = true,

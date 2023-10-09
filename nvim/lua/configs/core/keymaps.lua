@@ -13,10 +13,10 @@ keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 
 -- Save the current buffer in normal mode
-keymap.set("n", "<leader>s", ":w<CR>", { desc = "Quick Save in Normal Mode" })
+keymap.set("n", "<leader>ss", ":w<CR>", { desc = "Quick Save in Normal Mode" })
 
 -- Save the current buffer in visual mode and return to normal mode
-keymap.set("v", "<leader>s", "<Esc>:w<CR>", { desc = "Quick Save in Visual Mode" })
+keymap.set("v", "<leader>ss", "<Esc>:w<CR>", { desc = "Quick Save in Visual Mode" })
 
 -- Copy to clipboard
 keymap.set("v", "<leader>cc", '"+y', { desc = "Copy to clipboard" })

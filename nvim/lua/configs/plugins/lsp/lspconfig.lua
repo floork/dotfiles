@@ -156,5 +156,42 @@ return {
         },
       },
     })
+
+    -- configure cpp server
+    lspconfig["clangd"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+
+    -- configure bash server
+    lspconfig["bashls"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+
+    -- configure docker server
+    lspconfig["dockerls"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+
+    -- configure docker-compose server
+    lspconfig["docker_compose_language_server"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+
+    -- configure rust server
+    lspconfig["rust_analyzer"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+
+    -- configure vue server
+    lspconfig["vuels"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+      filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+    })
   end,
 }

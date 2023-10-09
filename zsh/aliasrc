@@ -61,14 +61,14 @@ alias flatty='flatpak install flathub'
 alias rflatty='flatpak remove'
 
 alias sshConfig='vim ~/.ssh/config'
-alias nvimConfig='cd ~/.config/nvim && vim ~/.config/nvim/'
-alias dotfiles='cd ~/dotfiles && vim ~/dotfiles/'
+alias nvimConfig='vim ~/.config/nvim/'
+alias dotfiles='vim ~/dotfiles/'
 
 # shell alias
 alias zshrc='vim ~/.zshrc' # Quick access to the ~/.zshrc file
 alias bashrc='vim ~/.bashrc' # Quick access to the ~/.bashrc file
 alias fishrc='vim ~/.config/fish/config.fish' # Quick access to the ~/.fishrc file
-alias aliasrc='vim ~/.alias/aliasrc' # Quick access to this file
+alias aliasrc='vim ~/.config/zsh/aliasrc' # Quick access to this file
 
 # nix alias
 alias nixrc='vim /etc/nixos/configuration.nix' # Quick access to the nixos configuration file

@@ -13,9 +13,6 @@ set -gx PATH /home/flmr799e/.npm-global/lib/node_modules/.bin $PATH
 set -l xdg_data_home $XDG_DATA_HOME ~/.local/share
 set -gx --path XDG_DATA_DIRS $xdg_data_home[1]/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
 
-# bitwarden
-set -gx BW_SESSION "azcZ7pEiaAh4cB5DLpUmhCyQOr/8MOYQGshnK2G2hLbxqw3XMWxIWqLK4QF110YsYw7iWJtva4DScITpnd4/PA=="
-
 for flatpakdir in ~/.local/share/flatpak/exports/bin /var/lib/flatpak/exports/bin
     if test -d $flatpakdir
         contains $flatpakdir $PATH; or set -a PATH $flatpakdir

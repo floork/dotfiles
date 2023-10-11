@@ -17,7 +17,6 @@ export PATH="$HOME/.deno/bin:$PATH"
 # Custom Variables
 export EDITOR=nvim
 export VISUAL=nvim
-export BW_SESSION="azcZ7pEiaAh4cB5DLpUmhCyQOr/8MOYQGshnK2G2hLbxqw3XMWxIWqLK4QF110YsYw7iWJtva4DScITpnd4/PA=="
 
 # History in cache directory:
 HISTSIZE=10000

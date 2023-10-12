@@ -176,10 +176,10 @@ return {
     })
 
     -- configure docker-compose server
-    lspconfig["docker_compose_language_server"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
+    -- lspconfig["docker_compose_language_server"].setup({
+    --   capabilities = capabilities,
+    --   on_attach = on_attach,
+    -- })
 
     -- configure rust server
     lspconfig["rust_analyzer"].setup({
@@ -192,6 +192,18 @@ return {
       capabilities = capabilities,
       on_attach = on_attach,
       filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+    })
+
+    -- configure json server
+    lspconfig["jsonls"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+
+    -- configure yaml server
+    lspconfig["yamlls"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
     })
   end,
 }

@@ -67,6 +67,11 @@ symbol = "🔴"
 [aws]
 symbol = " "
 
+[cmake]
+symbol = "cmake "
+format = "via [$symbol$version]($style) "
+version_format = "v${raw}"
+
 [conda]
 symbol = " "
 

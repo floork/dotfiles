@@ -22,7 +22,7 @@ alias updatehosts='sudo cp /home/flmr799e/Documents/server/hosts /etc/hosts'
 
 # copy and moving
 alias cd..='cd ..'
-# alias rm='trash'
+alias rm='trash'
 # alias rm='rm -r'
 # alias frm='rm -rf'
 alias copy='ls && rsync -avh --progress'

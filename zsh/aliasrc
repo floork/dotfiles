@@ -19,6 +19,8 @@ alias blkid='sudo blkid -o export'
 alias dlist='sudo blkid -o list'
 alias hosts='vim /home/flmr799e/Documents/server/hosts && updatehosts'
 alias updatehosts='sudo cp /home/flmr799e/Documents/server/hosts /etc/hosts'
+alias fontsReload='fc-cache -f -v'
+alias fontsList='fc-list'
 
 # copy and moving
 alias cd..='cd ..'

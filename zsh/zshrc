@@ -99,7 +99,7 @@ pack_man(){
         alias pkm="paru -S "
         alias rpkm='paru -Rdd'
         alias pacman-update='sudo pacman-mirrors --geoip'
-        alias rpkmcleanup='sudo pacman -Rns (pacman -Qtdq) && paru -Yc' # Cleanup orphaned packages
+        alias rpkmcleanup='paru -Rns $(paru -Qdtq)' # Cleanup orphaned packages
         alias fixpacman="sudo rm /var/lib/pacman/db.lck"
         alias pkmgrade='paru --noconfirm -Syu && sudo flatpak -y --noninteractive update'
         # get fastest mirrors

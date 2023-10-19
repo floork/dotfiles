@@ -27,7 +27,7 @@ local function show_power_menu()
     elseif selected_option == "Lock" then
         os.execute("i3lock")
     elseif selected_option == "Logout" then
-        os.execute("i3-msg exit")
+        os.execute("swaylock --color 444444 ")
     end
 end
 

@@ -60,6 +60,12 @@ pack_man(){
         alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
         alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
         alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
+        elif [ -x "$(command -v nix-env)" ]; then
+        # Nix package manager
+        alias pkm='nix-env -iA'
+        alias rpkm='nix-env -e'
+        alias rpkmcleanup='nix-collect-garbage -d'
+        alias packdate='nix-channel --update'
     else
         echo 'This Distro is not supported!'
     fi
@@ -82,4 +88,6 @@ alias reload='source ~/.bashrc'
 #starship
 eval "$(starship init bash)"
 
-. "$HOME/.cargo/env"
+if [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi

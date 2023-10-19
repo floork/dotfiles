@@ -78,6 +78,12 @@ function pack_man
         alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
         alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save
  /etc/pacman.d/mirrorlist"
+    else if [ -x "$(command -v nix-env)" ]
+        # Nix package manager
+        alias pkm='nix-env -iA'
+        alias rpkm='nix-env -e'
+        alias rpkmcleanup='nix-collect-garbage -d'
+        alias packdate='nix-channel --update'
     else
         echo 'This Distro is not supported!'
     end
@@ -85,7 +91,7 @@ end
 
 function frm
     read -p "Are you sure you want to delete? (y/n): " -l response
-    if test "$response" = "y" -o "$response" = "Y"
+    if test "$response" = y -o "$response" = Y
         command rm -rf $argv
     else
         echo "Aborted."

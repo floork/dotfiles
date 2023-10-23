@@ -78,5 +78,6 @@ alias homerc='vim /etc/nixos/home.nix' # Quick access to the home-manager config
 alias nixcode='code /etc/nixos/'
 alias nixbuild='sudo nixos-rebuild switch' # Quick access to the nixos rebuild command
 alias nixclean='nix-collect-garbage -d'
+alias nixsearch='nix-env -qaP'
 
 neofetch

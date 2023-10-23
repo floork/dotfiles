@@ -25,9 +25,9 @@ local function show_power_menu()
     elseif selected_option == "Suspend" then
         os.execute("systemctl suspend")
     elseif selected_option == "Lock" then
-        os.execute("i3lock")
-    elseif selected_option == "Logout" then
         os.execute("swaylock --color 444444 ")
+    elseif selected_option == "Logout" then
+        os.execute("hyprctl dispatch exit")
     end
 end
 

@@ -8,7 +8,6 @@ declare -A symlinks
 symlinks[".gitconfig"]="$script_dir/gitconfig"
 symlinks[".bashrc"]="$script_dir/bashrc"
 symlinks[".zshrc"]="$script_dir/zsh/zshrc"
-symlinks[".config/dconf"]="$script_dir/dconf"
 symlinks[".config/fish"]="$script_dir/fish"
 symlinks[".config/gh"]="$script_dir/gh"
 symlinks[".config/gtk-3.0"]="$script_dir/gtk-3.0"

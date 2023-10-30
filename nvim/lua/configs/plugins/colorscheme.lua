@@ -1,27 +1,19 @@
 return {
+  -- nice cpp scheme
+  { "lunacookies/vim-colors-xcode" },
+
+  -- nice overall scheme
   {
-    "loctvl842/monokai-pro.nvim",
+    "morhetz/gruvbox",
+    priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
-      require("monokai-pro").setup({
-        -- ... your config
-      })
-      -- lua
-      vim.cmd([[colorscheme monokai-pro]])
+      vim.cmd([[colorscheme gruvbox]])
     end,
   },
-  -- {
-  --   "lunarvim/synthwave84.nvim",
-  --   priority = 1000,
-  --   config = function ()
-  --     vim.cmd([[colorscheme synthwave84]])
-  --   end
-  -- }
-  -- -- {
-  --   "bluz71/vim-nightfly-guicolors",
-  --   priority = 1000, -- make sure to load this before all the other start plugins
-  --   config = function()
-  --     -- load the colorscheme here
-  --     vim.cmd([[colorscheme nightfly]])
-  --   end,
-  -- },
+
+  -- all time favorite
+  { "loctvl842/monokai-pro.nvim" },
+
+  -- nostalgic scheme
+  { "lunarvim/synthwave84.nvim" },
 }

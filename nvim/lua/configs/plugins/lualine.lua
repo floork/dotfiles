@@ -51,9 +51,9 @@ return {
 
     -- configure lualine with modified theme
     lualine.setup({
-      options = {
-        theme = my_lualine_theme,
-      },
+      -- options = {
+      -- theme = "morhetz/gruvbox",
+      -- },
       sections = {
         lualine_x = {
           {

@@ -33,7 +33,10 @@ return {
     -- virtual text for the debugger
     {
       "theHamsta/nvim-dap-virtual-text",
-      opts = {},
+      opts = {
+        enabled = true,
+        enabled_commands = true,
+      },
     },
 
     -- which key integration
@@ -91,17 +94,4 @@ return {
     { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
     { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
   },
-
-  -- config = function()
-  --   local Config = require("configs.lazyvim.config")
-  --   vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
-  --
-  --   for name, sign in pairs(Config.icons.dap) do
-  --     sign = type(sign) == "table" and sign or { sign }
-  --     vim.fn.sign_define(
-  --       "Dap" .. name,
-  --       { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
-  --     )
-  --   end
-  -- end,
 }

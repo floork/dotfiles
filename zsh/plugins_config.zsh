@@ -14,4 +14,5 @@ znap source marlonrichert/zsh-autosuggestions
 # custom configs
 ZSH_WEB_SEARCH_ENGINES=(chatgpt "https://chat.openai.com/", mensa "https://www.studentenwerk-dresden.de/mensen/speiseplan/")
 alias chatgpt="web_search chatgpt"
+alias mensa="web_search mensa"
 

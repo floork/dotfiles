@@ -5,14 +5,16 @@ return {
   -- nice overall scheme
   {
     "morhetz/gruvbox",
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      vim.cmd([[colorscheme gruvbox]])
-    end,
   },
 
   -- all time favorite
-  { "loctvl842/monokai-pro.nvim" },
+  {
+    "loctvl842/monokai-pro.nvim",
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      vim.cmd([[colorscheme monokai-pro-classic]])
+    end,
+  },
 
   -- nostalgic scheme
   { "lunarvim/synthwave84.nvim" },

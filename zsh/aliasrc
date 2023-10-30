@@ -1,5 +1,5 @@
 # Regular alias
-alias please='sudo !!'
+alias please='sudo $(fc -ln -1)'
 alias fuck='please'
 alias fck='please'
 alias reboot='sudo reboot'

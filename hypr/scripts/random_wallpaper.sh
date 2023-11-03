@@ -1,6 +1,6 @@
 #!/bin/sh
 
-wallpapers_dir=./../../wallpapers/
+wallpapers_dir=~/.config/wallpapers/
 
 swaybg -i $(find $wallpapers_dir -type f | shuf -n1) -m fill &
 OLD_PID=$!

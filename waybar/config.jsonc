@@ -4,9 +4,17 @@
   "height": 10,
   "margin-bottom": 0,
   "margin-top": 0,
-
-  "modules-left": ["sway/mode", "cpu", "memory", "network", "mpd"],
-  "modules-center": ["sway/workspaces", "hyprland/workspaces"],
+  "modules-left": [
+    "sway/mode",
+    "cpu",
+    "memory",
+    "network",
+    "mpd"
+  ],
+  "modules-center": [
+    "sway/workspaces",
+    "hyprland/workspaces"
+  ],
   "modules-right": [
     "tray",
     "idle_inhibitor",
@@ -15,7 +23,6 @@
     "battery",
     "clock"
   ],
-
   "battery": {
     "states": {
       "warning": 30,
@@ -25,7 +32,15 @@
     "format-charging": "&#8239;{capacity}%",
     "format-plugged": "&#8239;{capacity}%",
     "format-alt": "{icon} {time}",
-    "format-icons": ["", "", "", "", "", "", ""]
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
   },
   "hyprland/workspaces": {
     "sort-by-name": true,
@@ -82,7 +97,10 @@
   "backlight": {
     // "device": "acpi_video1",
     "format": "{icon}&#8239;{percent}%",
-    "format-icons": ["", ""],
+    "format-icons": [
+      "",
+      ""
+    ],
     "on-scroll-down": "brightnessctl -c backlight set 1%-",
     "on-scroll-up": "brightnessctl -c backlight set +1%"
   },
@@ -101,7 +119,11 @@
       "phone": "",
       "portable": "",
       "car": "",
-      "default": ["", "", ""]
+      "default": [
+        "",
+        "",
+        ""
+      ]
     },
     "on-click": "pavucontrol"
   },

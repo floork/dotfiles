@@ -12,4 +12,14 @@ return {
     --   If not available, we use `mini` as the fallback
     "rcarriga/nvim-notify",
   },
+  config = function()
+    require("noice").setup()
+
+    -- keymap
+    local keymap = vim.keymap
+
+    keymap.set("n", "<leader>nt", "<cmd>NoiceTelescope<CR>", { desc = "Show history" })
+    keymap.set("n", "<leader>ns", "<cmd>NoiceStats<CR>", { desc = "Show stats" })
+    keymap.set("n", "<leader>nl", "<cmd>NoiceLog<CR>", { desc = "Show logs" })
+  end,
 }

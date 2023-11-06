@@ -5,13 +5,13 @@ return {
 
     -- keymap
     local keymap = vim.keymap
-    keymap.set("n", "<leader>mt", function()
+    keymap.set("n", "<leader>mm", function()
       require("maximize").toggle()
     end, { desc = "Maximize/minimize a split" })
-    keymap.set("n", "<leader>mm", function()
+    keymap.set("n", "<leader>mM", function()
       require("maximize").maximize()
     end, { desc = "Maximize a split" })
-    keymap.set("n", "<leader>mr", function()
+    keymap.set("n", "<leader>mR", function()
       require("maximize").restore()
     end, { desc = "Restore all splits" })
   end,

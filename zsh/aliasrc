@@ -58,6 +58,9 @@ alias gt-logall='git log --oneline --decorate --graph --all --full-history --sim
 alias gt-legacyNewBranch='git checkout -b'
 alias gt-legacySwitchBranch='git checkout'
 
+# Brave fix
+alias fixBrave="rm -r cd ~/.config/BraveSoftware/Brave-Browser/SingletonLock"
+
 # Flatpak alias
 alias flatty='flatpak install flathub'
 alias rflatty='flatpak remove'

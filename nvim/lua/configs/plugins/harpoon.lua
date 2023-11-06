@@ -4,6 +4,8 @@ return {
     "nvim-lua/plenary.nvim",
   },
   config = function()
+    require("telescope").load_extension("harpoon")
+
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
 
@@ -32,5 +34,6 @@ return {
       "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
       { desc = "Toggle harpoon quick menu" }
     )
+    keymap.set("n", "<leader>hh", "<cmd>Telescope harpoon marks<cr>", { desc = "Show harpoon marks" })
   end,
 }

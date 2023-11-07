@@ -1,6 +1,6 @@
 [global]
-monitor = 0
-follow = mouse
+monitor = 2
+follow = none
 origin = top-right offset = 20x73
 offset = 20x73
 geometry = "280x50-20+200"

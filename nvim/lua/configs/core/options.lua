@@ -42,3 +42,6 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 -- turn off swapfile
 opt.swapfile = false
+
+-- set scope
+vim.cmd("autocmd BufEnter * if expand('#') != '' | execute 'cd ' .. fnameescape(expand('%:p:h')) | endif")

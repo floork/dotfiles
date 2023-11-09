@@ -82,18 +82,18 @@
     "format-linked": " {ipaddr}",
     "format-disconnected": " Disconnected",
     "format-disabled": "",
-    "tooltip": false,
+    "tooltip": true,
     "max-length": 20,
     "min-length": 6,
     "format-alt": "{essid}"
   },
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-      "activated": "",
-      "deactivated": ""
-    }
-  },
+  // "idle_inhibitor": {
+  //   "format": "{icon}",
+  //   "format-icons": {
+  //     "activated": "",
+  //     "deactivated": ""
+  //   }
+  // },
   "backlight": {
     // "device": "acpi_video1",
     "format": "{icon}&#8239;{percent}%",

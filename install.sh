@@ -5,7 +5,7 @@ script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Define an associative array to store the symlink targets.
 declare -A symlinks
-symlinks[".gitconfig"]="$script_dir/gitconfig"
+# symlinks[".gitconfig"]="$script_dir/gitconfig" # gitconfig only manually because of work mail address and gpg key
 symlinks[".bashrc"]="$script_dir/bashrc"
 symlinks[".zshrc"]="$script_dir/zsh/zshrc"
 symlinks[".config/dunst"]="$script_dir/dunst"

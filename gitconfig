@@ -1,7 +1,7 @@
 [user]
-  email = mail@floork.dev
-  name = floork
-  signingKey = F85CB6AE2BEA402E
+  email = florian_alexander.mros@tu-dresden.de
+  name = Florian Mros
+  signingKey = 970BFFDE20269FF4
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -24,6 +24,7 @@
   ; commiCount = rev-list --count
   fpush = push --force-with-lease
   undo = reset --soft HEAD~1
+  chdate-now = commit --amend --date=now
 [commit]
 	gpgsign = true
 [maintenance]

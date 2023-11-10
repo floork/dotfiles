@@ -25,7 +25,7 @@
   fpush = push --force-with-lease
   undo = reset --soft HEAD~1
   chdate-now = commit --amend --date=now
-  update = pull --rebase 
+  update = '!sh -c "branch=master; git pull --rebase origin $branch || { branch=main; git pull --rebase origin $branch; }"'
 [commit]
 	gpgsign = true
 [maintenance]

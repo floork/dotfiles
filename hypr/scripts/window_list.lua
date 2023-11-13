@@ -26,7 +26,11 @@ if #window_options == 0 then
 	os.exit(1)
 end
 
-local selected_window = execute_command('echo "' .. table.concat(window_options, "\n") .. '" | wofi --show dmenu')
+local selected_window = execute_command(
+	'pgrep -x wofi >/dev/null 2>&1 && killall wofi || echo "'
+		.. table.concat(window_options, "\n")
+		.. '" | wofi --show dmenu'
+)
 
 if selected_window == "" then
 	os.exit(1)

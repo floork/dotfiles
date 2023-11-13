@@ -180,16 +180,15 @@ return {
     --   capabilities = capabilities,
     --   on_attach = on_attach,
     -- })
+    --
+    require("mason-lspconfig").setup_handlers({
+      function(server_name)
+        require("lspconfig")[server_name].setup({ on_attach = on_attach, capabilities = capabilities })
+      end,
 
-    -- configure rust server
-    lspconfig["rust_analyzer"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = {
-        diagnostics = {
-          enable = true,
-        },
-      },
+      ["rust_analyzer"] = function()
+        require("rust-tools").setup()
+      end,
     })
 
     -- configure vue server

@@ -86,6 +86,6 @@ alias cval='make && valgrind --leak-check=full --show-leak-kinds=all --track-ori
 alias sshConfig='vim ~/.ssh/config'
 alias nvimConfig='vim ~/.config/nvim/'
 alias dotfiles='vim ~/dotfiles/'
-
+alias gitConfig='vim ~/.gitconfig'
 
 neofetch

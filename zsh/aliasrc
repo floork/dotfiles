@@ -65,10 +65,6 @@ alias fixBrave="rm -r cd ~/.config/BraveSoftware/Brave-Browser/SingletonLock"
 alias flatty='flatpak install flathub'
 alias rflatty='flatpak remove'
 
-alias sshConfig='vim ~/.ssh/config'
-alias nvimConfig='vim ~/.config/nvim/'
-alias dotfiles='vim ~/dotfiles/'
-
 # shell alias
 alias zshrc='vim ~/.zshrc' # Quick access to the ~/.zshrc file
 alias bashrc='vim ~/.bashrc' # Quick access to the ~/.bashrc file
@@ -82,5 +78,14 @@ alias nixcode='code /etc/nixos/'
 alias nixbuild='sudo nixos-rebuild switch' # Quick access to the nixos rebuild command
 alias nixclean='nix-collect-garbage -d'
 alias nixsearch='nix-env -qaP'
+
+# dev alias
+alias cval='make && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ${1} 2> valgrind.log'
+
+# shorcuts
+alias sshConfig='vim ~/.ssh/config'
+alias nvimConfig='vim ~/.config/nvim/'
+alias dotfiles='vim ~/dotfiles/'
+
 
 neofetch

@@ -21,7 +21,6 @@ return {
         tools = {
           inlay_hints = {
             highlight = "#ff0000",
-            type = "virtual_text",
             only_current_line = false,
           },
         },

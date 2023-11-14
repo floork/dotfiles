@@ -1,6 +1,6 @@
 [user]
-  email = mail@floork.dev
-  name = floork
+  email = florian_alexander.mros@tu-dresden.de 
+  name = Florian Mros
   signingKey = 970BFFDE20269FF4
 [filter "lfs"]
 	clean = git-lfs clean -- %f
@@ -9,7 +9,7 @@
 	required = true
 [core]
 	autocrlf = input
-	excludesFile = /home/flmr799e/.gitignore_global
+	excludesFile = ~/.gitignore_global
 	editor = nvim
 [credential "https://github.com"]
 	helper =
@@ -37,4 +37,4 @@
 	repo = /home/flmr799e/.zsh/marlonrichert/zsh-autosuggestions
 	repo = /home/flmr799e/.zsh/zsh-users/zsh-syntax-highlighting
 [init]
-	defaultBranch = main
+	defaultBranch = master

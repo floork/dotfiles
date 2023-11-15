@@ -28,7 +28,7 @@
   update-master = pull --rebase --autostash origin master
   update-main = pull --rebase --autostash origin main
   update-dev = pull --rebase --autostash origin dev
-  update = !sh -c 'git fetch origin $1 && git pull --rebase --autostash origin $1' -
+  update = pull --rebase --autostash origin $1
 [commit]
 	gpgsign = true
 [maintenance]

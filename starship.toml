@@ -43,7 +43,7 @@ allow_windows = true
 disabled = false
 
 [cmd_duration]
-disabled=false
+disabled = false
 
 [shell]
 cmd_indicator = "_"
@@ -68,7 +68,7 @@ symbol = "🔴"
 symbol = " "
 
 [cmake]
-symbol = "cmake "
+symbol = " cmake "
 format = "via [$symbol$version]($style) "
 version_format = "v${raw}"
 

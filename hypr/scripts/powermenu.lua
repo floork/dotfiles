@@ -21,7 +21,7 @@ local function show_power_menu()
 	if selected_option == "Shutdown" then
 		os.execute("shutdown now")
 	elseif selected_option == "Reboot" then
-		os.execute("reboot")
+		os.execute("shutdown -r now")
 	elseif selected_option == "Suspend" then
 		os.execute("systemctl suspend")
 	elseif selected_option == "Lock" then

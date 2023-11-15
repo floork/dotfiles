@@ -11,6 +11,7 @@ return {
     -- keymap
     local keymap = vim.keymap
 
-    keymap.set("n", "<leader>;;", "<cmd>:TodoTelescope<cr>", { desc = "Todo comments" })
+    local possible_comment_types = "FIX|TODO|HACK|WARN|PERF|NOTE|TEST"
+    keymap.set("n", "<leader>;;", "<cmd>:TodoTelescope<cr>", { desc = possible_comment_types })
   end,
 }

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 wallpapers_dir=~/.config/wallpapers/
 

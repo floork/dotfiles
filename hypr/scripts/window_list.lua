@@ -1,3 +1,5 @@
+#!/usr/bin/env lua
+
 function execute_command(command)
 	local file = io.popen(command)
 	local output = file:read("*a")

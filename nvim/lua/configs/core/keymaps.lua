@@ -21,6 +21,9 @@ keymap.set("v", "<leader>ss", "<Esc>:w<CR>", { desc = "Quick Save in Visual Mode
 -- Copy to clipboard
 keymap.set("v", "<leader>cc", '"+y', { desc = "Copy to clipboard" })
 
+-- highlight under cursor
+keymap.set("n", "vv", "*", { desc = "Highlight word under cursor" })
+
 -- delete single character without copying into register
 keymap.set("n", "x", '"_x')
 

@@ -22,7 +22,10 @@ keymap.set("v", "<leader>ss", "<Esc>:w<CR>", { desc = "Quick Save in Visual Mode
 keymap.set("v", "<leader>cc", '"+y', { desc = "Copy to clipboard" })
 
 -- delete single character without copying into register
--- keymap.set("n", "x", '"_x')
+keymap.set("n", "x", '"_x')
+
+-- go back from definition
+keymap.set("n", "gb", "<cmd> pop<CR>", { desc = "Go back from definition" })
 
 -- increment/decrement numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment

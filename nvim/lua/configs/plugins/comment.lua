@@ -14,6 +14,11 @@ return {
     comment.setup({
       -- for commenting tsx and jsx files
       pre_hook = ts_context_commentstring.create_pre_hook(),
+      toggle = true,
+      opleader = {
+        line = "gcc",
+        block = "gcb",
+      },
     })
   end,
 }

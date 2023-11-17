@@ -7,12 +7,28 @@ return {
     "nvim-tree/nvim-web-devicons",
     "nvim-telescope/telescope-media-files.nvim",
     "nvim-lua/popup.nvim",
+    "nvim-telescope/telescope-file-browser.nvim",
   },
   config = function()
     local telescope = require("telescope")
     local actions = require("telescope.actions")
 
     telescope.setup({
+      extensions = {
+        file_browser = {
+          theme = "ivy",
+          -- disables netrw and use telescope-file-browser in its place
+          hijack_netrw = false,
+          mappings = {
+            ["i"] = {
+              -- your custom insert mode mappings
+            },
+            ["n"] = {
+              -- your custom normal mode mappings
+            },
+          },
+        },
+      },
       defaults = {
         path_display = { "truncate " },
         mappings = {
@@ -27,6 +43,7 @@ return {
 
     telescope.load_extension("fzf")
     telescope.load_extension("media_files")
+    telescope.load_extension("file_browser")
 
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
@@ -41,5 +58,6 @@ return {
       "<cmd> lua require('telescope').extensions.media_files.media_files()<cr>",
       { desc = "Fuzzy find media files" }
     )
+    keymap.set("n", "<leader>fb", "<cmd>Telescope file_browser<cr>", { desc = "File browser" })
   end,
 }

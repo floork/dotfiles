@@ -30,6 +30,7 @@
   update-dev = pull --rebase --autostash origin dev
   update = pull --rebase --autostash origin $1
   squash = rebase --interactive 
+  bclone = clone --bare
 [commit]
 	gpgsign = true
 [maintenance]

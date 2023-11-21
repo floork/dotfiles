@@ -28,6 +28,7 @@ return {
       -- list of servers for mason to install
       ensure_installed = {
         "bashls",
+        "codelldb",
         "clangd",
         "cmake",
         "cssls",

@@ -1,7 +1,7 @@
 [user]
   email = florian_alexander.mros@tu-dresden.de 
   name = Florian Mros
-  signingKey = 970BFFDE20269FF4
+ ; signingKey = 970BFFDE20269FF4
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -16,12 +16,23 @@
 	helper = !gh auth git-credential
 [credential "https://gist.github.com"]
 	helper =
-	helper = !gh auth git-credential
+  helper = !gh auth git-credential
+[commit]
+  ; gpgsign = true
+[init]
+  defaultBranch = main
+[diff]
+  tool = lazygit
+[difftool "lazygit"]
+  cmd = lazygit --skip-refresh
+[merge]
+  tool = lazygit
+[mergetool "lazygit"]
+  cmd = lazygit --skip-refresh
 [alias]
   lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
   lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
   lg = !"git lg1"
-  ; commiCount = rev-list --count
   fpush = push --force-with-lease
   undo = reset --soft HEAD~1
   chdate-now = commit --amend --date=now
@@ -31,12 +42,8 @@
   update = pull --rebase --autostash origin $1
   squash = rebase --interactive 
   bclone = clone --bare
-[commit]
-	gpgsign = true
 [maintenance]
 	repo = /home/flmr799e/.zsh/znap
 	repo = /home/flmr799e/.zsh/marlonrichert/zsh-autocomplete
 	repo = /home/flmr799e/.zsh/marlonrichert/zsh-autosuggestions
 	repo = /home/flmr799e/.zsh/zsh-users/zsh-syntax-highlighting
-[init]
-	defaultBranch = master

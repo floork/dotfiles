@@ -10,6 +10,6 @@ return {
 
     keymap.set("n", "<leader>gg", "<cmd>LazyGit<cr>")
     keymap.set("n", "<leader>gf", "<cmd>LazyGitFilter<cr>")
-    keymap.set("n", "<leader>gc", "<cmd>LazyGitConfig<cr>")
+    -- keymap.set("n", "<leader>gc", "<cmd>LazyGitConfig<cr>")
   end,
 }

@@ -1,7 +1,7 @@
 [user]
   email = florian_alexander.mros@tu-dresden.de 
   name = Florian Mros
- ; signingKey = 970BFFDE20269FF4
+ signingKey = 970BFFDE20269FF4
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -18,7 +18,7 @@
 	helper =
   helper = !gh auth git-credential
 [commit]
-  ; gpgsign = true
+  gpgsign = true
 [init]
   defaultBranch = main
 [diff]

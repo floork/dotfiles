@@ -20,7 +20,6 @@ symlinks[".config/neofetch"]="$script_dir/neofetch"
 symlinks[".config/nvim"]="$script_dir/nvim"
 symlinks[".config/starship.toml"]="$script_dir/starship.toml"
 symlinks[".config/Thunar"]="$script_dir/Thunar"
-symlinks[".config/wallpapers"]="$script_dir/wallpapers"
 symlinks[".config/waybar"]="$script_dir/waybar"
 symlinks[".config/wofi"]="$script_dir/wofi"
 symlinks[".config/xsettingsd"]="$script_dir/xsettingsd"
@@ -36,3 +35,12 @@ for file in "${!symlinks[@]}"; do
   fi
 done
 
+echo "Do you want to install the wallpapers (y/N): "
+read -r ANSWER
+
+if [ "$ANSWER" == "y" ] || [ "$ANSWER" == "Y" ]; then
+  if [ -d "$HOME/.config/wallpapers" ]; then
+    rm -rf $HOME/.config/wallpapers
+  fi
+  git clone https://github.com/floork/wallpapers.git $HOME/.config/wallpapers
+fi

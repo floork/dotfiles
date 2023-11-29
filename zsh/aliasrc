@@ -75,9 +75,10 @@ alias aliasrc='vim ~/.config/zsh/aliasrc' # Quick access to this file
 alias nixrc='vim /etc/nixos/configuration.nix' # Quick access to the nixos configuration file
 alias homerc='vim /etc/nixos/home.nix' # Quick access to the home-manager configuration file
 alias nixcode='code /etc/nixos/'
-alias nixbuild='sudo nixos-rebuild switch' # Quick access to the nixos rebuild command
 alias nixclean='nix-collect-garbage -d'
 alias nixsearch='nix-env -qaP'
+alias desktopbuild='sudo nixos-rebuild switch --flake .#desktop'
+alias laptopbuild='sudo nixos-rebuild switch --flake .#laptop'
 
 # dev alias
 alias cval='make && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ${1} 2> valgrind.log'

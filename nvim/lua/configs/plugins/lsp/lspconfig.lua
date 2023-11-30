@@ -187,6 +187,11 @@ return {
       end,
     })
 
+    lspconfig["rnix-lsp"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+
     -- configure vue server
     lspconfig["vuels"].setup({
       capabilities = capabilities,

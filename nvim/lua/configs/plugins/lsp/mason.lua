@@ -40,9 +40,9 @@ return {
         "jsonls",
         "lua_ls",
         "marksman",
-        -- "nimls", -- requires nim
         "prismals",
         "pyright",
+        "rnix-lsp",
         "rust_analyzer",
         "svelte",
         "tailwindcss",
@@ -67,6 +67,7 @@ return {
         "markdownlint", -- Markdown linter
         "isort", -- Python code formatter
         "pylint", -- Python code linter
+        "rnix-lsp", -- Nix code formatter
         "stylua", -- Lua code formatter
       },
     })

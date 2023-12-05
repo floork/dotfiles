@@ -43,5 +43,6 @@ if [ "$ANSWER" == "y" ] || [ "$ANSWER" == "Y" ]; then
   if [ -d "$HOME/.config/wallpapers" ]; then
     rm -rf $HOME/.config/wallpapers
   fi
+  mkdir -p $HOME/.config/wallpapers
   git clone https://github.com/floork/wallpapers.git $HOME/.config/wallpapers
 fi

@@ -8,6 +8,7 @@ declare -A symlinks
 symlinks[".gitconfig"]="$script_dir/git/gitconfig" # gitconfig should work aslong as gh is installed
 symlinks[".bashrc"]="$script_dir/bashrc"
 symlinks[".zshrc"]="$script_dir/zsh/zshrc"
+symlinks[".themes"]="$script_dir/themes"
 symlinks[".config/dunst"]="$script_dir/dunst"
 symlinks[".config/fish"]="$script_dir/fish"
 symlinks[".config/gh"]="$script_dir/gh"

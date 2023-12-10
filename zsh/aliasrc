@@ -65,6 +65,9 @@ alias fixBrave="rm -r cd ~/.config/BraveSoftware/Brave-Browser/SingletonLock"
 alias flatty='flatpak install flathub'
 alias rflatty='flatpak remove'
 
+# tmux
+alias tmuxrc='vim ~/.config/tmux/tmux.conf' # Quick access to the ~/.tmux.conf file
+
 # shell alias
 alias zshrc='vim ~/.zshrc' # Quick access to the ~/.zshrc file
 alias bashrc='vim ~/.bashrc' # Quick access to the ~/.bashrc file

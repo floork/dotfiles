@@ -31,6 +31,9 @@ compinit
 _comp_options+=(globdots)               # Include hidden files.
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' # for caseinsensite tab completion
 
+# start tmux
+[ -z "$TMUX" ] && exec tmux
+
 # Custom ZSH Binds
 bindkey '^ ' autosuggest-accept
 bindkey "\e[1;5D" backward-word
@@ -140,7 +143,7 @@ export ex
 [ -f "$HOME/.config/zsh/aliasrc" ] && source "$HOME/.config/zsh/aliasrc"
 
 # special aliases
-alias reload='source ~/.zshrc && clear && source ~/.config/zsh/aliasrc && clear'
+alias reload='source ~/.zshrc && source ~/.config/zsh/aliasrc && clear'
 alias frm=frm
 alias plugins='vim ~/.config/zsh/plugins_config.zsh'
 

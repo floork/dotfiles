@@ -66,7 +66,7 @@ alias flatty='flatpak install flathub'
 alias rflatty='flatpak remove'
 
 # tmux
-alias tmuxrc='vim ~/.config/tmux/tmux.conf' # Quick access to the ~/.tmux.conf file
+alias tmuxrc='vim ~/.tmux.conf' # Quick access to the ~/.tmux.conf file
 
 # shell alias
 alias zshrc='vim ~/.zshrc' # Quick access to the ~/.zshrc file

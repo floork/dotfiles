@@ -92,4 +92,6 @@ alias nvimConfig='vim ~/.config/nvim/'
 alias dotfiles='vim ~/dotfiles/'
 alias gitConfig='vim ~/.gitconfig'
 
+alias test='echo "test"'
+
 neofetch

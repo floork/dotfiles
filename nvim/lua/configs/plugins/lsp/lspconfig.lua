@@ -187,7 +187,7 @@ return {
       end,
     })
 
-    lspconfig["rnix-lsp"].setup({
+    lspconfig["rnix"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
     })

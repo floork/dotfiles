@@ -28,7 +28,6 @@ return {
       -- list of servers for mason to install
       ensure_installed = {
         "bashls",
-        "codelldb",
         "clangd",
         "cmake",
         "cssls",
@@ -42,7 +41,7 @@ return {
         "marksman",
         "prismals",
         "pyright",
-        "rnix-lsp",
+        "rnix",
         "rust_analyzer",
         "svelte",
         "tailwindcss",
@@ -67,7 +66,7 @@ return {
         "markdownlint", -- Markdown linter
         "isort", -- Python code formatter
         "pylint", -- Python code linter
-        "rnix-lsp", -- Nix code formatter
+        "rnix", -- Nix code formatter
         "stylua", -- Lua code formatter
       },
     })

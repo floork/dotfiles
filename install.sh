@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Get the directory where the script is located
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 

@@ -6,6 +6,7 @@ script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Define an associative array to store the symlink targets.
 declare -A symlinks
 symlinks[".gitconfig"]="$script_dir/git/gitconfig" # gitconfig should work aslong as gh is installed
+symlinks[".bashrc"]="$script_dir/bash/bashrc"
 symlinks[".zshrc"]="$script_dir/zsh/zshrc"
 symlinks[".themes"]="$script_dir/themes"
 symlinks[".config/dunst"]="$script_dir/dunst"
@@ -18,9 +19,9 @@ symlinks[".config/hypr"]="$script_dir/hypr"
 symlinks[".config/kitty"]="$script_dir/kitty"
 symlinks[".config/neofetch"]="$script_dir/neofetch"
 symlinks[".config/nvim"]="$script_dir/nvim"
+symlinks[".config/starship.toml"]="$script_dir/starship/starship.toml"
 symlinks[".config/Thunar"]="$script_dir/Thunar"
 symlinks[".tmux.conf"]="$script_dir/tmux/tmux.conf"
-symlinks[".tmux"]="$script_dir/tmux/tmux"
 symlinks[".config/waybar"]="$script_dir/waybar"
 symlinks[".config/wofi"]="$script_dir/wofi"
 symlinks[".config/xsettingsd"]="$script_dir/xsettingsd"
@@ -35,6 +36,14 @@ for file in "${!symlinks[@]}"; do
     echo "Symlink for $file created."
   fi
 done
+
+
+# Install install tmux plugin manager
+mkdir -p $HOME/.tmux/plugins
+if ! [ -d "$HOME/.tmux/plugins/tpm" ]; then
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
 
 echo "Do you want to install the wallpapers (y/N): "
 read -r ANSWER

@@ -2,12 +2,6 @@ return {
   -- awesome colorscheme
   {
     "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-    config = function()
-      vim.cmd([[colorscheme tokyonight-night]])
-    end,
   },
 
   -- nice cpp scheme
@@ -16,6 +10,12 @@ return {
   -- nice overall scheme
   {
     "morhetz/gruvbox",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    config = function()
+      vim.cmd([[colorscheme gruvbox]])
+    end,
   },
 
   -- all time favorite

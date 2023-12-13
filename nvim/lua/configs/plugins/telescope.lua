@@ -8,6 +8,7 @@ return {
     "nvim-telescope/telescope-media-files.nvim",
     "nvim-lua/popup.nvim",
     "nvim-telescope/telescope-file-browser.nvim",
+    "nvim-telescope/telescope-dap.nvim",
   },
   config = function()
     local telescope = require("telescope")
@@ -44,6 +45,7 @@ return {
     telescope.load_extension("fzf")
     telescope.load_extension("media_files")
     telescope.load_extension("file_browser")
+    telescope.load_extension("dap")
 
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
@@ -64,5 +66,6 @@ return {
       { desc = "Fuzzy find media files" }
     )
     keymap.set("n", "<leader>fb", "<cmd>Telescope file_browser<cr>", { desc = "File browser" })
+    keymap.set("n", "<leader>df", "<cmd>Telescope dap list_breakpoints<cr>", { desc = "Show dap breakpoints" })
   end,
 }

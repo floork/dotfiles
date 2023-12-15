@@ -3,15 +3,9 @@ return {
   version = "v2.*",
   build = "make install_jsregexp",
   config = function()
-    -- local ls = require("luasnip")
+    local ls = require("luasnip")
+    local lua_snips = require("configs.plugins.snippets.lua_snippets")
 
-    -- Define the luasnip snippet for "config"
-    -- ls.snippets["lua"] = {
-    --   config = ls.parser.parse_snippet({
-    --     "config = function()",
-    --     "  $0",
-    --     "end,",
-    --   }),
-    -- }
+    ls.add_snippets("lua", lua_snips)
   end,
 }

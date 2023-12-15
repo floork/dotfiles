@@ -38,7 +38,7 @@ alias ls='lsd --icon always --color always --group-dirs first' # my preferred li
 alias ll='lsd -l --icon always --color always --group-dirs first' # long format
 alias la='lsd -a --icon always --color always --group-dirs first' # all files and dirs
 alias lal='lsd -la --icon always --color always --group-dirs first' # long format all files and dirs
-alias lg='lsd --git --icon always --color always --group-dirs first' # Display git status.  Directory git status is a reduction of included file statuses (recursively).
+alias lg='lsd --git --long --icon always --color always --group-dirs first' # Display git status.  Directory git status is a reduction of included file statuses (recursively).
 alias lr='lsd -aR --icon always --color always --group-dirs first' # list recursively
 alias lt='tree' # tree listing# tree listing
 

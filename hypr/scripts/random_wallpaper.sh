@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 wallpapers_dir=~/.config/wallpapers/
-
+if [ ps aux | grep swaybg | grep -v grep | wc -l -gt 0 ]; then
+    killall swaybg
+fi
 swaybg -i $(find $wallpapers_dir -type f | shuf -n1) -m fill &
 OLD_PID=$!
 while true; do

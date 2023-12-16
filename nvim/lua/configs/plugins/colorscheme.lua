@@ -1,33 +1,18 @@
+local function set_colorscheme(name)
+  vim.cmd("colorscheme " .. name)
+end
+
 return {
-  -- awesome colorscheme
   {
-    "folke/tokyonight.nvim",
-  },
-
-  -- nice cpp scheme
-  { "lunacookies/vim-colors-xcode" },
-
-  -- nice overall scheme
-  {
-    "morhetz/gruvbox",
-    lazy = false,
-    priority = 1000,
-    opts = {},
+    "rose-pine/neovim",
     config = function()
-      vim.cmd([[colorscheme gruvbox]])
+      set_colorscheme("rose-pine-main")
     end,
   },
-
-  -- all time favorite
-  {
-    "loctvl842/monokai-pro.nvim",
-  },
-
-  -- github like theme
-  {
-    "projekt0n/github-nvim-theme",
-  },
-
-  -- nostalgic scheme
+  { "folke/tokyonight.nvim" },
+  { "lunacookies/vim-colors-xcode" },
+  { "morhetz/gruvbox" },
+  { "loctvl842/monokai-pro.nvim" },
+  { "projekt0n/github-nvim-theme" },
   { "lunarvim/synthwave84.nvim" },
 }

@@ -43,7 +43,8 @@
   squash = rebase --interactive 
   bclone = clone --bare
 [maintenance]
-	repo = /home/flmr799e/.zsh/znap
-	repo = /home/flmr799e/.zsh/marlonrichert/zsh-autocomplete
-	repo = /home/flmr799e/.zsh/marlonrichert/zsh-autosuggestions
-	repo = /home/flmr799e/.zsh/zsh-users/zsh-syntax-highlighting
+	repo = ~/.zsh/plugins/znap
+	repo = ~/.zsh/plugins/Anant-mishra1729/web-search
+	repo = ~/.zsh/plugins/marlonrichert/zsh-autosuggestions
+	repo = ~/.zsh/plugins/z-shell/zsh-navigation-tools
+	repo = ~/.zsh/plugins/zsh-users/zsh-syntax-highlighting

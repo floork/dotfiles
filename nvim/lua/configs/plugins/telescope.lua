@@ -9,6 +9,7 @@ return {
     "nvim-lua/popup.nvim",
     "nvim-telescope/telescope-file-browser.nvim",
     "nvim-telescope/telescope-dap.nvim",
+    "folke/noice.nvim",
   },
   config = function()
     local telescope = require("telescope")
@@ -46,6 +47,7 @@ return {
     telescope.load_extension("media_files")
     telescope.load_extension("file_browser")
     telescope.load_extension("dap")
+    telescope.load_extension("noice")
 
     -- set keymaps
     local keymap = vim.keymap -- for conciseness

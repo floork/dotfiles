@@ -32,7 +32,6 @@ return {
         "cmake", -- CMake language server
         "cssls", -- CSS language server
         "dockerls", -- Docker language server
-        "docker_compose_language_service", -- Docker Compose language server
         "emmet_ls", -- Emmet language server
         "html", -- HTML language server
         "jsonls", -- JSON language server

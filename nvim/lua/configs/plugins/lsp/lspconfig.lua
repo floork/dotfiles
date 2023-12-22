@@ -113,12 +113,6 @@ return {
       on_attach = on_attach,
     })
 
-    -- configure docker-compose server
-    lspconfig["docker_compose_language_server"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
     require("mason-lspconfig").setup_handlers({
       function(server_name)
         require("lspconfig")[server_name].setup({ on_attach = on_attach, capabilities = capabilities })

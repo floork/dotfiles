@@ -15,10 +15,12 @@ return {
   config = function()
     require("noice").setup()
 
+    -- NOTE: this plugin is the reason why recording macros message is not shown
+
     -- keymap
     local keymap = vim.keymap
 
-    keymap.set("n", "<leader>nt", "<cmd>NoiceTelescope<CR>", { desc = "Show history" })
+    keymap.set("n", "<leader>nt", "<cmd>Telescope noice<CR>", { desc = "Show history" })
     keymap.set("n", "<leader>ns", "<cmd>NoiceStats<CR>", { desc = "Show stats" })
     keymap.set("n", "<leader>nl", "<cmd>NoiceLog<CR>", { desc = "Show logs" })
   end,

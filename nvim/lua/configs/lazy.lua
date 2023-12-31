@@ -15,19 +15,28 @@ vim.opt.rtp:prepend(lazypath)
 local keymap = vim.keymap
 keymap.set("n", "<leader>ll", ":Lazy<CR>", { noremap = true, silent = true })
 
-require("lazy").setup({ {
-  import = "configs.plugins",
-}, {
-  import = "configs.plugins.lsp",
-} }, {
-  install = {
-    colorscheme = { "rose-pine-main" },
+require("lazy").setup(
+  {
+    {
+      import = "configs.plugins",
+    },
+    {
+      import = "configs.plugins.lsp",
+    },
+    {
+      import = "configs.plugins.git",
+    },
   },
-  checker = {
-    enabled = true,
-    notify = false,
-  },
-  change_detection = {
-    notify = false,
-  },
-})
+  {
+    install = {
+      colorscheme = { "rose-pine-main" },
+    },
+    checker = {
+      enabled = true,
+      notify = false,
+    },
+    change_detection = {
+      notify = false,
+    },
+  }
+)

@@ -12,10 +12,6 @@ local options = {
 -- Define the Rofi command
 local rofi_cmd = "wofi --show dmenu -i -p 'Power Menu: '"
 
-local function check_wofi_open()
-	os.execute("pgrep -x wofi >/dev/null 2>&1 && killall wofi || false")
-end
-
 -- Function to display the power menu and execute the selected action
 local function show_power_menu()
 	local menu_items = table.concat(options, "\n")
@@ -35,7 +31,12 @@ local function show_power_menu()
 	end
 end
 
--- Call the function to display the power menu
+-- Function to check if wofi is open
+local function check_wofi_open()
+	return os.execute("pgrep -x wofi >/dev/null 2>&1") == 0
+end
+
+-- Call the function to check if wofi is open
 if not check_wofi_open() then
 	show_power_menu()
 end

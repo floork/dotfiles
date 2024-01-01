@@ -13,7 +13,6 @@ vim.opt.rtp:prepend(lazypath)
 
 -- keymap
 local keymap = vim.keymap
-keymap.set("n", "<leader>ll", ":Lazy<CR>", { noremap = true, silent = true })
 
 require("lazy").setup({
   {

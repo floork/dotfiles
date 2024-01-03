@@ -44,13 +44,21 @@ if ! [ -d "$HOME/.tmux/plugins/tpm" ]; then
 fi
 
 
+WALLPAPERS_DIR="$HOME/.config/wallpapers"
+
 echo "Do you want to install the wallpapers (y/N): "
 read -r ANSWER
 
 if [ "$ANSWER" == "y" ] || [ "$ANSWER" == "Y" ]; then
-  if [ -d "$HOME/.config/wallpapers" ]; then
-    rm -rf $HOME/.config/wallpapers
+  if [ -d $WALLPAPERS_DIR ]; then
+    rm -rf $WALLPAPERS_DIR
   fi
-  mkdir -p $HOME/.config/wallpapers
-  git clone https://github.com/floork/wallpapers.git $HOME/.config/wallpapers
+  mkdir -p $WALLPAPERS_DIR
+  git clone https://github.com/floork/wallpapers.git $WALLPAPERS_DIR
+
+  exit 0
+fi
+
+if [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1; then
+  git pull --recurse-submodules
 fi

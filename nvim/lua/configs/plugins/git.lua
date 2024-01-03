@@ -47,6 +47,13 @@ return {
       local keymap = vim.keymap
 
       keymap.set("n", "<leader>gs", "<cmd>Git<CR>")
+      keymap.set("n", "<leader>gp", function()
+        vim.cmd.Git("push")
+      end)
+      keymap.set("n", "<leader>gP", function()
+        vim.cmd.Git({ "pull", "--rebase" })
+      end)
+      keymap.set("n", "<leader>go", ":Git push -u origin ", opts)
     end,
   },
 }

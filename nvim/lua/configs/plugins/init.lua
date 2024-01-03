@@ -1,10 +1,7 @@
 return {
   {
-    "nvim-lua/plenary.nvim", -- lua functions that many plugins use
-
-    "christoomey/vim-tmux-navigator", -- tmux & split window navigation
-
-    "inkarkat/vim-ReplaceWithRegister", -- replace with register contents using motion (gr + motion)
+    "nvim-lua/plenary.nvim",
+    "christoomey/vim-tmux-navigator",
     config = function()
       -- keymaps
       local keymap = vim.keymap
@@ -15,25 +12,15 @@ return {
     end,
   },
   {
-    "NvChad/nvim-colorizer.lua",
-    event = { "BufReadPre", "BufNewFile" },
-    config = true,
+    "wellle/context.vim", -- keep functions etc at the top of the file
   },
   {
-    "wellle/context.vim",
+    "github/copilot.vim",
   },
   {
-    "stevearc/dressing.nvim",
-    event = "VeryLazy",
+    "mg979/vim-visual-multi",
   },
   {
-    "szw/vim-maximizer",
-    config = function()
-      vim.g.maximizer_set_default_mapping = 0
-
-      -- keymap
-      local keymap = vim.keymap
-      keymap.set("n", "<leader>mm", "<cmd>MaximizerToggle!<CR>")
-    end,
+    "nvim-tree/nvim-web-devicons",
   },
 }

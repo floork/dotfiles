@@ -88,7 +88,7 @@ alias cval='make && valgrind --leak-check=full --show-leak-kinds=all --track-ori
 
 # shorcuts
 alias sshConfig='vim ~/.ssh/config'
-alias nvimConfig='vim ~/.config/nvim/'
+alias nvimConfig='cd ~/.config/nvim && nvim .'
 alias dotfiles='vim ~/dotfiles/'
 alias gitConfig='vim ~/.gitconfig'
 

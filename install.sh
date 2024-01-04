@@ -17,7 +17,6 @@ symlinks[".config/gtk-4.0"]="$script_dir/gtk-4.0"
 symlinks[".config/hypr"]="$script_dir/hypr"
 symlinks[".config/kitty"]="$script_dir/kitty"
 symlinks[".config/neofetch"]="$script_dir/neofetch"
-symlinks[".config/nvim"]="$script_dir/nvim"
 symlinks[".config/starship.toml"]="$script_dir/starship/starship.toml"
 symlinks[".config/Thunar"]="$script_dir/Thunar"
 symlinks[".tmux.conf"]="$script_dir/tmux/tmux.conf"
@@ -35,6 +34,15 @@ for file in "${!symlinks[@]}"; do
     echo "Symlink for $file created."
   fi
 done
+
+if [ -d "$HOME/.config/nvim" ]; then
+  cd "$HOME/.config/nvim"
+  git pull
+  cd $script_dir
+else
+  git clone https://github.com/floork/nvim.git "$HOME/.config/nvim"
+fi
+
 
 
 # Install install tmux plugin manager
@@ -59,6 +67,7 @@ if [ "$ANSWER" == "y" ] || [ "$ANSWER" == "Y" ]; then
   exit 0
 fi
 
+cd ~/.config/wallpapers
 if [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1; then
   git pull --recurse-submodules
 fi

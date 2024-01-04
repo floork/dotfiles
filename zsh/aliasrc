@@ -29,7 +29,7 @@ alias rm='trash-put'
 # alias frm='rm -rf'
 alias copy='ls && rsync -avh --progress'
 alias cp='cp -r'
-alias mv='mv'
+alias mvSame='rsync -av --progress --exclude="$1" $2 --remove-source-files --prune-empty-dirs $3'
 alias scp='sudo cp -r'
 
 # Changing "ls" to "exa"
@@ -93,5 +93,3 @@ alias dotfiles='vim ~/dotfiles/'
 alias gitConfig='vim ~/.gitconfig'
 
 alias test='echo "test"'
-
-neofetch

@@ -150,5 +150,7 @@ alias plugins='vim ~/.config/zsh/plugins_config.zsh'
 # plugins for zsh
 [ -f "$HOME/.config/zsh/plugins_config.zsh" ] && source "$HOME/.config/zsh/plugins_config.zsh"
 
+cd $(find * -type d | fzf)
+
 # starship
 eval "$(starship init zsh)"

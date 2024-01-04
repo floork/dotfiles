@@ -6,7 +6,6 @@ alias reboot='sudo reboot'
 alias poweroff='sudo poweroff'
 alias shutdown='sudo shutdown now'
 alias suspend='systemctl suspend'
-alias clear='clear && neofetch'
 alias cls='clear'
 alias ende='suspend && exit'
 alias tree='lsd --tree --icon always --color always' # tree listing

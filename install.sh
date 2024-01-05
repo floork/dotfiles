@@ -6,6 +6,7 @@ script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 declare -A symlinks
 symlinks[".gitconfig"]="$script_dir/git/gitconfig" # gitconfig should work aslong as gh is installed
 symlinks[".bashrc"]="$script_dir/bash/bashrc"
+symlinks[".aliasrc"]="$script_dir/alias/aliasrc"
 symlinks[".zshrc"]="$script_dir/zsh/zshrc"
 symlinks[".themes"]="$script_dir/themes"
 symlinks[".config/dunst"]="$script_dir/dunst"

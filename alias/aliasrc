@@ -71,7 +71,8 @@ alias tmuxrc='vim ~/.tmux.conf' # Quick access to the ~/.tmux.conf file
 alias zshrc='vim ~/.zshrc' # Quick access to the ~/.zshrc file
 alias bashrc='vim ~/.bashrc' # Quick access to the ~/.bashrc file
 alias fishrc='vim ~/.config/fish/config.fish' # Quick access to the ~/.fishrc file
-alias aliasrc='vim ~/.config/zsh/aliasrc' # Quick access to this file
+alias aliasrc='vim ~/.aliasrc' # Quick access to this file
+alias new='cd $(find ~/* -type d | fzf)' # Quick access to a directory
 
 # nix alias
 alias nixrc='vim /etc/nixos/configuration.nix' # Quick access to the nixos configuration file

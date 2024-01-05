@@ -117,7 +117,7 @@ alias ex=extract
 alias !!=sudo_prev_command
 
 # Include all aliases
-[ -f ~/.zsh/aliasrc ] && source ~/.zsh/aliasrc
+[ -f "$HOME/.aliasrc" ] && source "$HOME/.aliasrc"
 
 ### SETTING THE STARSHIP PROMPT ###
 starship init fish | source

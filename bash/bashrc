@@ -83,7 +83,7 @@ export VISUAL=nvim
 alias reload='source ~/.bashrc'
 
 # Load aliases and shortcuts if existent.
-[ -f "$HOME/.config/zsh/aliasrc" ] && source "$HOME/.config/zsh/aliasrc"
+[ -f "$HOME/.aliasrc" ] && source "$HOME/.aliasrc"
 
 #starship
 eval "$(starship init bash)"

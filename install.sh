@@ -11,7 +11,6 @@ symlinks[".zshrc"]="$script_dir/zsh/zshrc"
 symlinks[".themes"]="$script_dir/themes"
 symlinks[".config/dunst"]="$script_dir/dunst"
 symlinks[".config/fish"]="$script_dir/fish"
-symlinks[".config/nvim"]="$script_dir/nvim"
 symlinks[".config/gh"]="$script_dir/gh"
 symlinks[".config/gtk-2.0"]="$script_dir/gtk-2.0"
 symlinks[".config/gtk-3.0"]="$script_dir/gtk-3.0"
@@ -64,8 +63,19 @@ if [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1; then
   git pull --recurse-submodules
 fi
 
+if [ -d "$HOME/.config/nvim" ]; then
+  cd "$HOME/.config/nvim"
+  git pull
+  cd $script_dir
+else
+  git clone https://github.com/floork/nvim.git "$HOME/.config/nvim"
+fi
+
 # add dotfiles update command
 if ! [ -d "$HOME/.local/bin" ]; then
   mkdir -p $HOME/.local/bin
 fi
-ln -s $script_dir/dotupdate.sh $HOME/.local/bin/dotupdate
+
+if ! [ -e "$HOME/.local/bin/dotupdate" ]; then
+  touch $HOME/.local/bin/dotupdate
+fi

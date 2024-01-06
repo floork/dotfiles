@@ -70,6 +70,7 @@ if [ -d "$HOME/.config/nvim" ]; then
 else
   git clone https://github.com/floork/nvim.git "$HOME/.config/nvim"
 fi
+ln -s $HOME/.config/nvim $script_dir/nvim
 
 # add dotfiles update command
 if ! [ -d "$HOME/.local/bin" ]; then

@@ -1,7 +1,7 @@
-# ~/.config/starship.toml
-
 # Inserts a blank line between shell prompts
 add_newline = true
+
+command_timeout = 5000
 
 [username]
 format = " [╭─$user]($style)@"

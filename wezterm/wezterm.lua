@@ -4,6 +4,6 @@ local config = {
 	font = wezterm.font("Fira Code"),
 }
 
-config.color_scheme = "Batman"
+config.color_scheme = "Apprentice (base16)"
 
 return config

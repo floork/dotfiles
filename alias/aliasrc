@@ -66,7 +66,7 @@ alias rflatty='flatpak remove'
 
 # tmux
 alias tmuxrc='vim ~/.tmux.conf' # Quick access to the ~/.tmux.conf file
-alias tmuxCloseAll='tmux list-sessions | grep -v attached | awk 'BEGIN{FS=":"}{print $1}' | xargs -n 1 tmux kill-session -t || echo No sessions to kill' # Close all tmux sessions
+alias tmuxCloseAll='tmux list-sessions | grep -v attached | awk "BEGIN{FS=":"}{print $1}" | xargs -n 1 tmux kill-session -t || echo No sessions to kill' # Close all tmux sessions
 
 # shell alias
 alias zshrc='vim ~/.zshrc' # Quick access to the ~/.zshrc file

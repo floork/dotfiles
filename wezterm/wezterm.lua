@@ -15,6 +15,6 @@ local config = {
 	-- window_background_gradient = whiteBG(), -- uncomment to enable
 }
 
-config.color_scheme = "Apprentice (base16)"
+config.color_scheme = "Chameleon (Gogh)"
 
 return config

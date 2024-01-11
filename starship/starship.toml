@@ -23,7 +23,7 @@ error_symbol = "[╰─X](cyan bold dimmed)"
 
 [hostname]
 disabled = false
-format = "[$hostname]($style)"
+format = "[$hostname]($style) "
 ssh_only = false
 style = "purple bold dimmed"
 trim_at = "-"

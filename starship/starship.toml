@@ -6,8 +6,8 @@ command_timeout = 5000
 [username]
 format = " [╭─$user]($style)@"
 show_always = true
-style_root = "purple bold dimmed"
-style_user = "purple bold dimmed"
+style_root = "yellow bold "
+style_user = "yellow bold "
 # disabled = true  # disable in powershell
 
 # Change the default prompt characters
@@ -15,17 +15,11 @@ style_user = "purple bold dimmed"
 success_symbol = " [╰─λ](cyan bold dimmed)"
 error_symbol = "[╰─X](cyan bold dimmed)"
 
-# Shows an icon that should be included by zshrc script based on the distribution or os
-# [env_var.STARSHIP_DISTRO]
-# format = '[$env_value](bold white)'  # removed space between distro and rest for pwsh
-# variable = "STARSHIP_DISTRO"
-# disabled = false
-
 [hostname]
 disabled = false
 format = "[$hostname]($style) "
 ssh_only = false
-style = "purple bold dimmed"
+style = "yellow bold "
 trim_at = "-"
 
 [directory]
@@ -34,7 +28,7 @@ truncation_symbol = "…/"
 home_symbol = " ~"
 read_only_style = "cyan"
 read_only = "  "
-format = "at [$path](cyan bold dimmed)[$read_only]($read_only_style) "
+format = "at [$path](cyan bold )[$read_only]($read_only_style) "
 
 [sudo]
 symbol = "󱆃 "
@@ -168,3 +162,9 @@ symbol = "ﯣ "
 
 [vagrant]
 format = "via [ vagrant $version]($style) "
+
+[vlang]
+symbol = " "
+
+[zig]
+symbol = "↯ "

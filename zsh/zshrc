@@ -163,6 +163,8 @@ alias tmuxClean=kill_tmux_sessions
 # plugins for zsh
 [ -f "$HOME/.config/zsh/plugins_config.zsh" ] && source "$HOME/.config/zsh/plugins_config.zsh"
 
+setxkbmap -option caps:ctrl_modifier
+
 cd $(find ~/* -type d | fzf) && clear
 
 # starship

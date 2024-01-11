@@ -17,5 +17,6 @@ local config = {
 
 -- config.color_scheme = "Codeschool (base16)"
 config.color_scheme = "Chameleon (Gogh)"
+config.harfbuzz_features = { "calt=0" } -- disable ligatures
 
 return config

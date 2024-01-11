@@ -142,6 +142,9 @@ function frm {
     fi
 }
 
+kill_tmux_sessions() {
+  tmux list-sessions | grep -v attached | awk 'BEGIN{FS=":"}{print $1}' | xargs -n 1 tmux kill-session -t || echo No sessions to kill
+}
 
 pack_man
 export ex
@@ -155,6 +158,7 @@ export ex
 alias reload='source ~/.zshrc && clear'
 alias frm=frm
 alias plugins='vim ~/.config/zsh/plugins_config.zsh'
+alias tmuxClean=kill_tmux_sessions
 
 # plugins for zsh
 [ -f "$HOME/.config/zsh/plugins_config.zsh" ] && source "$HOME/.config/zsh/plugins_config.zsh"

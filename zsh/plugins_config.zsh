@@ -10,6 +10,7 @@ znap source Anant-mishra1729/web-search
 znap source zsh-users/zsh-syntax-highlighting
 znap source marlonrichert/zsh-autosuggestions
 znap source arzzen/calc.plugin.zsh
+znap source chisui/zsh-nix-shell
 # znap source marlonrichert/zsh-autocomplete
 #
 # custom configs

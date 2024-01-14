@@ -77,8 +77,6 @@ alias new='cd $(find ~/* -type d | fzf) && clear' # Quick access to a directory
 # nix alias
 alias nixrc='vim /etc/nixos/configuration.nix' # Quick access to the nixos configuration file
 alias homerc='vim /etc/nixos/home.nix' # Quick access to the home-manager configuration file
-alias nixcode='code /etc/nixos/'
-alias nixclean='nix-collect-garbage -d'
 alias nixsearch='nix-env -qaP'
 alias desktopbuild='sudo nixos-rebuild switch --flake .#desktop'
 alias laptopbuild='sudo nixos-rebuild switch --flake .#laptop'

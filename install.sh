@@ -81,6 +81,4 @@ if ! [ -d "$HOME/.local/bin" ]; then
   mkdir -p $HOME/.local/bin
 fi
 
-if ! [ -f "$HOME/.local/bin/" ]; then
-  ln -s $script_dir/commands/* $HOME/.local/bin/
-fi
+ln -s $script_dir/commands/* $HOME/.local/bin/

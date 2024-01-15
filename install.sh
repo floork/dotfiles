@@ -16,8 +16,6 @@ symlinks[".config/gtk-2.0"]="$script_dir/gtk-2.0"
 symlinks[".config/gtk-3.0"]="$script_dir/gtk-3.0"
 symlinks[".config/gtk-4.0"]="$script_dir/gtk-4.0"
 symlinks[".config/hypr"]="$script_dir/hypr"
-# symlinks[".config/kitty"]="$script_dir/kitty"
-symlinks[".wezterm.lua"]="$script_dir/wezterm/wezterm.lua"
 symlinks[".config/neofetch"]="$script_dir/neofetch"
 symlinks[".config/starship.toml"]="$script_dir/starship/starship.toml"
 symlinks[".config/Thunar"]="$script_dir/Thunar"
@@ -36,6 +34,16 @@ for file in "${!symlinks[@]}"; do
     echo "Symlink for $file created."
   fi
 done
+
+# wezterm is a special case
+if [ -h "$wezterm_symlink" ]; then
+  rm ~/.config/wezterm
+  ln -s ~/dotfiles/wezterm ~/.config/wezterm
+  echo "Symlink for wezterm updated."
+else
+  ln -s ~/dotfiles/wezterm ~/.config/wezterm
+  echo "Symlink for wezterm created."
+fi
 
 # Install install tmux plugin manager
 mkdir -p $HOME/.tmux/plugins

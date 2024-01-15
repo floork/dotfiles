@@ -85,9 +85,9 @@ alias reload='source ~/.bashrc'
 # Load aliases and shortcuts if existent.
 [ -f "$HOME/.aliasrc" ] && source "$HOME/.aliasrc"
 
+# cargo env
+[ -f ~/.cargo/env ] && source $HOME/.cargo/env
+
 #starship
 eval "$(starship init bash)"
 
-if [ -f "$HOME/.cargo/env" ]; then
-    . "$HOME/.cargo/env"
-fi

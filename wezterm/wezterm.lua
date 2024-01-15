@@ -1,25 +1,25 @@
 local wezterm = require("wezterm")
 
 local function whiteBG()
-	return {
-		orientation = "Vertical",
-		colors = { "#FFFFFF" },
-		interpolation = "Linear",
-		blend = "Rgb",
-	}
+  return {
+    orientation = "Vertical",
+    colors = { "#FFFFFF" },
+    interpolation = "Linear",
+    blend = "Rgb",
+  }
 end
 
 local config = {}
 
 -- Use config builder if possible
 if wezterm.config_builder then
-	config = wezterm.config_builder({})
+  config = wezterm.config_builder({})
 end
 
 -- Configuring the font
 config.font = wezterm.font_with_fallback({
-	{ family = "FiraCode Nerd Font" },
-	{ family = "Fira Code" },
+  { family = "FiraCode Nerd Font" },
+  { family = "Fira Code" },
 })
 
 -- config.color_scheme = "Codeschool (base16)"
@@ -30,35 +30,21 @@ config.window_background_opacity = 0.9
 config.scrollback_lines = 10000
 
 local function getDistro()
-	local nixos = io.open("/etc/NIXOS", "r")
-	if nixos then
-		return "nixos"
-	end
-	local arch = io.open("/etc/arch-release", "r")
-	if arch then
-		return "arch"
-	end
+  local nixos = io.open("/etc/NIXOS", "r")
+  if nixos then
+    return "nixos"
+  end
+  local arch = io.open("/etc/arch-release", "r")
+  if arch then
+    return "arch"
+  end
 
-	local distro_name = io.popen("lsb_release -si"):read("*a"):gsub("\n", "")
-	return distro_name:lower()
+  local distro_name = io.popen("lsb_release -si"):read("*a"):gsub("\n", "")
+  return distro_name:lower()
 end
 
 if getDistro() == "nixos" then
-	-- switch escape and capslock because the hyprland remap is not working
-	local action = wezterm.action
-	config.keys = {
-		{
-			key = "CapsLock",
-			action = action.SendKey({ key = "Escape" }),
-		},
-		{
-			key = "Escape",
-			action = action.SendKey({ key = "CapsLock" }),
-		},
-	}
-	config.key_map_preference = "Mapped"
-
-	config.enable_wayland = false
+  config.enable_wayland = false
 end
 
 return config

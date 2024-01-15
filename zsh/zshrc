@@ -143,7 +143,7 @@ function frm {
 }
 
 kill_tmux_sessions() {
-  tmux list-sessions | grep -v attached | awk 'BEGIN{FS=":"}{print $1}' | xargs -n 1 tmux kill-session -t || echo No sessions to kill
+    tmux list-sessions | grep -v attached | awk 'BEGIN{FS=":"}{print $1}' | xargs -n 1 tmux kill-session -t || echo No sessions to kill
 }
 
 pack_man
@@ -162,8 +162,6 @@ alias tmuxClean=kill_tmux_sessions
 
 # plugins for zsh
 [ -f "$HOME/.config/zsh/plugins_config.zsh" ] && source "$HOME/.config/zsh/plugins_config.zsh"
-
-setxkbmap -option caps:ctrl_modifier
 
 cd $(find ~/* -type d | fzf) && clear
 

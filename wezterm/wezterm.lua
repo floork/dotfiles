@@ -1,13 +1,6 @@
 local wezterm = require("wezterm")
+require("functions")
 
-local function whiteBG()
-  return {
-    orientation = "Vertical",
-    colors = { "#FFFFFF" },
-    interpolation = "Linear",
-    blend = "Rgb",
-  }
-end
 
 local config = {}
 
@@ -29,22 +22,23 @@ config.window_background_opacity = 0.9
 
 config.scrollback_lines = 10000
 
-local function getDistro()
-  local nixos = io.open("/etc/NIXOS", "r")
-  if nixos then
-    return "nixos"
-  end
-  local arch = io.open("/etc/arch-release", "r")
-  if arch then
-    return "arch"
-  end
 
-  local distro_name = io.popen("lsb_release -si"):read("*a"):gsub("\n", "")
-  return distro_name:lower()
-end
-
-if getDistro() == "nixos" then
+if GetDistro() == "nixos" then
   config.enable_wayland = false
+  if IsThinkpad() then
+    local action = wezterm.action
+    config.keys = {
+      {
+        key = "CapsLock",
+        action = action.SendKey({ key = "Escape" }),
+      },
+      {
+        key = "Escape",
+        action = action.SendKey({ key = "CapsLock" }),
+      },
+    }
+    config.key_map_preference = "Mapped"
+  end
 end
 
 return config

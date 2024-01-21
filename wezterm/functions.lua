@@ -1,4 +1,6 @@
 #!/bin/env lua
+
+-- NOTE: not used anymore but keeping it for reference
 function GetDistro()
   local nixos = io.open("/etc/NIXOS", "r")
   if nixos then
@@ -13,6 +15,7 @@ function GetDistro()
   return distro_name:lower()
 end
 
+-- NOTE: not used anymore but keeping it for reference
 function IsThinkpad()
   local product_name = io.popen("cat /sys/devices/virtual/dmi/id/product_name"):read("*a"):gsub("\n", "")
   return product_name:lower():find("thinkpad")

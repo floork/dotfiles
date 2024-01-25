@@ -13,7 +13,8 @@ config.font = wezterm.font_with_fallback({
   { family = "Fira Code" },
 })
 config.color_scheme = "Chameleon (Gogh)"
-config.harfbuzz_features = { "calt=0" } -- disable ligatures
+config.harfbuzz_features = { "calt=0" }  -- disable ligatures
+config.warn_about_missing_glyphs = false -- disable warning about missing glyphs
 
 -- Configuring the window
 config.window_background_opacity = 0.9

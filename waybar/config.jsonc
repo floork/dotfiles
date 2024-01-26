@@ -59,8 +59,8 @@
   },
   "clock": {
     "locale": "C",
-    "format": " {:%I:%M %p,  %a, %b %d}",
-    "format-alt": " {:%a,%b %d}" // Icon: calendar-alt
+    "format": " {:%I:%M %p,   %a, %b %d}",
+    "format-alt": "  {:%a,%b %d}" // Icon: calendar-alt
   },
   "cpu": {
     "format": "&#8239;{usage}%",

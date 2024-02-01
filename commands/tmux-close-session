@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Function to switch to another tmux session and close the current one
+switch_and_close_session() {
+    local target_session="$1"
+    local current_session="$(tmux display-message -p '#S')"
+
+    # Switch to the target session
+    if tmux switch-client -t "$target_session"; then
+        # Close the current session if it's different from the target session
+        if [ "$current_session" != "$target_session" ]; then
+            tmux kill-session -t "$current_session"
+        fi
+    else
+        echo "Failed to switch to another session."
+        exit 1
+    fi
+}
+
+# Check if running inside tmux
+if [ -n "$TMUX" ]; then
+    # Get list of active sessions excluding the current one
+    sessions=$(tmux list-sessions -F "#{session_name}" | grep -v "^$(tmux display-message -p '#S')")
+
+    # Check if any other sessions exist
+    if [ -n "$sessions" ]; then
+        # Move into the first other session found
+        switch_and_close_session "$sessions"
+    else
+        echo "No other sessions found. Exiting current session."
+        exit 0
+    fi
+else
+    # Get list of active sessions
+    sessions=$(tmux list-sessions -F "#{session_name}")
+
+    # Check if any sessions exist
+    if [ -n "$sessions" ]; then
+        # Start tmux and attach to the first session
+        tmux attach-session -t "$sessions"
+        # Close the previous session
+        tmux kill-session -t "$sessions"
+    else
+        echo "No other sessions found. Exiting."
+        exit 0
+    fi
+fi

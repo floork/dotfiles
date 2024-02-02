@@ -41,7 +41,6 @@ switch_to_next_session() {
     tmux switch-client -t "$next_session"
 
     if [ "${#sessions[@]}" -gt 1 ]; then
-        echo "session length is ${#sessions[@]}"
         # Kill the current session
         tmux kill-session -t "$current_session"
         return 0

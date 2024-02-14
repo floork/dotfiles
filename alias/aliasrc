@@ -10,7 +10,7 @@ alias cls='clear'
 alias ende='suspend && exit'
 alias tree='lsd --tree --icon always --color always' # tree listing
 alias vim='nvim'
-alias svim='sudo nvim'
+alias svim='sudo -E nvim'
 
 # sys
 alias sctl='sudo systemctl'
@@ -30,6 +30,7 @@ alias copy='ls && rsync -avh --progress'
 alias cp='cp -r'
 alias mvSame='rsync -av --progress --exclude="$1" $2 --remove-source-files --prune-empty-dirs $3'
 alias scp='sudo cp -r'
+alias open='xdg-open'
 
 # Changing "ls" to "exa"
 alias l='ls'
@@ -72,7 +73,6 @@ alias zshrc='vim ~/.zshrc' # Quick access to the ~/.zshrc file
 alias bashrc='vim ~/.bashrc' # Quick access to the ~/.bashrc file
 alias fishrc='vim ~/.config/fish/config.fish' # Quick access to the ~/.fishrc file
 alias aliasrc='vim ~/.aliasrc' # Quick access to this file
-alias new='cd $(find ~/* -type d | fzf) && clear' # Quick access to a directory
 
 # nix alias
 alias nixrc='vim /etc/nixos/configuration.nix' # Quick access to the nixos configuration file
@@ -85,9 +85,9 @@ alias laptopbuild='sudo nixos-rebuild switch --flake .#laptop'
 alias cval='make && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ${1} 2> valgrind.log'
 
 # shorcuts
-alias sshConfig='vim ~/.ssh/config'
-alias nvimConfig='cd ~/.config/nvim && nvim .'
+alias sshrc='vim ~/.ssh/config'
+alias vimrc='cd ~/.config/nvim && nvim .'
 alias dotfiles='vim ~/dotfiles/'
-alias gitConfig='vim ~/.gitconfig'
+alias gitconfig='vim ~/.gitconfig'
 
 alias test='echo "test"'

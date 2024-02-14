@@ -17,6 +17,9 @@
 [credential "https://gist.github.com"]
 	helper =
   helper = !gh auth git-credential
+[credential "https://gitlab.com"]
+	helper = 
+	helper = !glab auth git-credential
 [commit]
   gpgsign = true
 [init]

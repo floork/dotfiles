@@ -43,29 +43,33 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' # for caseinsensite
 # start tmux
 [ -z "$TMUX" ] && exec tmux
 
+
 # Custom ZSH Binds
-bindkey '^ ' autosuggest-accept
-bindkey "\e[1;5D" backward-word
-bindkey "\e[1;5C" forward-word
-bindkey "^[[A" history-beginning-search-backward
-bindkey "^[[B" history-beginning-search-forward
-bindkey "^[[A" history-search-backward
-bindkey "^[[B" history-search-forward
 
-# ctrl-bs and ctrl-del
-bindkey "\e[3;5~" kill-word
-bindkey "\C-_"    backward-kill-word
+# Navigation:
+bindkey "\e[1;5D" backward-word        # Ctrl + Left Arrow: Move backward one word
+bindkey "\e[1;5C" forward-word         # Ctrl + Right Arrow: Move forward one word
 
-# del, home and end
-bindkey "\e[3~" delete-char
-bindkey "\e[H"  beginning-of-line
-bindkey "\e[F"  end-of-line
+# History Search:
+bindkey "^[[A" history-beginning-search-backward   # Up Arrow: Search backward through history
+bindkey "^[[B" history-beginning-search-forward    # Down Arrow: Search forward through history
+bindkey "^[[A" history-search-backward             # Up Arrow: Search backward through history (alternate)
+bindkey "^[[B" history-search-forward              # Down Arrow: Search forward through history (alternate)
 
-### functions for aliasrc
+# Text Manipulation:
+bindkey "\e[3;5~" kill-word               # Ctrl + Del: Delete word after cursor
+bindkey "\C-_"    backward-kill-word      # Ctrl + Backspace: Delete word before cursor
+bindkey "\e[3~" delete-char                # Delete: Delete character under cursor
 
-# # ex - archive extractor
-# # usage: ex <file>
-ex ()
+# Line Navigation:
+bindkey "\e[H"  beginning-of-line         # Home: Move to beginning of line
+bindkey '^A' beginning-of-line            # Ctrl + A: Move to beginning of line
+bindkey "\e[F"  end-of-line               # End: Move to end of line
+bindkey '^E' end-of-line                  # Ctrl + E: Move to end of line
+
+# ex - archive extractor
+# usage: ex <file>
+function ex ()
 {
     if [ -f $1 ] ; then
         case $1 in
@@ -88,14 +92,14 @@ ex ()
     fi
 }
 
-gt-push() {
+function gt-push() {
     git add .
     git commit -m "$*"
     git pull
     git push
 }
 
-pack_man(){
+function pack_man(){
     if [ -x "$(command -v apk)" ];then
         alias pkm='sudo apk add --no-cache '
         elif [ -x "$(command -v apt-get)" ];then
@@ -142,14 +146,64 @@ function frm {
     fi
 }
 
-kill_tmux_sessions() {
+function build-cpp() {
+    # Check if current directory is named "build"
+    if [[ $(basename "$(pwd)") != "build" ]]; then
+        if [[ -d "build" ]]; then
+            cd build || return
+        elif [[ -f "CMakeLists.txt" ]]; then
+            mkdir build && cd build || return
+        else
+            echo "No C++ project found in this directory!"
+            return
+        fi
+    fi
+
+    # Check if cmake is installed
+    if ! command -v cmake &> /dev/null; then
+        echo "cmake could not be found"
+        return
+    fi
+
+    cmake ..
+
+    # check if mold is installed is missing because
+    # zsh is not able to find the mold command
+    if [[ -f CMakeCache.txt ]]; then
+        mold --run cmake --build . -- "$@"
+    elif [[ -f Makefile ]]; then
+        mold --run make -j $(nproc) "$@"
+    elif [[ -f build.ninja ]]; then
+        mold --run ninja "$@"
+    else
+        echo 'Could not determine a suitable build command!' >&2
+    fi
+}
+
+function kill-tmux-sessions() {
+  if [ -n "$TMUX" ]; then
     tmux list-sessions | grep -v attached | awk 'BEGIN{FS=":"}{print $1}' | xargs -n 1 tmux kill-session -t || echo No sessions to kill
+  else
+    echo "Not in a tmux session"
+  fi
+}
+
+function new(){
+  dir=$(find ~ -type d ! -path '*/\.*' ! -path Downloads | fzf)
+  if [ -n "$dir" ]; then
+    cd "$dir"
+    if [ -n "$TMUX" ]; then
+      tmux rename-window "$(basename "$dir")"
+    fi
+  fi
 }
 
 pack_man
-export ex
 
 ### End of functions
+
+# Load device specific configurations
+[ -f "$HOME/.device_config" ] && source "$HOME/.device_config"
 
 # Load aliases and shortcuts if existent.
 [ -f "$HOME/.aliasrc" ] && source "$HOME/.aliasrc"

@@ -3,7 +3,7 @@
 
 # # ex - archive extractor
 # # usage: ex <file>
-ex ()
+function ex ()
 {
     if [ -f $1 ] ; then
         case $1 in
@@ -26,14 +26,7 @@ ex ()
     fi
 }
 
-gt-push() {
-    git add .
-    git commit -m "$*"
-    git pull
-    git push
-}
-
-pack_man(){
+function pack_man(){
     if [ -x "$(command -v apk)" ];then
         alias pkm='sudo apk add --no-cache '
         elif [ -x "$(command -v apt)" ];then
@@ -71,8 +64,65 @@ pack_man(){
     fi
 }
 
+function new(){
+  dir=$(find ~ -type d ! -path '*/\.*' ! -path Downloads | fzf)
+  if [ -n "$dir" ]; then
+    cd "$dir"
+    if [ -n "$TMUX" ]; then
+      tmux rename-session "$(basename "$dir")"
+      tmux rename-window "$(basename "$dir")"
+    fi
+  fi
+}
+
+function cpp-build()
+{
+    # check if we are in a dir called build
+    dir=$(basename $(pwd))
+
+    # Check if current directory is named "build"
+    if [ "$(basename "$(pwd)")" = "build" ]; then
+        :
+    elif [ -d "build" ]; then
+        cd build
+    elif [ -f "CMakeLists.txt" ]; then
+        mkdir build
+        cd build
+    else
+        echo "No C++ project found in this directory!"
+        return
+    fi
+
+    # Check if cmake is installed
+    if ! command -v cmake &> /dev/null
+    then
+        echo "cmake could not be found"
+        return
+    fi
+
+    cmake ..
+
+    local prefix=''
+    #check if mold is installed
+    if command -v mold &> /dev/null; then
+        prefix="mold --run"
+    else
+        echo "Warning: mold not found at $mold_path. Running build without mold."
+        return
+    fi
+
+    if [ -f CMakeCache.txt ]; then
+        $prefix cmake --build . -- "$@"
+    elif [ -f Makefile ]; then
+        $prefix make -j $( nproc ) "$@"
+    elif [ -f build.ninja ]; then
+        $prefix ninja "$@"
+    else
+        echo 'Could not determine a suitable build command!' 1>&2
+    fi
+}
+
 pack_man
-export ex
 
 export PATH="/home/flmr799e/.npm-global/lib/node_modules/.bin:$PATH"
 
@@ -81,6 +131,9 @@ export VISUAL=nvim
 ### End of functions
 
 alias reload='source ~/.bashrc'
+
+# Load device specific configurations
+[ -f "$HOME/.device_config" ] && source "$HOME/.device_config"
 
 # Load aliases and shortcuts if existent.
 [ -f "$HOME/.aliasrc" ] && source "$HOME/.aliasrc"

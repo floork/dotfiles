@@ -9,6 +9,7 @@ alias suspend='systemctl suspend'
 alias cls='clear'
 alias ende='suspend && exit'
 alias tree='lsd --tree --icon always --color always' # tree listing
+alias vi='nvim'
 alias vim='nvim'
 alias svim='sudo -E nvim'
 

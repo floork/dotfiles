@@ -3,7 +3,13 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~ | fzf)
+    # Find directories in both the regular home directory and specific home directory
+    directories=$(fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~)
+    my_home=$(echo ~)
+    directories+=" $my_home"
+
+    # Use fzf to select a directory from the list
+    selected=$(echo "$directories" | tr ' ' '\n' | fzf)
 fi
 
 if [[ -z $selected ]]; then

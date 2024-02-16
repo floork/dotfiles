@@ -65,7 +65,14 @@ function pack_man(){
 }
 
 function new(){
-  dir=$(fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~ | fzf)
+  # Find directories in both the regular home directory and specific home directory
+  directories=$(fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~)
+  my_home=$(echo ~)
+  directories+=" $my_home"
+
+  # Use fzf to select a directory from the list
+  dir=$(echo "$directories" | tr ' ' '\n' | fzf)
+  # dir=$(fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~--full-path '$HOME')
   if [ -n "$dir" ]; then
     cd ~/"$dir"
     if [ -n "$TMUX" ]; then

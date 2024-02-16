@@ -189,9 +189,9 @@ function kill-tmux-sessions() {
 }
 
 function new(){
-  dir=$(find ~ -type d ! -path '*/\.*' ! -path Downloads | fzf)
+  dir=$(fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~ | fzf)
   if [ -n "$dir" ]; then
-    cd "$dir"
+    cd ~/"$dir"
     if [ -n "$TMUX" ]; then
       tmux rename-window "$(basename "$dir")"
     fi

@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~ -type d ! -path '*/\.*' ! -path Downloads | fzf)
+    selected=$(fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~ | fzf)
 fi
 
 if [[ -z $selected ]]; then

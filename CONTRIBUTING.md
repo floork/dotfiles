@@ -1,80 +1,53 @@
 # Contribution Guidelines
 
-Welcome to our project! We appreciate your interest in contributing. Please take a moment to review these guidelines before getting started.
+Welcome to my dotfiles repository! Below are some guidelines for contributing:
 
 ## Purpose of the Repository
 
-This repository is dedicated to [briefly describe the purpose of your project].
+This repository contains my personal dotfiles, configurations, and scripts tailored to customize and enhance my development environment.
 
-## Prerequisites
+## Setting Up
 
-Before you start contributing, make sure you have:
-
-- [List any prerequisites or requirements here]
-
-## Setting Up the Development Environment
-
-To set up your development environment, follow these steps:
-
-1. [Provide step-by-step instructions for setting up the environment]
+No specific setup is required since this repository is for personal use only.
 
 ## Branching Strategy
 
-We use the following branching strategy:
-
-- [Explain your branching strategy and any naming conventions]
+There's no strict branching strategy for personal dotfiles.
 
 ## Code Style and Guidelines
 
-Please adhere to our coding style and guidelines. You can find details in our [style guide](link-to-style-guide).
+There are no specific code style guidelines. Just aim for readability and consistency.
 
 ## Commit Guidelines
 
-When making commits, follow these guidelines:
-
-- Use clear and concise commit messages.
-- Reference related issues using "Fixes #123" if applicable.
+Keep commit messages clear and concise.
 
 ## Pull Request Process
 
-To submit a pull request (PR):
-
-1. Fork the repository.
-2. Create a new branch for your changes.
-3. Make your changes and commit them.
-4. Push your changes to your forked repository.
-5. Open a PR with a clear title and description.
-6. Mention any related issues or discussions.
+Since this repository is for personal use, pull requests are not accepted.
 
 ## Code Review Process
 
-PRs will be reviewed by the team. Address feedback promptly and professionally.
+N/A
 
 ## Testing Guidelines
 
-Make sure to test your changes. Use the following steps for testing:
-
-1. [Explain how to run tests and what testing frameworks to use]
+N/A
 
 ## Documentation
 
-Keep our documentation up-to-date. Update documentation along with code changes.
+Keep the README up-to-date with any significant changes.
 
 ## Licensing
 
-This project is licensed under [Your License]. By contributing, you agree to license your contributions under the same terms.
+This project is licensed under the MIT License.
 
 ## Code of Conduct
 
-Please review and follow our [Code of Conduct](link-to-code-of-conduct).
+Please be respectful when interacting with this repository.
 
 ## How to Get Help
 
-If you have questions or need assistance, you can [mention where contributors can get help or ask questions].
+If you have questions, feel free to reach out via [mention where contributors can contact you].
 
-## Acknowledgment
-
-Thank you for considering contributing to our project. We value your contributions and look forward to collaborating with you.
-
-Happy coding!
-
+Thank you!

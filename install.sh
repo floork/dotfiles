@@ -1,89 +1,119 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
 # Get the directory where the script is located
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# Define an associative array to store the symlink targets.
-declare -A symlinks
-symlinks[".gitconfig"]="$script_dir/git/gitconfig" # gitconfig should work aslong as gh is installed
-symlinks[".bashrc"]="$script_dir/bash/bashrc"
-symlinks[".aliasrc"]="$script_dir/alias/aliasrc"
-symlinks[".zshrc"]="$script_dir/zsh/zshrc"
-symlinks[".themes"]="$script_dir/themes"
-symlinks[".config/dunst"]="$script_dir/dunst"
-symlinks[".config/fish"]="$script_dir/fish"
-symlinks[".config/gh"]="$script_dir/gh"
-symlinks[".config/hypr"]="$script_dir/hypr"
-symlinks[".config/neofetch"]="$script_dir/neofetch"
-symlinks[".config/starship.toml"]="$script_dir/starship/starship.toml"
-symlinks[".config/Thunar"]="$script_dir/Thunar"
-symlinks[".tmux.conf"]="$script_dir/tmux/tmux.conf"
-symlinks[".config/waybar"]="$script_dir/waybar"
-symlinks[".config/wofi"]="$script_dir/wofi"
-symlinks[".config/xsettingsd"]="$script_dir/xsettingsd"
-symlinks[".config/zsh"]="$script_dir/zsh"
+# Define the function to create symbolic links
+create_symlinks() {
 
-# Iterate over the associative array and create symlinks.
-for file in "${!symlinks[@]}"; do
-  if [ -e "$HOME/$file" ]; then
-    echo "Symlink for $file already exists."
-  else
-    ln -s "${symlinks[$file]}" "$HOME/$file"
-    echo "Symlink for $file created."
-  fi
-done
+    # Define an associative array to store the symlink targets.
+    declare -A symlinks=(
+        [".gitconfig"]="$script_dir/git/gitconfig" 
+        [".bashrc"]="$script_dir/bash/bashrc"
+        [".aliasrc"]="$script_dir/alias/aliasrc"
+        [".zshrc"]="$script_dir/zsh/zshrc"
+        [".themes"]="$script_dir/themes"
+        [".config/dunst"]="$script_dir/dunst"
+        [".config/fish"]="$script_dir/fish"
+        [".config/gh"]="$script_dir/gh"
+        [".config/hypr"]="$script_dir/hypr"
+        [".config/neofetch"]="$script_dir/neofetch"
+        [".config/starship.toml"]="$script_dir/starship/starship.toml"
+        [".config/Thunar"]="$script_dir/Thunar"
+        [".tmux.conf"]="$script_dir/tmux/tmux.conf"
+        [".config/waybar"]="$script_dir/waybar"
+        [".config/wezterm"]="$script_dir/wezterm"
+        [".config/wofi"]="$script_dir/wofi"
+        [".config/xsettingsd"]="$script_dir/xsettingsd"
+        [".config/zsh"]="$script_dir/zsh"
+    )
 
-# wezterm is a special case
-if [ -h "$wezterm_symlink" ]; then
-  rm ~/.config/wezterm
-  ln -s ~/dotfiles/wezterm ~/.config/wezterm
-  echo "Symlink for wezterm updated."
-else
-  ln -s ~/dotfiles/wezterm ~/.config/wezterm
-  echo "Symlink for wezterm created."
-fi
+    # Function to create symbolic links
+    create_symlink() {
+        local source=$1
+        local target=$2
 
-# Install install tmux plugin manager
-mkdir -p $HOME/.tmux/plugins
-if ! [ -d "$HOME/.tmux/plugins/tpm" ]; then
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-fi
+        if [ -e "$target" ]; then
+            echo "Symlink for $source already exists."
+        else
+            ln -s "$source" "$target"
+            echo "Symlink for $source created."
+        fi
+    }
 
+    # Create symbolic links
+    for source in "${!symlinks[@]}"; do
+        create_symlink "${symlinks[$source]}" "$HOME/$source"
+    done
+}
 
-WALLPAPERS_DIR="$HOME/.config/wallpapers"
+# Function to install tmux plugin manager
+install_tmux_plugin_manager() {
+    tpm_dir="$HOME/.tmux/plugins/tpm"
+    if ! [ -d "$tpm_dir" ]; then
+        git clone https://github.com/tmux-plugins/tpm "$tpm_dir"
+        echo "TMUX Plugin Manager installed."
+    fi
+}
 
-echo "Do you want to install the wallpapers (y/N): "
-read -r ANSWER
+# Function to install wallpapers
+install_wallpapers() {
+    WALLPAPERS_DIR="$HOME/.config/wallpapers"
+    echo "Do you want to install wallpapers (y/n): "
+    read -r ANSWER
+    if [ "${ANSWER,,}" == "y" ]; then
+        if [ -d "$WALLPAPERS_DIR" ]; then
+            rm -rf "$WALLPAPERS_DIR"
+        fi
+        git clone https://github.com/floork/wallpapers.git "$WALLPAPERS_DIR"
+        echo "Wallpapers installed successfully."
+    fi
+}
 
-if [ "$ANSWER" == "y" ] || [ "$ANSWER" == "Y" ]; then
-  if [ -d $WALLPAPERS_DIR ]; then
-    rm -rf $WALLPAPERS_DIR
-  fi
-  mkdir -p $WALLPAPERS_DIR
-  git clone https://github.com/floork/wallpapers.git $WALLPAPERS_DIR
+# Update wallpapers and other git repositories
+update_git_repositories() {
+    if [ -d "$WALLPAPERS_DIR" ]; then
+        cd "$WALLPAPERS_DIR"
+        git pull --recurse-submodules
+    fi
 
-  exit 0
-fi
+    # Update nvim configuration
+    NVIM_CONFIG_DIR="$HOME/.config/nvim"
+    if [ -d "$NVIM_CONFIG_DIR" ]; then
+        cd "$NVIM_CONFIG_DIR"
+        git pull
+        cd "$script_dir"
+    else
+        git clone https://github.com/floork/nvim.git "$NVIM_CONFIG_DIR"
+    fi
 
-cd ~/.config/wallpapers
-if [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1; then
-  git pull --recurse-submodules
-fi
+    # Create symlink for nvim if it doesn't exist
+    if ! [ -e "$script_dir/nvim" ]; then
+        ln -s "$NVIM_CONFIG_DIR" "$script_dir/nvim"
+    fi
+}
 
-if [ -d "$HOME/.config/nvim" ]; then
-  cd "$HOME/.config/nvim"
-  git pull
-  cd $script_dir
-else
-  git clone https://github.com/floork/nvim.git "$HOME/.config/nvim"
-fi
+# Add dotfiles update command to user's bin directory
+update_user_bin_directory() {
+    BIN_DIR="$HOME/.local/bin"
+    mkdir -p "$BIN_DIR"
 
-if ! [ -e $script_dir/nvim ]; then
-  ln -s $HOME/.config/nvim $script_dir/nvim
-fi
+    # Create symbolic links for files in commands directory
+    for file in "$script_dir/bin"/*; do
+        ln -sf "$file" "$BIN_DIR/"
+    done
+}
 
-# add dotfiles update command
-if ! [ -d "$HOME/.local/bin" ]; then
-  mkdir -p $HOME/.local/bin
-fi
+# Main function to setup dotfiles
+setup_dotfiles() {
+    create_symlinks
+    install_tmux_plugin_manager
+    install_wallpapers
+    update_git_repositories
+    update_user_bin_directory
+    echo "Dotfiles setup complete."
+}
 
-ln -s $script_dir/commands/* $HOME/.local/bin/
+# Call the main setup function
+setup_dotfiles

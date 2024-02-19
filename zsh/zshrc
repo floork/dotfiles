@@ -180,6 +180,48 @@ function build-cpp() {
     fi
 }
 
+function build-test-cpp() {
+    # Check if current directory is named "build"
+    if [[ $(basename "$(pwd)") != "build" ]]; then
+        if [[ -d "build" ]]; then
+            cd build || return
+        elif [[ -f "CMakeLists.txt" ]]; then
+            mkdir build && cd build || return
+        else
+            echo "No C++ project found in this directory!"
+            return
+        fi
+    fi
+
+    # Check if cmake is installed
+    if ! command -v cmake &> /dev/null; then
+        echo "cmake could not be found"
+        return
+    fi
+
+    cmake ..
+
+    # check if mold is installed is missing because
+    # zsh is not able to find the mold command
+    if [[ -f CMakeCache.txt ]]; then
+        mold --run cmake --build . -- "$@"
+    elif [[ -f Makefile ]]; then
+        mold --run make -j $(nproc) "$@"
+    elif [[ -f build.ninja ]]; then
+        mold --run ninja "$@"
+    else
+        echo 'Could not determine a suitable build command!' >&2
+        return
+    fi
+
+    # Run tests if the build is successful
+    if [[ $? -eq 0 ]]; then
+        ctest
+    else
+        echo 'Build failed, skipping test execution.' >&2
+    fi
+}
+
 function kill-tmux-sessions() {
   if [ -n "$TMUX" ]; then
     tmux list-sessions | grep -v attached | awk 'BEGIN{FS=":"}{print $1}' | xargs -n 1 tmux kill-session -t || echo No sessions to kill

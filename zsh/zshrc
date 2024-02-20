@@ -200,7 +200,7 @@ function new(){
     if [[ "$dir" == "$my_home" ]]; then
       cd "$dir"
     else
-      cd "$dir"
+      cd ~/"$dir"
     fi
     if [ -n "$TMUX" ]; then
       tmux rename-window "$(basename "$dir")"

@@ -167,17 +167,32 @@ function build-cpp() {
 
     cmake ..
 
-    # check if mold is installed is missing because
-    # zsh is not able to find the mold command
+    echo "Building C++ project..."
+    # not pretty but zsh doesn't like when defining prefix to /bin/mold
+    if [[ -x /bin/mold ]]; then
+      if [[ -f CMakeCache.txt ]]; then
+          mold --run cmake --build . -- "$@"
+      elif [[ -f Makefile ]]; then
+          mold --run make -j $(nproc) "$@"
+      elif [[ -f build.ninja ]]; then
+          mold --run ninja "$@"
+      else
+          echo 'Could not determine a suitable build command!' >&2
+      fi
+
+      return
+    fi
+
     if [[ -f CMakeCache.txt ]]; then
-        mold --run cmake --build . -- "$@"
+        cmake --build . -- "$@"
     elif [[ -f Makefile ]]; then
-        mold --run make -j $(nproc) "$@"
+        make -j $(nproc) "$@"
     elif [[ -f build.ninja ]]; then
-        mold --run ninja "$@"
+        ninja "$@"
     else
         echo 'Could not determine a suitable build command!' >&2
     fi
+
 }
 
 function kill-tmux-sessions() {

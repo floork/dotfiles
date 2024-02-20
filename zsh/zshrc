@@ -196,9 +196,12 @@ function new(){
 
   # Use fzf to select a directory from the list
   dir=$(echo "$directories" | tr ' ' '\n' | fzf)
-  # dir=$(fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~--full-path '$HOME')
   if [ -n "$dir" ]; then
-    cd ~/"$dir"
+    if [[ "$dir" == "$my_home" ]]; then
+      cd "$dir"
+    else
+      cd "$dir"
+    fi
     if [ -n "$TMUX" ]; then
       tmux rename-window "$(basename "$dir")"
     fi

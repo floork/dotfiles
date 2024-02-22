@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # Function to get list of all TMUX sessions
 get_sessions() {

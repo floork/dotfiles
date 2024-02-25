@@ -1,10 +1,9 @@
 # Inserts a blank line between shell prompts
 add_newline = true
+command_timeout = 10000
 
 # General prompt structure
 format = "[$username]($style_username)$hostname$os$directory$aws$cmake$conda$dart$docker_context$elixir$elm$git_branch$git_status$golang$helm$hg_branch$java$julia$kubernetes$nim$nix_shell$nodejs$package$perl$php$python$terraform$ruby$rust$swift$vagrant$vlang$zig$sudo$cmd_duration\n$shell$character"
-
-command_timeout = 10000
 
 [username]
 format = " [╭─$user]($style)@"
@@ -20,10 +19,20 @@ ssh_only = false
 style = "yellow bold "
 trim_at = "-"
 
-# Change the default prompt characters
-[character]
-success_symbol = " [╰─λ](cyan bold dimmed)"
-error_symbol = "[╰─X](cyan bold dimmed)"
+[os]
+format = "on [$symbol](bold white) "
+disabled = false
+
+# SYMBOLS
+[os.symbols]
+# Linux = ''
+Arch = '󰣇'
+Debian = ''
+Fedora = ''
+NixOS = ''
+Ubuntu = ''
+Macos = '󰀵'
+Windows = ' '
 
 [directory]
 truncation_length = 3
@@ -52,20 +61,10 @@ unknown_indicator = "mystery shell"
 style = "cyan bold dimmed"
 disabled = false
 
-[os]
-format = "on [$symbol](bold white) "
-disabled = false
-
-# SYMBOLS
-[os.symbols]
-# Linux = ''
-Arch = '󰣇'
-Debian = ''
-Fedora = ''
-NixOS = ''
-Ubuntu = ''
-Macos = '󰀵'
-Windows = ' '
+# Change the default prompt characters
+[character]
+success_symbol = " [╰─λ](cyan bold dimmed)"
+error_symbol = "[╰─X](cyan bold dimmed)"
 
 [status]
 disabled = true

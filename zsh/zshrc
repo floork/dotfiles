@@ -92,6 +92,39 @@ function ex ()
     fi
 }
 
+function pack() {
+    local source="$1"
+    local format="$2"
+    local output="${source%.*}.$format"
+
+    if [ -z "$source" ] || [ -z "$format" ]; then
+        echo "Usage: compress <source> <format>"
+        echo "Example: compress /path/to/directory zip"
+        return 1
+    fi
+
+    case "$format" in
+        zip)
+            zip -r "$output" "$source"
+            ;;
+        tar)
+            tar -cvf "$output" "$source"
+            ;;
+        gz)
+            tar -czvf "$output" "$source"
+            ;;
+        bz2)
+            tar -cjvf "$output" "$source"
+            ;;
+        *)
+            echo "Unsupported format: $format"
+            return 1
+            ;;
+    esac
+
+    echo "Compression complete: $output"
+}
+
 function gt-push() {
     git add .
     git commit -m "$*"

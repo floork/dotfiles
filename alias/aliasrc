@@ -86,9 +86,9 @@ alias laptopbuild='sudo nixos-rebuild switch --flake .#laptop'
 alias cval='make && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ${1} 2> valgrind.log'
 
 # shorcuts
-alias sshrc='vim ~/.ssh/config'
+alias sshrc='cd ~/.ssh && nvim ~/.ssh/config'
 alias vimrc='cd ~/.config/nvim && nvim .'
-alias dotfiles='vim ~/dotfiles/'
+alias dotfiles='cd ~/dotfiles && vim ~/dotfiles/'
 alias gitconfig='vim ~/.gitconfig'
 
 alias test='echo "test"'

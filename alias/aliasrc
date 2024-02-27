@@ -76,8 +76,7 @@ alias fishrc='vim ~/.config/fish/config.fish' # Quick access to the ~/.fishrc fi
 alias aliasrc='vim ~/.aliasrc' # Quick access to this file
 
 # nix alias
-alias nixrc='vim /etc/nixos/configuration.nix' # Quick access to the nixos configuration file
-alias homerc='vim /etc/nixos/home.nix' # Quick access to the home-manager configuration file
+alias nixrc='cd /etc/nixos && vim /etc/nixos/' 
 alias nixsearch='nix-env -qaP'
 alias desktopbuild='sudo nixos-rebuild switch --flake .#desktop'
 alias laptopbuild='sudo nixos-rebuild switch --flake .#laptop'

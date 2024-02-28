@@ -9,7 +9,6 @@ create_symlinks() {
         [".bashrc"]="$script_dir/bash/bashrc"
         [".aliasrc"]="$script_dir/alias/aliasrc"
         [".zshrc"]="$script_dir/zsh/zshrc"
-        [".themes"]="$script_dir/themes"
         [".config/dunst"]="$script_dir/dunst"
         [".config/fish"]="$script_dir/fish"
         [".config/gh"]="$script_dir/gh"

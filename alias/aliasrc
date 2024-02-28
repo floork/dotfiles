@@ -70,10 +70,10 @@ alias rflatty='flatpak remove'
 alias tmuxrc='vim ~/.tmux.conf' # Quick access to the ~/.tmux.conf file
 
 # shell alias
-alias zshrc='vim ~/.zshrc' # Quick access to the ~/.zshrc file
-alias bashrc='vim ~/.bashrc' # Quick access to the ~/.bashrc file
-alias fishrc='vim ~/.config/fish/config.fish' # Quick access to the ~/.fishrc file
-alias aliasrc='vim ~/.aliasrc' # Quick access to this file
+alias zshrc='cd ~/dotfiles/zsh && vim ~/dotfiles/zsh/zshrc' # Quick access to the ~/.zshrc file
+alias bashrc='cd ~/dotfiles/bash && vim ~/dotfiles/bash/bashrc' # Quick access to the ~/.bashrc file
+alias fishrc='cd ~/dotfiles/fish && vim ~/dotfiles/fish/fishrc' # Quick access to the ~/.fishrc file
+alias aliasrc='cd ~/dotfiles/alias/ && vim ~/dotfiles/alias/aliasrc' # Quick access to this file
 
 # nix alias
 alias nixrc='cd /etc/nixos && vim /etc/nixos/' 

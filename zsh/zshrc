@@ -256,6 +256,11 @@ function new(){
   fi
 }
 
+function note() {
+    touch "/tmp/note.$1"
+    vim "+set ft=$1" "/tmp/note.$1"
+}
+
 pack_man
 
 ### End of functions

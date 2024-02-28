@@ -161,6 +161,11 @@ function cpp-build()
     fi
 }
 
+function note() {
+    touch "/tmp/note.$1"
+    vim "+set ft=$1" "/tmp/note.$1"
+}
+
 pack_man
 
 export PATH="/home/flmr799e/.npm-global/lib/node_modules/.bin:$PATH"

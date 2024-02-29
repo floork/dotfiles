@@ -7,7 +7,8 @@ create_symlinks() {
     declare -A symlinks=(
         [".gitconfig"]="$script_dir/git/gitconfig" 
         [".bashrc"]="$script_dir/bash/bashrc"
-        [".aliasrc"]="$script_dir/alias/aliasrc"
+        [".aliasrc"]="$script_dir/shell/aliasrc"
+        [".functionsrc"]="$script_dir/shell/functionsrc"
         [".zshrc"]="$script_dir/zsh/zshrc"
         [".config/dunst"]="$script_dir/dunst"
         [".config/fish"]="$script_dir/fish"

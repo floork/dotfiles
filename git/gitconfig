@@ -45,6 +45,13 @@
 	repo = ~/.zsh/plugins/marlonrichert/zsh-autosuggestions
 	repo = ~/.zsh/plugins/z-shell/zsh-navigation-tools
 	repo = ~/.zsh/plugins/zsh-users/zsh-syntax-highlighting
+	repo = /home/flmr799e/.zsh/plugins/znap
+	repo = /home/flmr799e/.zsh/plugins/Anant-mishra1729/web-search
+	repo = /home/flmr799e/.zsh/plugins/arzzen/calc.plugin.zsh
+	repo = /home/flmr799e/.zsh/plugins/chisui/zsh-nix-shell
+	repo = /home/flmr799e/.zsh/plugins/marlonrichert/zsh-autosuggestions
+	repo = /home/flmr799e/.zsh/plugins/z-shell/zsh-navigation-tools
+	repo = /home/flmr799e/.zsh/plugins/zsh-users/zsh-syntax-highlighting
 [rerere]
 	enabled = true
 	autoupdate = true

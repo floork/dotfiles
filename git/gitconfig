@@ -1,59 +1,48 @@
-[user]
-  email = florian_alexander.mros@tu-dresden.de 
-  name = Florian Mros
- signingKey = 970BFFDE20269FF4
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-[core]
-	autocrlf = input
-	excludesFile = ~/.gitignore_global
-	editor = nvim
-[credential "https://github.com"]
-	helper =
-	helper = !gh auth git-credential
-[credential "https://gist.github.com"]
-	helper =
-  helper = !gh auth git-credential
-[credential "https://gitlab.com"]
-	helper = 
-	helper = !glab auth git-credential
+[alias]
+  bclone = clone --bare
+  chdate-now = commit --amend --date=now
+  fpush = push --force-with-lease
+  lg = !git lg1
+  lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+  lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''     %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+  ri = rebase --interactive
+  undo = reset --soft HEAD~1
+  update = pull --rebase --autostash origin $1
+  update-dev = pull --rebase --autostash origin dev
+  update-main = pull --rebase --autostash origin main
+  update-master = pull --rebase --autostash origin master
+[branch]
+  sort = -committerdate
 [commit]
   gpgsign = true
+[core]
+  autocrlf = input
+  editor = nvim
+  excludesFile = ~/.gitignore_global
+[credential "https://github.com"]
+  helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+  helper = !gh auth git-credential
+[credential "https://gitlab.com"]
+  helper = !glab auth git-credential
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 [init]
   defaultBranch = main
-[alias]
-  lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-  lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
-  lg = !"git lg1"
-  fpush = push --force-with-lease
-  undo = reset --soft HEAD~1
-  chdate-now = commit --amend --date=now
-  update-master = pull --rebase --autostash origin master
-  update-main = pull --rebase --autostash origin main
-  update-dev = pull --rebase --autostash origin dev
-  update = pull --rebase --autostash origin $1
-  squash = rebase --interactive 
-  bclone = clone --bare
+[rerere]
+  enabled = true
+  autoupdate = true
+[user]
+  email = florian_alexander.mros@tu-dresden.de
+  name = Florian Mros
+  signingKey = 970BFFDE20269FF4
 [maintenance]
-	repo = ~/.zsh/plugins/znap
-	repo = ~/.zsh/plugins/Anant-mishra1729/web-search
+  repo = ~/.zsh/plugins/Anant-mishra1729/web-search
   repo = ~/.zsh/plugins/arzzen/calc.plugin.zsh
   repo = ~/.zsh/plugins/chisui/zsh-nix-shell
-	repo = ~/.zsh/plugins/marlonrichert/zsh-autosuggestions
-	repo = ~/.zsh/plugins/z-shell/zsh-navigation-tools
-	repo = ~/.zsh/plugins/zsh-users/zsh-syntax-highlighting
-	repo = /home/flmr799e/.zsh/plugins/znap
-	repo = /home/flmr799e/.zsh/plugins/Anant-mishra1729/web-search
-	repo = /home/flmr799e/.zsh/plugins/arzzen/calc.plugin.zsh
-	repo = /home/flmr799e/.zsh/plugins/chisui/zsh-nix-shell
-	repo = /home/flmr799e/.zsh/plugins/marlonrichert/zsh-autosuggestions
-	repo = /home/flmr799e/.zsh/plugins/z-shell/zsh-navigation-tools
-	repo = /home/flmr799e/.zsh/plugins/zsh-users/zsh-syntax-highlighting
-[rerere]
-	enabled = true
-	autoupdate = true
-[branch]
-	sort = -committerdate
+  repo = ~/.zsh/plugins/marlonrichert/zsh-autosuggestions
+  repo = ~/.zsh/plugins/z-shell/zsh-navigation-tools
+  repo = ~/.zsh/plugins/zsh-users/zsh-syntax-highlighting

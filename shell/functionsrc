@@ -156,6 +156,10 @@ function new(){
   fi
 }
 
+function note() {
+    vim "+set ft=$1" "/tmp/note.$1"
+}
+
 pack_man
 
 

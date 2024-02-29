@@ -23,7 +23,7 @@ Feel free to explore the contents of this repository and adapt any configuration
 
 ## Structure
 
-- **alias**: Contains custom command aliases for convenience.
+- **shell**: Contains custom command aliases & functions for convenience.
 - **bash**: Configurations for the Bash shell.
 - **bin**: Personal scripts and executable files.
 - **dunst**: Configuration for the Dunst notification daemon.
@@ -40,7 +40,6 @@ Feel free to explore the contents of this repository and adapt any configuration
 - **waybar**: Configuration for the Waybar status bar.
 - **wezterm**: Configuration for the WezTerm terminal emulator.
 - **wofi**: Configuration for the Wofi application launcher.
-- **xsettingsd**: Xsettings daemon configuration.
 - **zsh**: Configurations for the Zsh shell.
 - **CODE_OF_CONDUCT.md**: Code of Conduct for contributing to this repository.
 - **CONTRIBUTING.md**: Guidelines for contributing to this repository.

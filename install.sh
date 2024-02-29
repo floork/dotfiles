@@ -5,23 +5,37 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 create_symlinks() {
     declare -A symlinks=(
-        [".gitconfig"]="$script_dir/git/gitconfig" 
-        [".bashrc"]="$script_dir/bash/bashrc"
-        [".aliasrc"]="$script_dir/shell/aliasrc"
-        [".functionsrc"]="$script_dir/shell/functionsrc"
-        [".zshrc"]="$script_dir/zsh/zshrc"
-        [".config/dunst"]="$script_dir/dunst"
-        [".config/fish"]="$script_dir/fish"
-        [".config/gh"]="$script_dir/gh"
-        [".config/hypr"]="$script_dir/hypr"
-        [".config/neofetch"]="$script_dir/neofetch"
-        [".config/starship.toml"]="$script_dir/starship/starship.toml"
-        [".config/Thunar"]="$script_dir/Thunar"
-        [".tmux.conf"]="$script_dir/tmux/tmux.conf"
-        [".config/waybar"]="$script_dir/waybar"
-        [".config/wezterm"]="$script_dir/wezterm"
-        [".config/wofi"]="$script_dir/wofi"
-        [".config/zsh"]="$script_dir/zsh"
+    # SHELL
+    # # bash
+    [".bashrc"]="$script_dir/bash/bashrc"
+    # # fish
+    [".config/fish"]="$script_dir/fish"
+    # # zsh
+    [".config/zsh"]="$script_dir/zsh"
+    [".zshrc"]="$script_dir/zsh/zshrc"
+    # # shared resources
+    [".aliasrc"]="$script_dir/shell/aliasrc"
+    [".functionsrc"]="$script_dir/shell/functionsrc"
+
+    # GIT
+    [".gitconfig"]="$script_dir/git/gitconfig" 
+    [".config/gh"]="$script_dir/gh"
+
+    # CLI
+    # # tmux
+    [".tmux.conf"]="$script_dir/tmux/tmux.conf"
+    # # neofetch
+    [".config/neofetch"]="$script_dir/neofetch"
+    # # starship
+    [".config/starship.toml"]="$script_dir/starship/starship.toml"
+
+    # Desktop applications
+    [".config/dunst"]="$script_dir/dunst"
+    [".config/hypr"]="$script_dir/hypr"
+    [".config/Thunar"]="$script_dir/Thunar"
+    [".config/waybar"]="$script_dir/waybar"
+    [".config/wezterm"]="$script_dir/wezterm"
+    [".config/wofi"]="$script_dir/wofi"
     )
 
     create_symlink() {

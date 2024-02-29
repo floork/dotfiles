@@ -21,7 +21,6 @@ create_symlinks() {
         [".config/waybar"]="$script_dir/waybar"
         [".config/wezterm"]="$script_dir/wezterm"
         [".config/wofi"]="$script_dir/wofi"
-        [".config/xsettingsd"]="$script_dir/xsettingsd"
         [".config/zsh"]="$script_dir/zsh"
     )
 

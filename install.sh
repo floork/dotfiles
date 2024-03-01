@@ -34,8 +34,10 @@ create_symlinks() {
     [".config/hypr"]="$script_dir/hypr"
     [".config/Thunar"]="$script_dir/Thunar"
     [".config/waybar"]="$script_dir/waybar"
-    [".config/wezterm"]="$script_dir/wezterm"
     [".config/wofi"]="$script_dir/wofi"
+    # # terminal
+    [".config/warp-terminal"]="$script_dir/warp-terminal"
+    [".config/wezterm"]="$script_dir/wezterm"
     )
 
     create_symlink() {

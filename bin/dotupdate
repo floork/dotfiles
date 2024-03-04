@@ -1,0 +1,21 @@
+#!/bin/env bash
+
+current_dir=$(pwd)
+
+desired_dir="$HOME/dotfiles/"
+cd "$desired_dir" || exit
+
+# Stash any uncommitted changes
+git stash save "Temporary stash for pull"
+
+# Pull the latest changes
+git pull
+
+# Pop (reapply) the stashed changes
+git stash pop
+
+# Run the installation script
+bash "$HOME/dotfiles/install.sh"
+
+# Return to the original directory
+cd "$current_dir" || exit

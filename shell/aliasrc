@@ -73,7 +73,7 @@ alias tmuxrc='vim ~/.tmux.conf' # Quick access to the ~/.tmux.conf file
 alias zshrc='cd ~/dotfiles/zsh && vim ~/dotfiles/zsh/zshrc' # Quick access to the ~/.zshrc file
 alias bashrc='cd ~/dotfiles/bash && vim ~/dotfiles/bash/bashrc' # Quick access to the ~/.bashrc file
 alias fishrc='cd ~/dotfiles/fish && vim ~/dotfiles/fish/fishrc' # Quick access to the ~/.fishrc file
-alias aliasrc='cd ~/dotfiles/shell/ && vim ~/dotfiles/alias/aliasrc' # Quick access to this file
+alias aliasrc='cd ~/dotfiles/shell/ && vim ~/dotfiles/shell/aliasrc' # Quick access to this file
 alias functionsrc='cd ~/dotfiles/shell/ && vim ~/dotfiles/functions/functionsrc' # Quick access to this file
 
 # nix alias
@@ -89,6 +89,6 @@ alias cval='make && valgrind --leak-check=full --show-leak-kinds=all --track-ori
 alias sshrc='cd ~/.ssh && vim ~/.ssh/config'
 alias vimrc='cd ~/.config/nvim && vim .'
 alias dotfiles='cd ~/dotfiles && vim .'
-alias gitconfig='cd ~/dotfiles/git && vim gitconfig'
+alias gitconfig='cd ~/dotfiles/git && vim ~/.gitconfig'
 
 alias test='echo "test"'

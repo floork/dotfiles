@@ -75,7 +75,6 @@ This script will symlink the dotfiles to their appropriate locations in your hom
 
 - [ ] overhaul
    - [ ] wofi-wifi.sh
-   - [ ] random wallpaper?
 
 ## Contributing
 

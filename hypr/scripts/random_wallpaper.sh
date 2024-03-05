@@ -1,21 +1,62 @@
 #!/usr/bin/env bash
 
-wallpapers_dir=~/.config/wallpapers/
-exclude_dir1=~/.config/wallpapers/.git/
-exclude_dir2=~/.config/wallpapers/anime/.git/
+# Define the path for the lock file
+LOCK_FILE="/tmp/set_wallpaper.lock"
 
-if [ $(ps aux | grep swaybg | grep -v grep | wc -l) -gt 0 ]; then
-	killall swaybg
-fi
+# Function to acquire the lock
+function acquire_lock() {
+	# Attempt to create the lock file
+	if [ -e "$LOCK_FILE" ]; then
+		echo "Another instance is already running. Exiting."
+		exit 1
+	else
+		touch "$LOCK_FILE"
+	fi
+}
 
-swaybg -i "$(find "$wallpapers_dir" -type f -not -path "$exclude_dir1*" -not -path "$exclude_dir2*" | shuf -n1)" -m fit &
-OLD_PID=$!
+# Function to release the lock
+function release_lock() {
+	rm -f "$LOCK_FILE"
+}
 
-while true; do
-	sleep 600
-	swaybg -i "$(find "$wallpapers_dir" -type f -not -path "$exclude_dir1*" -not -path "$exclude_dir2*" | shuf -n1)" -m fit &
-	NEXT_PID=$!
-	sleep 5
-	kill $OLD_PID
-	OLD_PID=$NEXT_PID
-done
+# Function to kill swaybg if running
+function kill_swaybg() {
+	if pgrep -x "swaybg" >/dev/null; then
+		killall swaybg
+	fi
+}
+
+# Function to set wallpaper
+function set_wallpaper() {
+	kill_swaybg
+
+	local wallpapers_dir="$HOME/.config/wallpapers/"
+	local exclude_1="$HOME/.config/wallpapers/.git/"
+	local exclude_2="$HOME/.config/wallpapers/anime/.git/"
+
+	wallpaper=$(find "$wallpapers_dir" -type f -not -path "$exclude_1*" -not -path "$exclude_2*" | shuf -n1)
+	swaybg -i "$wallpaper" -m fill &
+}
+
+# Function to handle cleanup
+function cleanup() {
+	release_lock
+}
+
+# Trap cleanup function on exit
+trap cleanup EXIT
+
+# Main function
+function main() {
+	acquire_lock
+
+	set_wallpaper
+
+	# Set wallpaper every 10 minutes
+	while true; do
+		sleep 600
+		set_wallpaper
+	done
+}
+
+main

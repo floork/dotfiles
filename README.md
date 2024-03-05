@@ -8,6 +8,7 @@ This repository contains my personal dotfiles, configurations, and scripts tailo
 - [Usage](#usage)
 - [Structure](#structure)
 - [Installation](#installation)
+- [TODO](#todo)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -69,6 +70,12 @@ cd dotfiles
 ```
 
 This script will symlink the dotfiles to their appropriate locations in your home directory.
+
+## TODO
+
+- [ ] overhaul
+   - [ ] wofi-wifi.sh
+   - [ ] random wallpaper?
 
 ## Contributing
 

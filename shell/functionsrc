@@ -2,164 +2,194 @@
 
 # ex - archive extractor
 # usage: ex <file>
-function ex ()
-{
-    if [ -f $1 ] ; then
-        case $1 in
-            *.tar.bz2)   tar xjf $1   ;;
-            *.tar.gz)    tar xzf $1   ;;
-            *.tar.xz)    tar xJf $1   ;;
-            *.bz2)       bunzip2 $1   ;;
-            *.rar)       unrar x $1     ;;
-            *.gz)        gunzip $1    ;;
-            *.tar)       tar xf $1    ;;
-            *.tbz2)      tar xjf $1   ;;
-            *.tgz)       tar xzf $1   ;;
-            *.zip)       unzip $1     ;;
-            *.Z)         uncompress $1;;
-            *.7z)        7z x $1      ;;
-            *)           echo "'$1' cannot be extracted via ex()" ;;
-        esac
-    else
-        echo "'$1' is not a valid file"
-    fi
+function ex() {
+	if [ -f $1 ]; then
+		case $1 in
+		*.tar.bz2) tar xjf $1 ;;
+		*.tar.gz) tar xzf $1 ;;
+		*.tar.xz) tar xJf $1 ;;
+		*.bz2) bunzip2 $1 ;;
+		*.rar) unrar x $1 ;;
+		*.gz) gunzip $1 ;;
+		*.tar) tar xf $1 ;;
+		*.tbz2) tar xjf $1 ;;
+		*.tgz) tar xzf $1 ;;
+		*.zip) unzip $1 ;;
+		*.Z) uncompress $1 ;;
+		*.7z) 7z x $1 ;;
+		*) echo "'$1' cannot be extracted via ex()" ;;
+		esac
+	else
+		echo "'$1' is not a valid file"
+	fi
+}
+
+function compress() {
+	local source="$1"
+	local format="$2"
+	local output="${source%.*}.$format"
+
+	if [ -z "$source" ] || [ -z "$format" ]; then
+		echo "Usage: compress <source> <format>"
+		echo "Example: compress /path/to/directory zip"
+		return 1
+	fi
+
+	case "$format" in
+	zip)
+		zip -r "$output" "$source"
+		;;
+	tar)
+		tar -cvf "$output" "$source"
+		;;
+	gz)
+		tar -czvf "$output" "$source"
+		;;
+	bz2)
+		tar -cjvf "$output" "$source"
+		;;
+	*)
+		echo "Unsupported format: $format"
+		return 1
+		;;
+	esac
+
+	echo "Compression complete: $output"
 }
 
 function gt-push() {
-    git add .
-    git commit -m "$*"
-    git pull
-    git push
+	git add .
+	git commit -m "$*"
+	git pull
+	git push
 }
 
-function pack_man(){
-    if [ -x "$(command -v apk)" ];then
-        alias pkm='sudo apk add --no-cache '
-        elif [ -x "$(command -v apt-get)" ];then
-        alias pkm='sudo apt install '
-        alias rpkm='sudo apt remove'
-        alias rpkmcleanup='sudo apt autoremove'
-        alias packdate='sudo apt -y update && flatpak -y --noninteractive update'
-        elif [ -x "$(command -v dnf)" ];then
-        alias pkm='sudo dnf install '
-        alias rpkm='sudo dnf remove '
-        alias rpkmcleanup='sudo dnf -y autoremove'
-        alias packdate='sudo dnf -y upgrade --refresh'
-        elif [ -x "$(command -v zypper)" ];then
-        alias pkm='sudo zypper install '
-        elif [ -x "$(command -v paru)" ];then
-        alias pkm="paru -S "
-        alias rpkm='paru -Rdd'
-        alias pacman-update='sudo pacman-mirrors --geoip'
-        alias rpkmcleanup='paru -Rns $(paru -Qdtq)' # Cleanup orphaned packages
-        alias fixpacman="sudo rm /var/lib/pacman/db.lck"
-        alias pkmgrade='paru --noconfirm -Syu && sudo flatpak -y --noninteractive update'
-        # get fastest mirrors
-        alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
-        alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
-        alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
-        alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
-        elif [ -x "$(command -v nix-env)" ]; then
-        # Nix package manager
-        alias pkm='nix-env -iA'
-        alias rpkm='nix-env -e'
-        alias rpkmcleanup='nix-collect-garbage -d'
-        alias packdate='nix-channel --update'
-    else
-        echo 'This Distro is not supported!'
-    fi
+function pack_man() {
+	if [ -x "$(command -v apk)" ]; then
+		alias pkm='sudo apk add --no-cache '
+	elif [ -x "$(command -v apt-get)" ]; then
+		alias pkm='sudo apt install '
+		alias rpkm='sudo apt remove'
+		alias rpkmcleanup='sudo apt autoremove'
+		alias packdate='sudo apt -y update && flatpak -y --noninteractive update'
+	elif [ -x "$(command -v dnf)" ]; then
+		alias pkm='sudo dnf install '
+		alias rpkm='sudo dnf remove '
+		alias rpkmcleanup='sudo dnf -y autoremove'
+		alias packdate='sudo dnf -y upgrade --refresh'
+	elif [ -x "$(command -v zypper)" ]; then
+		alias pkm='sudo zypper install '
+	elif [ -x "$(command -v paru)" ]; then
+		alias pkm="paru -S "
+		alias rpkm='paru -Rdd'
+		alias pacman-update='sudo pacman-mirrors --geoip'
+		alias rpkmcleanup='paru -Rns $(paru -Qdtq)' # Cleanup orphaned packages
+		alias fixpacman="sudo rm /var/lib/pacman/db.lck"
+		alias pkmgrade='paru --noconfirm -Syu && sudo flatpak -y --noninteractive update'
+		# get fastest mirrors
+		alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
+		alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
+		alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
+		alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
+	elif [ -x "$(command -v nix-env)" ]; then
+		# Nix package manager
+		alias pkm='nix-env -iA'
+		alias rpkm='nix-env -e'
+		alias rpkmcleanup='nix-collect-garbage -d'
+		alias packdate='nix-channel --update'
+	else
+		echo 'This Distro is not supported!'
+	fi
 }
 
 function frm {
-    read -p "Are you sure you want to delete? (y/n): " -k response
-    if [[ "$response" == "y" || "$response" == "Y" ]]; then
-        rm -rf "$@"
-    else
-        echo "Aborted."
-    fi
+	read -p "Are you sure you want to delete? (y/n): " -k response
+	if [[ "$response" == "y" || "$response" == "Y" ]]; then
+		rm -rf "$@"
+	else
+		echo "Aborted."
+	fi
 }
 
 function build-cpp() {
-    # Check if current directory is named "build"
-    if [[ $(basename "$(pwd)") != "build" ]]; then
-        if [[ -d "build" ]]; then
-            cd build || return
-        elif [[ -f "CMakeLists.txt" ]]; then
-            mkdir build && cd build || return
-        else
-            echo "No C++ project found in this directory!"
-            return
-        fi
-    fi
+	# Check if current directory is named "build"
+	if [[ $(basename "$(pwd)") != "build" ]]; then
+		if [[ -d "build" ]]; then
+			cd build || return
+		elif [[ -f "CMakeLists.txt" ]]; then
+			mkdir build && cd build || return
+		else
+			echo "No C++ project found in this directory!"
+			return
+		fi
+	fi
 
-    # Check if cmake is installed
-    if ! command -v cmake &> /dev/null; then
-        echo "cmake could not be found"
-        return
-    fi
+	# Check if cmake is installed
+	if ! command -v cmake &>/dev/null; then
+		echo "cmake could not be found"
+		return
+	fi
 
-    cmake ..
+	cmake ..
 
-    echo "Building C++ project..."
-    # not pretty but zsh doesn't like when defining prefix to /bin/mold
-    if [[ -x /bin/mold ]]; then
-      if [[ -f CMakeCache.txt ]]; then
-          mold --run cmake --build . -- "$@"
-      elif [[ -f Makefile ]]; then
-          mold --run make -j $(nproc) "$@"
-      elif [[ -f build.ninja ]]; then
-          mold --run ninja "$@"
-      else
-          echo 'Could not determine a suitable build command!' >&2
-      fi
+	echo "Building C++ project..."
+	# not pretty but zsh doesn't like when defining prefix to /bin/mold
+	if [[ -x /bin/mold ]]; then
+		if [[ -f CMakeCache.txt ]]; then
+			mold --run cmake --build . -- "$@"
+		elif [[ -f Makefile ]]; then
+			mold --run make -j $(nproc) "$@"
+		elif [[ -f build.ninja ]]; then
+			mold --run ninja "$@"
+		else
+			echo 'Could not determine a suitable build command!' >&2
+		fi
 
-      return
-    fi
+		return
+	fi
 
-    if [[ -f CMakeCache.txt ]]; then
-        cmake --build . -- "$@"
-    elif [[ -f Makefile ]]; then
-        make -j $(nproc) "$@"
-    elif [[ -f build.ninja ]]; then
-        ninja "$@"
-    else
-        echo 'Could not determine a suitable build command!' >&2
-    fi
+	if [[ -f CMakeCache.txt ]]; then
+		cmake --build . -- "$@"
+	elif [[ -f Makefile ]]; then
+		make -j $(nproc) "$@"
+	elif [[ -f build.ninja ]]; then
+		ninja "$@"
+	else
+		echo 'Could not determine a suitable build command!' >&2
+	fi
 
 }
 
 function kill-tmux-sessions() {
-  if [ -n "$TMUX" ]; then
-    tmux list-sessions | grep -v attached | awk 'BEGIN{FS=":"}{print $1}' | xargs -n 1 tmux kill-session -t || echo No sessions to kill
-  else
-    echo "Not in a tmux session"
-  fi
+	if [ -n "$TMUX" ]; then
+		tmux list-sessions | grep -v attached | awk 'BEGIN{FS=":"}{print $1}' | xargs -n 1 tmux kill-session -t || echo No sessions to kill
+	else
+		echo "Not in a tmux session"
+	fi
 }
 
-function new(){
-  # Find directories in both the regular home directory and specific home directory
-  directories=$(fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~)
-  my_home=$(echo ~)
-  directories+=" $my_home"
+function new() {
+	# Find directories in both the regular home directory and specific home directory
+	directories=$(fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~)
+	my_home=$(echo ~)
+	directories+=" $my_home"
 
-  # Use fzf to select a directory from the list
-  dir=$(echo "$directories" | tr ' ' '\n' | fzf)
-  if [ -n "$dir" ]; then
-    if [[ "$dir" == "$my_home" ]]; then
-      cd "$dir"
-    else
-      cd ~/"$dir"
-    fi
-    if [ -n "$TMUX" ]; then
-      tmux rename-window "$(basename "$dir")"
-    fi
-  fi
+	# Use fzf to select a directory from the list
+	dir=$(echo "$directories" | tr ' ' '\n' | fzf)
+	if [ -n "$dir" ]; then
+		if [[ "$dir" == "$my_home" ]]; then
+			cd "$dir"
+		else
+			cd ~/"$dir"
+		fi
+		if [ -n "$TMUX" ]; then
+			tmux rename-window "$(basename "$dir")"
+		fi
+	fi
 }
 
 function note() {
-    vim "+set ft=$1" "/tmp/note.$1"
+	vim "+set ft=$1" "/tmp/note.$1"
 }
 
 pack_man
-
-

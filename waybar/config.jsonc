@@ -58,6 +58,7 @@
     "spacing": 6
   },
   "clock": {
+    "interval": 1,
     "locale": "C",
     "format": " {:%I:%M:%S %p,   %a, %b %d}",
     "format-alt": "  {:%a,%b %d}" // Icon: calendar-alt

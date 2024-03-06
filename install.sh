@@ -85,62 +85,12 @@ function install_wallpapers() {
 	fi
 }
 
-function update_git_repositories() {
-	WALLPAPERS_DIR="$HOME/.config/wallpapers"
-	echo "Updating wallpapers repository..."
-	if [ -d "$WALLPAPERS_DIR" ]; then
-		cd "$WALLPAPERS_DIR" || exit
-		git pull --recurse-submodules || {
-			echo "Failed to update wallpapers repository"
-			exit 1
-		}
-		cd "$script_dir" || exit
-	fi
-
-	NVIM_CONFIG_DIR="$HOME/.config/nvim"
-	echo "Updating nvim configuration..."
-	if [ -d "$NVIM_CONFIG_DIR" ]; then
-		cd "$NVIM_CONFIG_DIR" || exit
-		git pull || {
-			echo "Failed to update nvim configuration"
-			exit 1
-		}
-		cd "$script_dir" || exit
-	else
-		git clone https://github.com/floork/nvim.git "$NVIM_CONFIG_DIR" || {
-			echo "Failed to clone nvim configuration"
-			exit 1
-		}
-	fi
-
-	if [ ! -e "$script_dir/nvim" ]; then
-		ln -s "$NVIM_CONFIG_DIR" "$script_dir/nvim" || {
-			echo "Failed to create symlink for nvim"
-			exit 1
-		}
-	fi
-}
-
-function update_user_bin_directory() {
-	BIN_DIR="$HOME/.local/bin"
-	mkdir -p "$BIN_DIR"
-
-	for file in "$script_dir/bin"/*; do
-		ln -sf "$file" "$BIN_DIR/" || {
-			echo "Failed to update user bin directory"
-			exit 1
-		}
-	done
-}
-
 function setup_dotfiles() {
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 	create_symlinks
 	install_tmux_plugin_manager
 	install_wallpapers
-	update_git_repositories
-	update_user_bin_directory
 	echo "Dotfiles setup complete."
 }
 

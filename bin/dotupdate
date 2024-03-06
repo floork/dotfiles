@@ -1,34 +1,58 @@
 #!/bin/env bash
 
-function update_from_repository() {
-	# Stash any uncommitted changes
-	git stash save "Temporary stash for pull"
+function update_dotfiles() {
+	if ! [[ $(git status --porcelain) ]]; then
+		echo "Pulling latest updates..."
+		git pull
+		return
+	fi
 
-	# Pull the latest changes
+	echo "Stashing any changes..."
+
+	# Stash any changes
+	git stash --include-untracked --quiet
+
+	# Update the repository
 	git pull
 
-	# Pop (reapply) the stashed changes
-	git stash pop
+	# Pop the stash
+	git stash pop --quiet
+}
+
+function update_nvim() {
+	NVIM_CONFIG_DIR="$HOME/.config/nvim"
+	echo "Updating nvim configuration..."
+	if ! [[ -d "$NVIM_CONFIG_DIR" ]]; then
+		git clone https://github.com/floork/nvim.git "$NVIM_CONFIG_DIR" || {
+			echo "Failed to clone nvim configuration"
+			exit 1
+		}
+		return
+	fi
+
+	cd "$NVIM_CONFIG_DIR" || exit
+	git pull || {
+		echo "Failed to update nvim configuration"
+		exit 1
+	}
+	cd "$script_dir" || exit
+}
+
+function update_user_bin_directory() {
+	BIN_DIR="$HOME/.local/bin"
+	mkdir -p "$BIN_DIR"
+
+	for file in "$script_dir/bin"/*; do
+		ln -sf "$file" "$BIN_DIR/" || {
+			echo "Failed to update user bin directory"
+			exit 1
+		}
+	done
 }
 
 function run_installation_script() {
 	# Run the installation script
 	bash "$HOME/dotfiles/install.sh"
-}
-
-function reload_shell() {
-	local current_shell
-	current_shell=$(basename "$SHELL")
-
-	if [[ $current_shell == "zsh" ]]; then
-		exec zsh
-		source "$HOME/.zshrc"
-	elif [[ $current_shell == "bash" ]]; then
-		exec bash
-		source "$HOME/.bashrc"
-	else
-		echo "Error: Unknown shell: $current_shell"
-	fi
 }
 
 function main() {
@@ -43,9 +67,10 @@ function main() {
 	cd "$desired_dir" || exit
 
 	# Update the repository
-	update_from_repository
+	update_dotfiles
+	update_nvim
+	update_user_bin_directory
 	run_installation_script
-	reload_shell
 
 	# Return to the original directory
 	cd "$current_dir" || exit

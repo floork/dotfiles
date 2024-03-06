@@ -73,8 +73,7 @@ This script will symlink the dotfiles to their appropriate locations in your hom
 
 ## TODO
 
-- [ ] overhaul
-   - [ ] wofi-wifi.sh
+- [x] overhaul
 
 ## Contributing
 

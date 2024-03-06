@@ -40,6 +40,7 @@
   name = Florian Mros
   signingKey = 970BFFDE20269FF4
 [maintenance]
+  repo = ~/.zsh/plugins/znap
   repo = ~/.zsh/plugins/Anant-mishra1729/web-search
   repo = ~/.zsh/plugins/arzzen/calc.plugin.zsh
   repo = ~/.zsh/plugins/chisui/zsh-nix-shell

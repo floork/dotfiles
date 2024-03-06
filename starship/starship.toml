@@ -145,7 +145,7 @@ disabled = false
 symbol = " "
 
 [nix_shell]
-symbol = " "
+symbol = ""
 
 [nodejs]
 format = "via [ $version](bold green) "

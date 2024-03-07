@@ -60,8 +60,8 @@
   "clock": {
     "interval": 1,
     "locale": "C",
-    "format": " {:%I:%M:%S %p,   %a, %b %d}",
-    "format-alt": "  {:%a,%b %d}" // Icon: calendar-alt
+    "format": "{: %T %Z,   %a, %b %d}",
+    "on-click": "exec cal"
   },
   "cpu": {
     "format": "&#8239;{usage}%",

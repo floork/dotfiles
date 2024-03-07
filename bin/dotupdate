@@ -11,6 +11,7 @@ function update_dotfiles() {
 
 	# Stash any changes
 	git stash --include-untracked --quiet
+set -euo pipefail
 
 	# Update the repository
 	git pull

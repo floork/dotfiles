@@ -86,6 +86,7 @@ function install_wallpapers() {
 }
 
 function setup_dotfiles() {
+	echo "Setting up dotfiles..."
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 	create_symlinks

@@ -1,23 +1,12 @@
 #!/bin/env bash
 
-function update_dotfiles() {
-	if ! [[ $(git status --porcelain) ]]; then
-		echo "Pulling latest updates..."
-		git pull
-		return
-	fi
-
-	echo "Stashing any changes..."
-
-	# Stash any changes
-	git stash --include-untracked --quiet
 set -euo pipefail
 
-	# Update the repository
-	git pull
-
-	# Pop the stash
-	git stash pop --quiet
+function update_dotfiles() {
+	git pull --autostash --rebase || {
+		echo "Failed to update dotfiles"
+		exit 1
+	}
 }
 
 function update_nvim() {

@@ -61,12 +61,12 @@
     "interval": 1,
     "locale": "C",
     "format": "{: %T %Z,   %a, %b %d}",
-    "on-click": "exec cal"
+    "on-click": "thunderbird"
   },
   "cpu": {
     "format": "&#8239;{usage}%",
     "tooltip": false,
-    "on-click": "exec 'htop'"
+    "on-click": "wezterm start -e 'htop'"
   },
   "memory": {
     "interval": 30,

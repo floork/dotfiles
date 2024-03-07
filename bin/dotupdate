@@ -25,14 +25,14 @@ function update_nvim() {
 		echo "Failed to update nvim configuration"
 		exit 1
 	}
-	cd "$script_dir" || exit
+	cd "$dir_from_cmd_source" || exit
 }
 
 function update_user_bin_directory() {
 	BIN_DIR="$HOME/.local/bin"
 	mkdir -p "$BIN_DIR"
 
-	for file in "$script_dir/bin"/*; do
+	for file in "$dir_from_cmd_source/bin"/*; do
 		ln -sf "$file" "$BIN_DIR/" || {
 			echo "Failed to update user bin directory"
 			exit 1
@@ -46,15 +46,15 @@ function run_installation_script() {
 }
 
 function main() {
-	local current_dir
-	local desired_dir
+	local dir_from_cmd_source
+	local dotfiles_dir
 
 	# Get the current directory
-	current_dir=$(pwd)
+	dir_from_cmd_source=$(pwd)
 
 	# Change to the dotfiles directory
-	desired_dir="$HOME/dotfiles/"
-	cd "$desired_dir" || exit
+	dotfiles_dir="$HOME/dotfiles/"
+	cd "$dotfiles_dir" || exit
 
 	# Update the repository
 	update_dotfiles
@@ -63,7 +63,7 @@ function main() {
 	run_installation_script
 
 	# Return to the original directory
-	cd "$current_dir" || exit
+	cd "$dir_from_cmd_source" || exit
 }
 
 main

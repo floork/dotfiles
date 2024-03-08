@@ -79,14 +79,14 @@
   "network": {
     "interval": 2,
     "format-wifi": " {signalStrength}%",
-    "format-ethernet": "",
+    "format-ethernet": " eth",
     "format-linked": " {ipaddr}",
     "format-disconnected": " Disconnected",
     "format-disabled": "",
     "tooltip": true,
     "max-length": 20,
-    "min-length": 6,
-    "format-alt": "{essid}"
+    "min-length": 6
+    // "format-alt": "{essid}"
   },
   // "idle_inhibitor": {
   //   "format": "{icon}",

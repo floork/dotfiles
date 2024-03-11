@@ -57,6 +57,7 @@ powershell_indicator = "󰨊"
 bash_indicator = ""
 fish_indicator = ""
 zsh_indicator = "󱐋"
+nu_indicator = ""
 unknown_indicator = "mystery shell"
 style = "cyan bold dimmed"
 disabled = false

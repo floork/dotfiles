@@ -24,29 +24,29 @@ Feel free to explore the contents of this repository and adapt any configuration
 
 ## Structure
 
-- **shell**: Contains custom command aliases & functions for convenience.
-- **bash**: Configurations for the Bash shell.
-- **bin**: Personal scripts and executable files.
-- **dunst**: Configuration for the Dunst notification daemon.
-- **fish**: Configurations for the Fish shell.
-- **gh**: GitHub-related configurations.
-- **git**: Git configurations and aliases.
-- **hypr**: Configuration for the Hypr terminal emulator.
-- **neofetch**: Custom configuration for Neofetch.
-- **nvim**: Configurations for the Neovim text editor.
-- **obs**: Configuration for the OBS Studio streaming software.
-- **starship**: Custom configuration for the Starship prompt.
-- **Thunar**: Customizations for the Thunar file manager.
-- **tmux**: Configuration for the Tmux terminal multiplexer.
-- **waybar**: Configuration for the Waybar status bar.
-- **wezterm**: Configuration for the WezTerm terminal emulator.
-- **wofi**: Configuration for the Wofi application launcher.
-- **zsh**: Configurations for the Zsh shell.
-- **CODE_OF_CONDUCT.md**: Code of Conduct for contributing to this repository.
-- **CONTRIBUTING.md**: Guidelines for contributing to this repository.
-- **install.sh**: Installation script for deploying dotfiles.
-- **LICENSE.md**: License information for the contents of this repository.
-- **README.md**: This README file.
+- **[shell](shell)**: Contains custom command aliases & functions for convenience.
+- **[bash](bash)**: Configurations for the Bash shell.
+- **[dotfiles](dotfiles)**: Personal scripts and executable files.
+- **[dunst](dunst)**: Configuration for the Dunst notification daemon.
+- **[fish](fish)**: Configurations for the Fish shell.
+- **[github cli](gh)**: GitHub-related configurations.
+- **[git](git)**: Git configurations and aliases.
+- **[hypr](hypr)**: Configuration for the Hypr terminal emulator.
+- **[neofetch](neofetch)**: Custom configuration for Neofetch.
+- **[nvim](nvim)**: Configurations for the Neovim text editor.
+- **[obs](obs)**: Configuration for the OBS Studio streaming software.
+- **[starship](starship)**: Custom configuration for the Starship prompt.
+- **[Thunar](Thunar)**: Customizations for the Thunar file manager.
+- **[tmux](tmux)**: Configuration for the Tmux terminal multiplexer.
+- **[waybar](waybar)**: Configuration for the Waybar status bar.
+- **[wezterm](wezterm)**: Configuration for the WezTerm terminal emulator.
+- **[wofi](wofi)**: Configuration for the Wofi application launcher.
+- **[zsh](zsh)**: Configurations for the Zsh shell.
+- **[CODE_OF_CONDUCT](CODE_OF_CONDUCT.md)**: Code of Conduct for contributing to this repository.
+- **[CONTRIBUTING](CONTRIBUTING.md)**: Guidelines for contributing to this repository.
+- **[install](install.sh)**: Installation script for deploying dotfiles.
+- **[LICENSE](LICENSE.md)**: License information for the contents of this repository.
+- **[README](README.md)**: This README file.
 
 ## Installation
 
@@ -74,6 +74,9 @@ This script will symlink the dotfiles to their appropriate locations in your hom
 ## TODO
 
 - [x] overhaul
+- [ ] nushell
+   - [ ] aliases in separate file
+   - [ ] fix uncommented functions and import them properly
 
 ## Contributing
 

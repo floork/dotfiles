@@ -9,6 +9,8 @@ function update_symlinks() {
 		[".bashrc"]="$dotfiles_dir/bash/bashrc"
 		# # fish
 		[".config/fish"]="$dotfiles_dir/fish"
+		# # nushell
+		[".config/nushell"]="$dotfiles_dir/nushell"
 		# # zsh
 		[".config/zsh"]="$dotfiles_dir/zsh"
 		[".zshrc"]="$dotfiles_dir/zsh/zshrc"

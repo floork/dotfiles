@@ -1,0 +1,56 @@
+ls
+cls
+clear
+ls
+cat ~/dotfiles/shell/functionsrc
+cd
+ls
+cd .config/
+ls
+cd nushell/
+vim .
+ls
+vim env.nu
+vim config.nu
+cd
+cd dotfiles/
+vim
+nvim .
+ls
+cls
+clear
+cd
+cd .config/nushell/
+ls
+cd
+explore
+ls
+ls ~
+la ~
+ls -a ~
+zip 
+zip --help 
+ls
+cls
+clear
+os
+echo os
+echo $OS
+echo $OS<\n>
+$env | get OS
+echo system::os
+tmux list-sessions
+tmux list-sessions | lines
+tmux list-sessions | lines  | where { $it.contains "attached" } 
+tmux list-sessions | lines  | where { $it.contains attached } 
+tmux list-sessions | lines  | where { str contains "attached" } 
+tmux list-sessions | lines  | where { str contains --not "attached" } 
+(path.list "/home") | str
+(path.list "/home") 
+path.home
+cls
+ls
+cls
+clear
+cd..
+cls

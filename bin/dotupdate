@@ -6,37 +6,37 @@ function update_symlinks() {
 	declare -A symlinks=(
 		# SHELL
 		# # bash
-		[".bashrc"]="$script_dir/bash/bashrc"
+		[".bashrc"]="$dotfiles_dir/bash/bashrc"
 		# # fish
-		[".config/fish"]="$script_dir/fish"
+		[".config/fish"]="$dotfiles_dir/fish"
 		# # zsh
-		[".config/zsh"]="$script_dir/zsh"
-		[".zshrc"]="$script_dir/zsh/zshrc"
+		[".config/zsh"]="$dotfiles_dir/zsh"
+		[".zshrc"]="$dotfiles_dir/zsh/zshrc"
 		# # shared resources
-		[".aliasrc"]="$script_dir/shell/aliasrc"
-		[".functionsrc"]="$script_dir/shell/functionsrc"
+		[".aliasrc"]="$dotfiles_dir/shell/aliasrc"
+		[".functionsrc"]="$dotfiles_dir/shell/functionsrc"
 
 		# GIT
-		[".gitconfig"]="$script_dir/git/gitconfig"
-		[".config/gh"]="$script_dir/gh"
+		[".gitconfig"]="$dotfiles_dir/git/gitconfig"
+		[".config/gh"]="$dotfiles_dir/gh"
 
 		# CLI
 		# # tmux
-		[".tmux.conf"]="$script_dir/tmux/tmux.conf"
+		[".tmux.conf"]="$dotfiles_dir/tmux/tmux.conf"
 		# # neofetch
-		[".config/neofetch"]="$script_dir/neofetch"
+		[".config/neofetch"]="$dotfiles_dir/neofetch"
 		# # starship
-		[".config/starship.toml"]="$script_dir/starship/starship.toml"
+		[".config/starship.toml"]="$dotfiles_dir/starship/starship.toml"
 
 		# Desktop applications
-		[".config/dunst"]="$script_dir/dunst"
-		[".config/hypr"]="$script_dir/hypr"
-		[".config/Thunar"]="$script_dir/Thunar"
-		[".config/waybar"]="$script_dir/waybar"
-		[".config/wofi"]="$script_dir/wofi"
+		[".config/dunst"]="$dotfiles_dir/dunst"
+		[".config/hypr"]="$dotfiles_dir/hypr"
+		[".config/Thunar"]="$dotfiles_dir/Thunar"
+		[".config/waybar"]="$dotfiles_dir/waybar"
+		[".config/wofi"]="$dotfiles_dir/wofi"
 		# # terminal
-		[".config/warp-terminal"]="$script_dir/warp-terminal"
-		[".config/wezterm"]="$script_dir/wezterm"
+		[".config/warp-terminal"]="$dotfiles_dir/warp-terminal"
+		[".config/wezterm"]="$dotfiles_dir/wezterm"
 	)
 
 	create_symlink() {
@@ -82,14 +82,14 @@ function update_nvim() {
 		echo "Failed to update nvim configuration"
 		exit 1
 	}
-	cd "$dir_from_cmd_source" || exit
+	cd "$dotfiles_dir" || exit
 }
 
 function update_user_bin_directory() {
 	BIN_DIR="$HOME/.local/bin"
 	mkdir -p "$BIN_DIR"
 
-	for file in "$dir_from_cmd_source/bin"/*; do
+	for file in "$dotfiles_dir/bin"/*; do
 		ln -sf "$file" "$BIN_DIR/" || {
 			echo "Failed to update user bin directory"
 			exit 1
@@ -105,13 +105,12 @@ function update_wallpapers() {
 			echo "Failed to update wallpapers"
 			exit 1
 		}
-		cd "$dir_from_cmd_source" || exit
+		cd "$dotfiles_dir" || exit
 	fi
 }
 
 function main() {
 	local dir_from_cmd_source
-	local dotfiles_dir
 
 	# Get the current directory
 	dir_from_cmd_source=$(pwd)
@@ -121,6 +120,7 @@ function main() {
 	cd "$dotfiles_dir" || exit
 
 	# Update the repository
+	update_symlinks
 	update_dotfiles
 	update_nvim
 	update_user_bin_directory

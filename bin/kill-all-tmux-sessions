@@ -1,0 +1,11 @@
+#!/bin/env bash
+
+function kill-tmux-sessions() {
+	if [ -n "$TMUX" ]; then
+		tmux list-sessions | grep -v attached | awk 'BEGIN{FS=":"}{print $1}' | xargs -n 1 tmux kill-session -t || echo No sessions to kill
+	else
+		echo "Not in a tmux session"
+	fi
+}
+
+kill-tmux-sessions

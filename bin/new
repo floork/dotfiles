@@ -1,0 +1,25 @@
+#!/bin/env bash
+
+function new() {
+	# Find directories in both the regular home directory and specific home directory
+	directories=$(fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~)
+	my_home=$(echo ~)
+	directories+=" $my_home"
+
+	# Use fzf to select a directory from the list
+	dir=$(echo "$directories" | tr ' ' '\n' | fzf)
+	if [ -n "$dir" ]; then
+		echo $dir
+		if [[ "$dir" == "$my_home" ]]; then
+			cd "$dir"
+		else
+			echo "cd ~/$dir"
+			cd ~/"$dir"
+		fi
+		if [ -n "$TMUX" ]; then
+			tmux rename-window "$(basename "$dir")"
+		fi
+	fi
+}
+
+new

@@ -54,3 +54,277 @@ cls
 clear
 cd..
 cls
+ec
+ex
+ls
+la
+vim .
+ls
+lt
+tree
+cls
+nushellrc_function 
+l
+path.basename
+cd GIT/GitLab/tree-widget.git/read-in-gui/
+build-cpp 
+cmake
+which cmake
+cd GIT/GitLab/tree-widget.git/read-in-gui/
+build-cpp 
+which sdf
+cd GIT/GitLab/tree-widget.git/read-in-gui/
+build-cpp 
+cd GIT/GitLab/tree-widget.git/read-in-gui/
+build-cpp 
+cd GIT/GitLab/tree-widget.git/read-in-gui/
+build-cpp 
+count
+count (which cmake)
+count ...(which cmake)
+count ...(which cmake | get path)
+which cmake 
+which cmake | get #
+which cmake | get id
+which cmake | get
+get --help
+which cmake | get 0
+cd GIT/GitLab/tree-widget.git/read-in-gui/
+build-cpp 
+cd GIT/GitLab/tree-widget.git/read-in-gui/
+build-cpp 
+cd GIT/GitLab/tree-widget.git/read-in-gui/
+build-cpp 
+cd GIT/GitLab/tree-widget.git/read-in-gui/
+build-cpp 
+path
+file
+> ls | where name == "CMakeCache.txt" | count<\n>
+ls
+ls | where name == "Desktop"
+ls | where name == "CMakeCache.txt"
+ls | where name == "CMakeCache.txt" | count
+cd GIT/GitLab/tree-widget.git/read-in-gui/
+build-cpp 
+cd GIT/GitLab/tree-widget.git/read-in-gui/
+build-cpp 
+new
+note
+note txt
+cd
+ls
+cd temp/
+ls
+ex VK_Hintergrund_svg-Vorlage.zip
+unzp
+unzip
+ex VK_Hintergrund_svg-Vorlage.zip
+cls
+compress VK_Hintergrund_svg-Vorlage/ tar
+ls
+tar xf VK_Hintergrund_svg-Vorlage VK_Hintergrund_svg-Vorlage.tar
+tar xf VK_Hintergrund_svg-Vorlage.tar VK_Hintergrund_svg-Vorlage
+tar -cvf VK_Hintergrund_svg-Vorlage.tar VK_Hintergrund_svg-Vorlage/
+ls
+rm VK_Hintergrund_svg-Vorlage.tar
+compress VK_Hintergrund_svg-Vorlage/ tar
+ls
+cd temp/
+compress VK_Hintergrund_svg-Vorlage/ tar
+ls
+tar -cv VK_Hintergrund_svg-Vorlage/
+tar -cvf VK_Hintergrund_svg-Vorlage/
+tldr tar
+cd temp/
+compress VK_Hintergrund_svg-Vorlage/ tar
+cd temp/
+compress VK_Hintergrund_svg-Vorlage/ tar
+ls
+rm VK_Hintergrund_svg-Vorlage.tar
+compress VK_Hintergrund_svg-Vorlage/ zip
+ls
+compress VK_Hintergrund_svg-Vorlage/ tar.gz
+ls
+rm VK_Hintergrund_svg-Vorlage.tar.gz
+cls
+ls
+ex VK_Hintergrund_svg-Vorlage.zip
+cd temp/
+ls
+ex Videohintergrund_16zu9_Farbflaeche.zip
+ls
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+ls
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+ls 
+ls| where name ends-with *
+ls| where name ends-with zip
+reload
+cd temp/
+ls
+ex Videohintergrund_16zu9_Farbflaeche.zip
+ls
+ls VK_Hintergrund_svg-Vorlage.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+ls VK_Hintergrund_svg-Vorlage.zip | get name
+ls VK_Hintergrund_svg-Vorlage.zip | get name ends-with
+ls VK_Hintergrund_svg-Vorlage.zip | metadata type
+ls VK_Hintergrund_svg-Vorlage.zip | metadata type | into file_type
+ls VK_Hintergrund_svg-Vorlage.zip | get extension
+ls VK_Hintergrund_svg-Vorlage.zip | get name | into file_extension
+ls VK_Hintergrund_svg-Vorlage.zip | metadata kind
+ls VK_Hintergrund_svg-Vorlage.zip | string
+ls VK_Hintergrund_svg-Vorlage.zip | select 
+ls VK_Hintergrund_svg-Vorlage.zip | select name
+ls VK_Hintergrund_svg-Vorlage.zip | select name | metadata type
+ls VK_Hintergrund_svg-Vorlage.zip | select name | metadata name
+ls VK_Hintergrund_svg-Vorlage.zip | select name base
+ls VK_Hintergrund_svg-Vorlage.zip | select name base_extension
+select --help
+cls
+ls
+ls | str split-separator "." 1 | get column 1<\n>
+str --help
+ls | str substring 0 (str index-of "." | first)<\n>
+ls | str substring (str index-of "." | first) -1<\n>
+ls | str substring 
+ls | str substring (str index-of "." | first)
+ls | str substring (str index-of ".")
+str index-of "."
+ls | str index-of "."
+ls | get name | str index-of "."
+ls | select name | str substring (str index-of "." | first) -1
+ls VK_Hintergrund_svg-Vorlage.zip | select name | str substring (str index-of "." | first) -1
+ls VK_Hintergrund_svg-Vorlage.zip | select name | str substring (str index-of "." | first) 
+ls VK_Hintergrund_svg-Vorlage.zip | select name 
+ls VK_Hintergrund_svg-Vorlage.zip | select name | split-by "."
+ls VK_Hintergrund_svg-Vorlage.zip | select path | str split "." last
+ls VK_Hintergrund_svg-Vorlage.zip | select path | str split "." last | get [0].last<\n>
+ls VK_Hintergrund_svg-Vorlage.zip | each { str split $it name "." | get [1] }<\n>
+str --help
+ls VK_Hintergrund_svg-Vorlage.zip | each { str find $it "." | str substr $it $it }<\n>
+ls VK_Hintergrund_svg-Vorlage.zip | str index-of "." | str substring $it<\n>
+ls VK_Hintergrund_svg-Vorlage.zip | str index-of "." | str substring $it.last<\n>
+ls VK_Hintergrund_svg-Vorlage.zip | str substring $(str index-of ".").last<\n>
+ls VK_Hintergrund_svg-Vorlage.zip | str index-of "." 
+ls VK_Hintergrund_svg-Vorlage.zip | select name | str index-of "." 
+ls VK_Hintergrund_svg-Vorlage.zip | select name | str substring (str index-of "." )
+ls VK_Hintergrund_svg-Vorlage.zip | select name | str substring (str index-of "." ))
+ls VK_Hintergrund_svg-Vorlage.zip | select name | str substring ((str index-of "." )..(str length -1))
+ls VK_Hintergrund_svg-Vorlage.zip | select name | str substring ((str index-of "." )..(str.length -1))
+ls VK_Hintergrund_svg-Vorlage.zip | select name | str substring ((str index-of "." )..(length -1))
+ls VK_Hintergrund_svg-Vorlage.zip | select name | str substring ((str index-of "." )..(length))
+ls VK_Hintergrund_svg-Vorlage.zip | get base | str split-by "." | last<\n>
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str split-by "." | last<\n>
+ls VK_Hintergrund_svg-Vorlage.zip | str split "." | last | str trim-start "." | str trim-end "zip"<\n>
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str substring ((str index-of "." )..(length))
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str index-of "."
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str substring ((str index-of "." +1 )..(length -1))
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str substring ((str index-of "." + 1)..(length - 1))<\n>
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str substring ((str index-of "." + 1)..(str length) - 1)<\n>
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str substring ((str index-of "." + 1)..(str length))<\n>
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str substring (str index-of "." + 1)..(str length -1)<\n>
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str substring ((str index-of "." + 1)..(str length -1 ))
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str substring ((str index-of "." + 1)..(str length))
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str substring ((str index-of ".")..(str length))
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str substring ((str index-of ".")..(length))
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str substring ((str index-of ".")..(str length))
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str substring ((str index-of ".")+1..(str length))
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str length
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str index-of "."
+ls VK_Hintergrund_svg-Vorlage.zip | get name | str substring 27..30
+cd temp/
+ls
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+ls VK_Hintergrund_svg-Vorlage.zip | get name 
+ls VK_Hintergrund_svg-Vorlage.zip | get name | grep "*."
+ls VK_Hintergrund_svg-Vorlage.zip | get name | find . -type f | egrep -i -E -o "\.{1}\w*$" | sort -su
+ls VK_Hintergrund_svg-Vorlage.zip | get name | egrep -i -E -o "\.{1}\w*$" | sort -su
+ls VK_Hintergrund_svg-Vorlage.zip | get name | egrep -i -E -o "\.{1}\w*$" 
+ls VK_Hintergrund_svg-Vorlage.zip | get name | each { echo $it | grp '\.[^.]+$' }
+ls VK_Hintergrund_svg-Vorlage.zip | get name | grep -o '\.[^.]*$'
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+ls VK_Hintergrund_svg-Vorlage.zip | get name | grep -o '\.[^.]*$(?=\s*\|)'
+ls --format=single --indicator-style=extension
+cd temp/
+sl
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+cls
+ls VK_Hintergrund_svg-Vorlage.zip | get name | grep -oP '(?<=\.)[A-Za-z]+'
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+cd temp/
+ex Videohintergrund_16zu9_Farbflaeche.zip
+ls
+kill-tmux-sessions 
+new
+path --help
+new
+cls
+cd temp/
+ls
+vim test.sh
+./test.sh
+chmod +x test.sh
+./test.sh
+mv test.sh new
+cp new kill-all-tmux-sessions
+vim  kill-all-tmux-sessions
+mv new ../dotfiles/bin/
+mv kill-all-tmux-sessions ../dotfiles/bin/
+cd
+cd dotfiles/
+dotupdate 
+new
+vim 
+vim
+new
+vim .
+new
+vim .
+new
+cd ~/Pictures/
+cd
+dotfiles 
+mv .local/bin/new .local/bin/new_
+dotfiles 
+new
+reload
+source $nu.config-path
+new
+source $nu.config-path

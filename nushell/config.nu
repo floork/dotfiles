@@ -794,7 +794,7 @@ $env.config = {
 }
 
 # start tmux
-exec tmux
+# exec tmux
 
 # Regular alias
 alias please = please_function
@@ -891,15 +891,15 @@ def gitconfig [] {
 
 def pkm [] {
 	if not (which apk | is-empty) {
-		sudo apk add --no-cache 
+		sudo apk add --no-cache
   } else if not (which apt | is-empty) {
-		sudo apt install 
+		sudo apt install
  } else if not (which dnf | is-empty) {
-		sudo dnf install 
+		sudo dnf install
  } else if not (which zypper | is-empty) {
-		sudo zypper install 
+		sudo zypper install
  } else if not (which paru | is-empty) {
-		paru -S 
+		paru -S
  } else if not (which nix-env | is-empty) {
 		nix-env -iA
  } else {
@@ -911,7 +911,7 @@ def rpkm [] {
   if not (which apt | is-empty) {
 		sudo apt remove
  } else if not (which dnf | is-empty) {
-		sudo dnf remove 
+		sudo dnf remove
  } else if not (which paru | is-empty) {
 	  paru -Rdd
  } else {
@@ -923,7 +923,7 @@ def rpkmcleanup [] {
   if not (which apt | is-empty) {
         sudo apt autoremove
  } else if not (which dnf | is-empty) {
-        sudo dnf autoremove 
+        sudo dnf autoremove
  } else if not (which paru | is-empty) {
       paru -Yc
  } else if not (which nix-env | is-empty) {
@@ -1005,7 +1005,7 @@ def new --env [] {
     let home_directories = fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~
     let my_home = $env.HOME
 
-    let directories = [$home_directories, $my_home] | str join 
+    let directories = [$home_directories, $my_home] | str join
 
     let dir = $directories | fzf
     if ($dir | is-empty) {
@@ -1018,7 +1018,7 @@ def new --env [] {
 
     if $dir == $my_home {
         cd $dir ; return
-    } 
+    }
 
     print ($my_home + "/" + $dir)
     let final_dir = ($my_home + "/" + $dir)

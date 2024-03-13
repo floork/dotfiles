@@ -411,3 +411,5 @@ pkmgrade
 source $nu.config-path
 chsh
 dotfiles 
+chsh
+cls

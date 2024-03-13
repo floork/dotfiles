@@ -328,3 +328,86 @@ reload
 source $nu.config-path
 new
 source $nu.config-path
+ls
+la
+ls -a
+ll
+ls -l
+dotfiles 
+vim .
+cd
+cd dotfiles/
+nvi)
+nvim .
+source $nu.config-path
+nvim .
+source $nu.config-path
+nvim .
+source $nu.config-path
+nvim .
+source $nu.config-path
+cls
+new
+vim .
+new
+source $nu.config-path
+new
+vim .
+source $nu.config-path
+new
+vim .
+source $nu.config-path
+./Thunar/ | path basename
+Thunar/ | path basename
+./install.sh | path basename
+path basename LICENSE.md
+vim .
+path.basename Thunar/
+path --help
+'./install.sh' | path basename
+vim .
+source $nu.config-path
+new
+vim .
+source $nu.config-path
+new
+vim .
+source $nu.config-path
+new
+vim .
+cd /home/flmr799e/Pictures/
+dotfiles 
+source $nu.config-path
+new
+vim .
+new
+source $nu.config-path
+new
+cls
+l 
+lsa
+lsd
+cls
+source $nu.config-path
+new
+cd
+ls
+source $nu.config-path
+cls
+la
+ll
+la
+lal
+cls
+source $nu.config-path
+pkm
+pkmgrade
+source $nu.config-path
+packdate
+pkmgrade
+source $nu.config-path
+cls
+pkmgrade
+source $nu.config-path
+chsh
+dotfiles 

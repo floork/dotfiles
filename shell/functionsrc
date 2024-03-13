@@ -190,6 +190,26 @@ function build-cpp() {
 
 }
 
+function new() {
+	# Find directories in both the regular home directory and specific home directory
+	directories=$(fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~)
+	my_home=$(echo ~)
+	directories+=" $my_home"
+
+	# Use fzf to select a directory from the list
+	dir=$(echo "$directories" | tr ' ' '\n' | fzf)
+	if [ -n "$dir" ]; then
+		if [[ "$dir" == "$my_home" ]]; then
+			cd "$dir"
+		else
+			cd ~/"$dir"
+		fi
+		if [ -n "$TMUX" ]; then
+			tmux rename-window "$(basename "$dir")"
+		fi
+	fi
+}
+
 function note() {
 	vim "+set ft=$1" "/tmp/note.$1"
 }

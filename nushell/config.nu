@@ -2,13 +2,6 @@
 #
 # version = "0.91.0"
 
-
-
-const functions_file = "~/dotfiles/nushell/functions.nu"
-if ([ $functions_file ] | all {path exists}) {
-    source $functions_file
-}
-
 # For more information on defining custom themes, see
 # https://www.nushell.sh/book/coloring_and_theming.html
 # And here is the theme collection
@@ -150,7 +143,7 @@ let light_theme = {
 
 # The default config record. This is where much of your global configuration is setup.
 $env.config = {
-    show_banner: true # true or false to enable or disable the welcome banner at startup
+    show_banner: false # true or false to enable or disable the welcome banner at startup
 
     ls: {
         use_ls_colors: true # use the LS_COLORS environment variable to colorize output
@@ -374,34 +367,6 @@ $env.config = {
             }
         }
         {
-            name: history_menu
-            modifier: control
-            keycode: char_r
-            mode: [emacs, vi_insert, vi_normal]
-            event: { send: menu name: history_menu }
-        }
-        {
-            name: help_menu
-            modifier: none
-            keycode: f1
-            mode: [emacs, vi_insert, vi_normal]
-            event: { send: menu name: help_menu }
-        }
-        {
-            name: completion_previous_menu
-            modifier: shift
-            keycode: backtab
-            mode: [emacs, vi_normal, vi_insert]
-            event: { send: menuprevious }
-        }
-        {
-            name: next_page_menu
-            modifier: control
-            keycode: char_x
-            mode: emacs
-            event: { send: menupagenext }
-        }
-        {
             name: undo_or_previous_page_menu
             modifier: control
             keycode: char_z
@@ -427,26 +392,19 @@ $env.config = {
             mode: [emacs, vi_normal, vi_insert]
             event: { send: ctrlc }
         }
-        {
-            name: quit_shell
-            modifier: control
-            keycode: char_d
-            mode: [emacs, vi_normal, vi_insert]
-            event: { send: ctrld }
-        }
+        # {
+        #     name: quit_shell
+        #     modifier: control
+        #     keycode: char_d
+        #     mode: [emacs, vi_normal, vi_insert]
+        #     event: { send: ctrld }
+        # }
         {
             name: clear_screen
             modifier: control
             keycode: char_l
             mode: [emacs, vi_normal, vi_insert]
             event: { send: clearscreen }
-        }
-        {
-            name: search_history
-            modifier: control
-            keycode: char_q
-            mode: [emacs, vi_normal, vi_insert]
-            event: { send: searchhistory }
         }
         {
             name: open_command_editor
@@ -541,18 +499,6 @@ $env.config = {
             name: move_to_line_end_or_take_history_hint
             modifier: none
             keycode: end
-            mode: [emacs, vi_normal, vi_insert]
-            event: {
-                until: [
-                    { send: historyhintcomplete }
-                    { edit: movetolineend }
-                ]
-            }
-        }
-        {
-            name: move_to_line_end_or_take_history_hint
-            modifier: control
-            keycode: char_e
             mode: [emacs, vi_normal, vi_insert]
             event: {
                 until: [
@@ -847,6 +793,9 @@ $env.config = {
     ]
 }
 
+# start tmux
+exec tmux
+
 # Regular alias
 alias please = please_function
 alias fuck = please
@@ -872,8 +821,11 @@ alias rm = trash-put
 alias cp = cp -r
 alias open = xdg-open
 
-# Changing "ls" to "exa"
 alias l = ls
+alias la = ls -a
+alias ll = ls -l
+alias lal = ls -al
+alias lla = ls -la
 
 # help and history
 alias h = history
@@ -937,6 +889,70 @@ def gitconfig [] {
     cd ~/dotfiles/git ; nvim ~/.gitconfig
 }
 
+def pkm [] {
+	if not (which apk | is-empty) {
+		sudo apk add --no-cache 
+  } else if not (which apt | is-empty) {
+		sudo apt install 
+ } else if not (which dnf | is-empty) {
+		sudo dnf install 
+ } else if not (which zypper | is-empty) {
+		sudo zypper install 
+ } else if not (which paru | is-empty) {
+		paru -S 
+ } else if not (which nix-env | is-empty) {
+		nix-env -iA
+ } else {
+		echo 'This Distro is not supported!'
+ }
+}
+
+def rpkm [] {
+  if not (which apt | is-empty) {
+		sudo apt remove
+ } else if not (which dnf | is-empty) {
+		sudo dnf remove 
+ } else if not (which paru | is-empty) {
+	  paru -Rdd
+ } else {
+		echo 'This Distro is not supported!'
+ }
+}
+
+def rpkmcleanup [] {
+  if not (which apt | is-empty) {
+        sudo apt autoremove
+ } else if not (which dnf | is-empty) {
+        sudo dnf autoremove 
+ } else if not (which paru | is-empty) {
+      paru -Yc
+ } else if not (which nix-env | is-empty) {
+        nix-collect-garbage -d
+ } else {
+        echo 'This Distro is not supported!'
+ }
+}
+
+def pkmgrade [] {
+  if not (which apt | is-empty) {
+        sudo apt -y update and flatpak -y --noninteractive update
+ } else if not (which dnf | is-empty) {
+        sudo dnf -y upgrade --refresh
+ } else if not (which paru | is-empty) {
+      paru -Sy
+ } else {
+        echo 'This Distro is not supported!'
+ }
+}
+
+alias pacman-update = sudo pacman-mirrors --geoip
+alias fixpacman = sudo rm /var/lib/pacman/db.lck
+# get fastest mirrors
+alias mirror = sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist
+alias mirrord = sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist
+alias mirrors = sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist
+alias mirrora = sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist
+
 # ex - archive extractor
 # usage: ex <file>
 def ex [file] {
@@ -985,23 +1001,28 @@ def compress [source format] {
     echo "Compression complete: $output"
 }
 
-def new [] {
-    mut directories = fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~
-    let my_home = [(echo ~/)]
+def new --env [] {
+    let home_directories = fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~
+    let my_home = $env.HOME
 
-    $directories += $my_home
+    let directories = [$home_directories, $my_home] | str join 
 
     let dir = $directories | fzf
-    if $dir {
-        if $dir == $my_home {
-            cd $dir
-        } else {
-            cd ($my_home + "/" + $dir)
-        }
-        if $env.TMUX {
-            tmux rename-window (path.basename $dir)
-        }
+    if ($dir | is-empty) {
+        print "Directory is empty"
     }
+
+    if not ($env.TMUX | is-empty) {
+        tmux rename-window ($dir | path basename)
+    }
+
+    if $dir == $my_home {
+        cd $dir ; return
+    } 
+
+    print ($my_home + "/" + $dir)
+    let final_dir = ($my_home + "/" + $dir)
+    cd $final_dir
 }
 
 def note [filetype] {

@@ -8,14 +8,14 @@
     "sway/mode",
     "cpu",
     "memory",
-    "network",
-    "mpd"
+    "network"
   ],
   "modules-center": [
     "sway/workspaces",
     "hyprland/workspaces"
   ],
   "modules-right": [
+    "custom/weather",
     "tray",
     // "idle_inhibitor",
     "pulseaudio",
@@ -169,5 +169,12 @@
     "interval": 1,
     "exec": "echo '{\"class\": \"audio recording\"}'",
     "exec-if": "pgrep ffmpeg"
+  },
+  "custom/weather": {
+    "format": "{} °",
+    "tooltip": true,
+    "interval": 3600,
+    "exec": "wttrbar",
+    "return-type": "json"
   }
 }

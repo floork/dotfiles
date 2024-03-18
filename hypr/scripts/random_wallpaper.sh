@@ -35,6 +35,7 @@ function set_wallpaper() {
 	local exclude_2="$HOME/.config/wallpapers/anime/.git/"
 
 	wallpaper=$(find "$wallpapers_dir" -type f -not -path "$exclude_1*" -not -path "$exclude_2*" | shuf -n1)
+	cp "$wallpaper" "$wallpapers_dir/current.png"
 	swaybg -i "$wallpaper" -m fill &
 }
 

@@ -118,7 +118,7 @@ function main() {
 	dir_from_cmd_source=$(pwd)
 
 	# Change to the dotfiles directory
-	dotfiles_dir="$HOME/dotfiles/"
+	dotfiles_dir="$HOME/dotfiles"
 	cd "$dotfiles_dir" || exit
 
 	# Update the repository

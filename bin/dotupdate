@@ -32,6 +32,8 @@ function update_symlinks() {
 
 		# Desktop applications
 		[".config/dunst"]="$dotfiles_dir/dunst"
+		[".config/gromit-mpx.ini"]="$dotfiles_dir/gromit-mpx.ini"
+		[".config/gromit-mpx.cfg"]="$dotfiles_dir/gromit-mpx.cfg"
 		[".config/hypr"]="$dotfiles_dir/hypr"
 		[".config/Thunar"]="$dotfiles_dir/Thunar"
 		[".config/waybar"]="$dotfiles_dir/waybar"

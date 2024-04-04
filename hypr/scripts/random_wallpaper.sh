@@ -30,21 +30,17 @@ function kill_swaybg() {
 function set_wallpaper() {
 	kill_swaybg
 
-	local wallpapers_dir="$HOME/.config/wallpapers/"
-	local exclude_1="$HOME/.config/wallpapers/.git/"
-	local exclude_2="$HOME/.config/wallpapers/anime/.git/"
+	local wallpapers_dir="$HOME/.config/wallpapers"
+	wallpaper=$(fd . --full-path $wallpapers_dir -e png | shuf -n1)
 
-	wallpaper=$(find "$wallpapers_dir" -type f -not -path "$exclude_1*" -not -path "$exclude_2*" | shuf -n1)
 	cp "$wallpaper" "$wallpapers_dir/current.png"
 	swaybg -i "$wallpaper" -m fill &
 }
 
 function set_wallpaper_with_hyprpaper() {
-	local wallpapers_dir="$HOME/.config/wallpapers/"
-	local exclude_1="$HOME/.config/wallpapers/.git/"
-	local exclude_2="$HOME/.config/wallpapers/anime/.git/"
+	local wallpapers_dir="$HOME/.config/wallpapers"
+	wallpaper=$(fd . --full-path $wallpapers_dir -e png | shuf -n1)
 
-	wallpaper=$(find "$wallpapers_dir" -type f -not -path "$exclude_1*" -not -path "$exclude_2*" | shuf -n1)
 	cp "$wallpaper" "$wallpapers_dir/current.png"
 	monitor=$(hyprctl monitors | grep Monitor | awk '{print $2}')
 	hyprctl hyprpaper unload all

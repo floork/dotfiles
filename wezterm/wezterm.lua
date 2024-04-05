@@ -23,4 +23,12 @@ config.scrollback_lines = 10000
 
 config.enable_wayland = false
 
+config.keys = {
+  {
+    key = "w",
+    mods = "SUPER",
+    action = wezterm.action.DisableDefaultAssignment,
+  },
+}
+
 return config

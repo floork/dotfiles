@@ -111,6 +111,11 @@ function update_wallpapers() {
 		}
 		cd "$dotfiles_dir" || exit
 	fi
+
+	mkdir $WALLPAPERS_DIR
+	git clone https://github.com/floork/wallpapers $WALLPAPERS_DIR
+	cd $WALLPAPERS_DIR
+	git submodule update --init --recursive
 }
 
 function main() {
@@ -128,6 +133,7 @@ function main() {
 	update_dotfiles
 	update_nvim
 	update_user_bin_directory
+	update_wallpapers
 
 	# Return to the original directory
 	cd "$dir_from_cmd_source" || exit

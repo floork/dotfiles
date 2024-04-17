@@ -29,8 +29,8 @@
       "critical": 15
     },
     "format": "{icon}&#8239;{capacity}%",
-    "format-charging": "&#8239;{capacity}%",
-    "format-plugged": "&#8239;{capacity}%",
+    "format-charging": " &#8239;{capacity}%",
+    "format-plugged": " &#8239;{capacity}%",
     "format-alt": "{icon} {time}",
     "format-icons": [
       "",
@@ -65,13 +65,13 @@
     "on-click": "thunderbird"
   },
   "cpu": {
-    "format": "&#8239;{usage}%",
+    "format": "  &#8239;{usage}%",
     "tooltip": false,
     "on-click": "wezterm start -e 'htop'"
   },
   "memory": {
     "interval": 30,
-    "format": " {used:0.2f}GB",
+    "format": "  {used:0.2f}GB",
     "max-length": 10,
     "tooltip": false,
     "warning": 70,
@@ -79,10 +79,10 @@
   },
   "network": {
     "interval": 2,
-    "format-wifi": " {signalStrength}%",
-    "format-ethernet": " eth",
+    "format-wifi": "  {signalStrength}%",
+    "format-ethernet": "  eth",
     "format-linked": " {ipaddr}",
-    "format-disconnected": " Disconnected",
+    "format-disconnected": "  Disconnected",
     "format-disabled": "",
     "tooltip": true,
     "max-length": 20,

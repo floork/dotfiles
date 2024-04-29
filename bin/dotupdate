@@ -110,6 +110,7 @@ function update_wallpapers() {
 			exit 1
 		}
 		cd "$dotfiles_dir" || exit
+		return
 	fi
 
 	mkdir $WALLPAPERS_DIR

@@ -21,7 +21,7 @@ config.window_background_opacity = 0.9
 
 config.scrollback_lines = 10000
 
-config.enable_wayland = false
+config.enable_wayland = true
 
 config.keys = {
   {

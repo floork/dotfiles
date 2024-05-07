@@ -5,99 +5,26 @@
   "margin-bottom": 0,
   "margin-top": 0,
   "modules-left": [
-    "sway/mode",
     "cpu",
     "memory",
-    "network"
+    "network",
+    "systemd-failed-units"
   ],
   "modules-center": [
-    // "sway/workspaces",
     "hyprland/workspaces"
   ],
   "modules-right": [
+    // "hyprland/language",
     "custom/weather",
     "tray",
     // "idle_inhibitor",
+    "bluetooth",
     "pulseaudio",
     "backlight",
     "battery",
     "clock"
   ],
-  "battery": {
-    "states": {
-      "warning": 30,
-      "critical": 15
-    },
-    "format": "{icon}&#8239;{capacity}%",
-    "format-charging": " &#8239;{capacity}%",
-    "format-plugged": " &#8239;{capacity}%",
-    "format-alt": "{icon} {time}",
-    "format-icons": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
-    ]
-  },
-  "hyprland/workspaces": {
-    "sort-by-name": true,
-    "on-click": "activate"
-  },
-  "hyprland/window": {
-    "max-length": 200,
-    "separate-outputs": true
-  },
-  "sway/mode": {
-    "format": "<span style=\"italic\">{}</span>"
-  },
-  "tray": {
-    "icon-size": 16,
-    "spacing": 6
-  },
-  "clock": {
-    "interval": 1,
-    "locale": "C",
-    // "format": "{: %T %Z,   %a, %b %d}",
-    "format": "{:%T:%Z,   󰃭  %a %d/%m}",
-    "on-click": "thunderbird"
-  },
-  "cpu": {
-    "format": "  &#8239;{usage}%",
-    "tooltip": false,
-    "on-click": "wezterm start -e 'htop'"
-  },
-  "memory": {
-    "interval": 30,
-    "format": "  {used:0.2f}GB",
-    "max-length": 10,
-    "tooltip": false,
-    "warning": 70,
-    "critical": 90
-  },
-  "network": {
-    "interval": 2,
-    "format-wifi": "  {signalStrength}%",
-    "format-ethernet": "  eth",
-    "format-linked": " {ipaddr}",
-    "format-disconnected": "  Disconnected",
-    "format-disabled": "",
-    "tooltip": true,
-    "max-length": 20,
-    "min-length": 6
-    // "format-alt": "{essid}"
-  },
-  // "idle_inhibitor": {
-  //   "format": "{icon}",
-  //   "format-icons": {
-  //     "activated": "",
-  //     "deactivated": ""
-  //   }
-  // },
   "backlight": {
-    // "device": "acpi_video1",
     "format": "{icon}&#8239;{percent}%",
     "format-icons": [
       "",
@@ -106,39 +33,99 @@
     "on-scroll-down": "brightnessctl -c backlight set 1%-",
     "on-scroll-up": "brightnessctl -c backlight set +1%"
   },
-  "pulseaudio": {
-    // "scroll-step": 1, // %, can be a float
-    "format": "{icon} {volume}% {format_source}",
-    "format-bluetooth": "{icon} {volume}% {format_source}",
-    "format-bluetooth-muted": " {format_source}",
-    "format-muted": "  {format_source}",
-    "format-source": " {volume}%",
-    "format-source-muted": "",
-    "format-icons": {
-      "headphone": "",
-      "hands-free": "",
-      "headset": "🎧",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": [
-        "",
-        "",
-        ""
-      ]
-    },
-    "on-click": "pavucontrol"
+  "battery": {
+    "format": "{icon}&#8239;{capacity}%",
+    "format-charging": " &#8239;{capacity}%",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "format-plugged": " &#8239;{capacity}%",
+    "format-alt": "{icon} {time}",
+    "states": {
+      "warning": 30,
+      "critical": 15
+    }
+  },
+  "bluetooth": {
+    "format": " {status}",
+    "format-connected": " {device_alias}",
+    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+  },
+  "clock": {
+    "format": "{:%T:%Z,   󰃭  %a %d/%m}",
+    "interval": 1,
+    "locale": "C",
+    "on-click": "thunderbird"
+  },
+  "cpu": {
+    "format": "  &#8239;{usage}%",
+    "on-click": "wezterm start -e 'htop'",
+    "tooltip": true
+  },
+  "custom/audiorec": {
+    "exec": "echo '{\"class\": \"audio recording\"}'",
+    "exec-if": "pgrep ffmpeg",
+    "format": "♬ Rec",
+    "format-disabled": "♬ Off-air",
+    "interval": 1,
+    "return-type": "json"
+  },
+  "custom/recorder": {
+    "exec": "echo '{\"class\": \"recording\"}'",
+    "exec-if": "pgrep wf-recorder",
+    "format": " Rec",
+    "format-disabled": " Off-air",
+    "interval": 1,
+    "return-type": "json"
+  },
+  "custom/weather": {
+    "exec": "wttrbar",
+    "format": "{} °",
+    "interval": 3600,
+    "return-type": "json",
+    "tooltip": true
+  },
+  "hyprland/window": {
+    "max-length": 200,
+    "separate-outputs": true
+  },
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "sort-by-name": true
+  },
+  "hyprland/language": {
+    "format": "{}",
+    "max-length": 18
+  },
+  "memory": {
+    "critical": 90,
+    "format": "  {used:0.2f}GB",
+    "interval": 30,
+    "max-length": 10,
+    "tooltip": true,
+    "warning": 70
   },
   "mpd": {
+    "consume-icons": {
+      "on": " "
+    },
     "format": "{stateIcon} {artist} - {title}",
     "format-disconnected": "🎶",
     "format-stopped": "♪",
     "interval": 10,
-    "consume-icons": {
-      "on": " " // Icon shows only when "consume" is on
-    },
+    "max-length": 35,
     "random-icons": {
-      "off": "<span color=\"#f53c3c\"></span> ", // Icon grayed out when "random" is off
+      "off": "<span color=\"#f53c3c\"></span> ",
       "on": " "
     },
     "repeat-icons": {
@@ -152,30 +139,50 @@
       "playing": ""
     },
     "tooltip-format": "MPD (connected)",
-    "tooltip-format-disconnected": "MPD (disconnected)",
-    "max-length": 35
+    "tooltip-format-disconnected": "MPD (disconnected)"
   },
-  "custom/recorder": {
-    "format": " Rec",
-    "format-disabled": " Off-air", //An empty format will hide the module.
-    "return-type": "json",
-    "interval": 1,
-    "exec": "echo '{\"class\": \"recording\"}'",
-    "exec-if": "pgrep wf-recorder"
+  "network": {
+    "format-disabled": "",
+    "format-disconnected": "  Disconnected",
+    "format-ethernet": "  eth",
+    "format-linked": " {ipaddr}",
+    "format-wifi": "  {signalStrength}%",
+    "interval": 2,
+    "max-length": 20,
+    "min-length": 6,
+    "tooltip": true
   },
-  "custom/audiorec": {
-    "format": "♬ Rec",
-    "format-disabled": "♬ Off-air", //An empty format will hide the module.
-    "return-type": "json",
-    "interval": 1,
-    "exec": "echo '{\"class\": \"audio recording\"}'",
-    "exec-if": "pgrep ffmpeg"
+  "pulseaudio": {
+    "format": "{icon} {volume}% {format_source}",
+    "format-bluetooth": "{icon} {volume}% {format_source}",
+    "format-bluetooth-muted": " {format_source}",
+    "format-muted": "  {format_source}",
+    "format-source": " {volume}%",
+    "format-source-muted": "",
+    "format-icons": {
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ],
+      "hands-free": "",
+      "headphone": "",
+      "headset": "🎧",
+      "phone": "",
+      "portable": ""
+    },
+    "on-click": "pavucontrol"
   },
-  "custom/weather": {
-    "format": "{} °",
-    "tooltip": true,
-    "interval": 3600,
-    "exec": "wttrbar",
-    "return-type": "json"
+  "systemd-failed-units": {
+    "format": "systemd: ✗ {nr_failed}",
+    "format-ok": "systemd: ✓",
+    "hide-on-ok": false,
+    "system": true,
+    "user": false
+  },
+  "tray": {
+    "icon-size": 16,
+    "spacing": 6
   }
 }

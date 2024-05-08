@@ -18,6 +18,9 @@ function update_symlinks() {
 		[".aliasrc"]="$dotfiles_dir/shell/aliasrc"
 		[".functionsrc"]="$dotfiles_dir/shell/functionsrc"
 
+		# SYSTEM
+		[".icons/my-cursor"]="$dotfiles_dir/my-cursor"
+
 		# GIT
 		[".gitconfig"]="$dotfiles_dir/git/gitconfig"
 		[".config/gh"]="$dotfiles_dir/gh"

@@ -2,10 +2,11 @@
 
 # Define the path for the lock file
 LOCK_FILE="/tmp/set_wallpaper.lock"
+WALLPAPERS_DIR="$HOME/.config/wallpapers"
+INTERVAL=600
 
 # Function to acquire the lock
 function acquire_lock() {
-	# Attempt to create the lock file
 	if [ -e "$LOCK_FILE" ]; then
 		echo "Another instance is already running. Exiting."
 		exit 1
@@ -19,33 +20,53 @@ function release_lock() {
 	rm -f "$LOCK_FILE"
 }
 
-# Function to kill swaybg if running
-function kill_swaybg() {
-	if pgrep -x "swaybg" >/dev/null; then
-		killall swaybg
+# Function to get a random wallpaper from the specified directory
+function get_wallpaper() {
+	if [ ! -d "$1" ]; then
+		echo "Error: Wallpapers directory '$1' does not exist."
+		exit 1
 	fi
+
+	wallpaper=$(find "$1" -type f -name '*.png' | shuf -n 1)
+	if [ -z "$wallpaper" ]; then
+		echo "Error: No PNG wallpapers found in '$1'."
+		exit 1
+	fi
+}
+
+# Function to kill a process
+function kill_process() {
+	if pgrep -x "$1" >/dev/null; then
+		killall "$1"
+	fi
+}
+
+# Function to change the wallpaper
+function change_wallpaper() {
+	local program="$1"
+	if [[ "$program" != "swaybg" && "$program" != "hyprpaper" ]]; then
+		echo "Error: Invalid parameter. Expected 'swaybg' or 'hyprpaper'."
+		return 1
+	fi
+
+	kill_process "$program"
+
+	case "$program" in
+	swaybg)
+		swaybg -i "$wallpaper" -m fill &
+		;;
+	hyprpaper)
+		sleep 1
+		hyprpaper &
+		;;
+	esac
 }
 
 # Function to set wallpaper
 function set_wallpaper() {
-	kill_swaybg
-
-	local wallpapers_dir="$HOME/.config/wallpapers"
-	wallpaper=$(fd . --full-path $wallpapers_dir -e png | shuf -n1)
-
-	cp "$wallpaper" "$wallpapers_dir/current.png"
-	swaybg -i "$wallpaper" -m fill &
-}
-
-function set_wallpaper_with_hyprpaper() {
-	local wallpapers_dir="$HOME/.config/wallpapers"
-	wallpaper=$(fd . --full-path $wallpapers_dir -e png | shuf -n1)
-
-	cp "$wallpaper" "$wallpapers_dir/current.png"
-	monitor=$(hyprctl monitors | grep Monitor | awk '{print $2}')
-	hyprctl hyprpaper unload all
-	hyprctl hyprpaper preload $wallpaper
-	hyprctl hyprpaper wallpaper "$monitor, $wallpaper"
+	get_wallpaper "$WALLPAPERS_DIR"
+	cp "$wallpaper" ~/.cache/current.png
+	change_wallpaper "hyprpaper"
 }
 
 # Function to handle cleanup
@@ -62,9 +83,9 @@ function main() {
 
 	set_wallpaper
 
-	# Set wallpaper every 10 minutes
+	# Set wallpaper at intervals
 	while true; do
-		sleep 600
+		sleep "$INTERVAL"
 		set_wallpaper
 	done
 }

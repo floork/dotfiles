@@ -21,7 +21,11 @@ config.window_background_opacity = 0.9
 
 config.scrollback_lines = 10000
 
-config.enable_wayland = true
+if GetDistro() == "nixos" then
+  config.enable_wayland = false
+else
+  config.enable_wayland = true
+end
 
 config.keys = {
   {

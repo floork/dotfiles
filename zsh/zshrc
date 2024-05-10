@@ -10,6 +10,8 @@ export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH=$PATH:$GOPATH/bin
 export PATH="$HOME/.deno/bin:$PATH"
 
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
+export QT_QPA_PLATFORM=xcb
 # Custom Variables
 export EDITOR=nvim
 export VISUAL=nvim

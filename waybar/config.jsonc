@@ -7,8 +7,9 @@
   "modules-left": [
     "cpu",
     "memory",
-    "network",
-    "systemd-failed-units"
+    // "temperature", // currently not working
+    "systemd-failed-units",
+    "network"
   ],
   "modules-center": [
     "hyprland/workspaces"
@@ -180,6 +181,19 @@
     "hide-on-ok": false,
     "system": true,
     "user": false
+  },
+  "temperature": {
+    "critical-threshold": 75,
+    "interval": 3,
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": [
+      "", // Icon: temperature-empty
+      "", // Icon: temperature-quarter
+      "", // Icon: temperature-half
+      "", // Icon: temperature-three-quarters
+      "" // Icon: temperature-full
+    ],
+    "tooltip": true
   },
   "tray": {
     "icon-size": 16,

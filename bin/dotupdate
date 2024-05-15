@@ -32,6 +32,8 @@ function update_symlinks() {
 		[".config/neofetch"]="$dotfiles_dir/neofetch"
 		# # starship
 		[".config/starship.toml"]="$dotfiles_dir/starship/starship.toml"
+		# # fd
+		[".config/fd"]="$dotfiles_dir/fd"
 
 		# Desktop applications
 		[".config/dunst"]="$dotfiles_dir/dunst"

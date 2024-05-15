@@ -1,0 +1,25 @@
+#!/bin/env lua
+
+-- Lua script to count lines of files in a directory
+local function count_lines_in_file(filename)
+    local count = 0
+    local file = io.open(filename, "r")
+    if file then
+        for _ in file:lines() do
+            count = count + 1
+        end
+        file:close()
+    end
+    return count
+end
+
+local function count_lines_in_directory(path)
+    local total_lines = 0
+    for filename in io.popen('find "' .. path .. '" -type f'):lines() do
+        total_lines = total_lines + count_lines_in_file(filename)
+    end
+    return total_lines
+end
+
+local path = arg[1] or "." -- default to current directory if no argument is provided
+print("Total lines in directory:", count_lines_in_directory(path))

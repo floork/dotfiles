@@ -35,6 +35,8 @@ function update_symlinks() {
 		[".config/starship.toml"]="$dotfiles_dir/starship/starship.toml"
 		# # fd
 		[".config/fd"]="$dotfiles_dir/fd"
+		# # bat
+		[".config/bat"]="$dotfiles_dir/bat"
 
 		# Desktop applications
 		[".config/dunst"]="$dotfiles_dir/dunst"

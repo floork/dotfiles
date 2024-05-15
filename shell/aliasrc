@@ -12,6 +12,7 @@ alias tree='lsd --tree --icon always --color always' # tree listing
 alias vi='nvim'
 alias vim='nvim'
 alias svim='sudo -E nvim'
+alias cat='bat'
 
 # sys
 alias sctl='sudo systemctl'

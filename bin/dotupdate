@@ -20,6 +20,7 @@ function update_symlinks() {
 
 		# SYSTEM
 		[".icons/my-cursor"]="$dotfiles_dir/my-cursor"
+		[".config/systemd"]="$dotfiles_dir/systemd"
 
 		# GIT
 		[".gitconfig"]="$dotfiles_dir/git/gitconfig"

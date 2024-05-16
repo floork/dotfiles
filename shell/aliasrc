@@ -80,6 +80,7 @@ alias functionsrc='cd ~/dotfiles/shell/ && vim ~/dotfiles/shell/functionsrc' # Q
 
 # nix alias
 alias nixrc='cd /etc/nixos && vim /etc/nixos/' 
+alias nixsearch='nix-env -qaP'
 alias desktopbuild='sudo nixos-rebuild switch --flake .#desktop'
 alias laptopbuild='sudo nixos-rebuild switch --flake .#laptop'
 

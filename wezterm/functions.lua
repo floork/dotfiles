@@ -32,3 +32,9 @@ function WhiteBG()
     color_scheme = 'Catppuccin Latte'
   }
 end
+
+function Wayland_per_os(config, host, enable)
+  if GetDistro() == host then
+    config.enable_wayland = enable
+  end
+end

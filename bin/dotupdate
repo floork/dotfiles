@@ -37,6 +37,8 @@ function update_symlinks() {
 		[".config/fd"]="$dotfiles_dir/fd"
 		# # bat
 		[".config/bat"]="$dotfiles_dir/bat"
+		# # vim
+		[".config/vim"]="$dotfiles_dir/vim"
 
 		# Desktop applications
 		[".config/dunst"]="$dotfiles_dir/dunst"

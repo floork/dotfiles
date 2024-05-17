@@ -11,8 +11,7 @@ znap source zsh-users/zsh-syntax-highlighting
 znap source marlonrichert/zsh-autosuggestions
 znap source arzzen/calc.plugin.zsh
 znap source chisui/zsh-nix-shell
-# znap source marlonrichert/zsh-autocomplete
-#
+
 # custom configs
 ZSH_WEB_SEARCH_ENGINES=(chatgpt "https://chat.openai.com/", mensa "https://www.studentenwerk-dresden.de/mensen/speiseplan/")
 alias chatgpt="web_search chatgpt"

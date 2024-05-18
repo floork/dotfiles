@@ -16,6 +16,7 @@ export VISUAL=nvim
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 export QT_QPA_PLATFORM=xcb
 export BAT_CONFIG_PATH="~/.config/bat/config"
+export WALLPAPER_BACKEND=hyprpaper
 
 # cargo env
 [ -f ~/.cargo/env ] && source $HOME/.cargo/env

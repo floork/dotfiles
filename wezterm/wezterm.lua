@@ -21,7 +21,7 @@ config.window_background_opacity = 0.9
 
 config.scrollback_lines = 10000
 
-Wayland_per_os(config, "nixos", false)
+Wayland_per_os(config, "*", true)
 
 config.keys = {
   {

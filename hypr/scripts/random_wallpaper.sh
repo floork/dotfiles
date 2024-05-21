@@ -5,31 +5,6 @@ LOCK_FILE="/tmp/set_wallpaper.lock"
 WALLPAPERS_DIR="$HOME/.config/wallpapers"
 INTERVAL=600
 
-####################
-# Wallpaper Backends
-####################
-
-# Define associative array of backends with their corresponding functions
-declare -A backends=(
-	["hyprpaper"]="hyprpaper_change"
-	["swaybg"]="swaybg_change"
-)
-
-# Function for the swaybg backend
-function swaybg_change() {
-	sleep 1 && hyprpaper &
-}
-
-# Function for the hyprpaper backend
-function hyprpaper_change() {
-	sleep 1
-	hyprpaper &
-}
-
-####################
-# Utility Functions
-####################
-
 # Function to acquire the lock
 function acquire_lock() {
 	if [ -e "$LOCK_FILE" ]; then
@@ -69,21 +44,29 @@ function kill_process() {
 # Function to change the wallpaper
 function change_wallpaper() {
 	local program="$1"
-	if ! [[ -v backends[$program] ]]; then
-		echo "Wallpaper backend is not allowed"
-		exit 1
+	if [[ "$program" != "swaybg" && "$program" != "hyprpaper" ]]; then
+		echo "Error: Invalid parameter. Expected 'swaybg' or 'hyprpaper'."
+		return 1
 	fi
 
 	kill_process "$program"
 
-	"${backends[$program]}" "$wallpaper"
+	case "$program" in
+	swaybg)
+		swaybg -i "$wallpaper" -m fill &
+		;;
+	hyprpaper)
+		sleep 1
+		hyprpaper &
+		;;
+	esac
 }
 
 # Function to set wallpaper
 function set_wallpaper() {
 	get_wallpaper "$WALLPAPERS_DIR"
 	cp "$wallpaper" ~/.cache/current.png
-	change_wallpaper "$WALLPAPER_BACKEND"
+	change_wallpaper "hyprpaper"
 }
 
 # Function to handle cleanup
@@ -93,10 +76,6 @@ function cleanup() {
 
 # Trap cleanup function on exit
 trap cleanup EXIT
-
-############
-# Main Logic
-############
 
 # Main function
 function main() {

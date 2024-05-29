@@ -1,0 +1,9 @@
+[pyprland]
+plugins = [
+  "toggle_dpms",
+  "magnify",
+]
+
+[misc]
+cursor_zoom_factor = 0.5
+

@@ -9,13 +9,13 @@
     "memory",
     // "temperature", // currently not working
     "systemd-failed-units",
-    "network"
+    "network",
+    "hyprland/language"
   ],
   "modules-center": [
     "hyprland/workspaces"
   ],
   "modules-right": [
-    // "hyprland/language",
     "custom/weather",
     "tray",
     // "idle_inhibitor",
@@ -96,6 +96,9 @@
     "return-type": "json",
     "tooltip": true
   },
+  "hyprland/language": {
+    "format": "{}"
+  },
   "hyprland/window": {
     "max-length": 200,
     "separate-outputs": true
@@ -103,10 +106,6 @@
   "hyprland/workspaces": {
     "on-click": "activate",
     "sort-by-name": true
-  },
-  "hyprland/language": {
-    "format": "{}",
-    "max-length": 18
   },
   "memory": {
     "critical": 90,

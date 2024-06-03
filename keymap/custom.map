@@ -1,2 +1,4 @@
-keycode  58 = Escape
-keycode   1 = Caps_Lock
+remove Lock = Caps_Lock
+keysym Escape = Caps_Lock
+keysym Caps_Lock = Escape
+add Lock = Caps_Lock

@@ -1,3 +1,4 @@
-venv/
-node_modules/
-target/
+venv/**
+node_modules/**
+target/**
+.git/**

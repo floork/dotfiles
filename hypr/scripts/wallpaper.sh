@@ -47,14 +47,15 @@ function show_wallpaper_menu() {
 	local wallpapers_dir="$HOME/.config/wallpapers"         # Directory containing wallpapers
 	local command="fd . --full-path $wallpapers_dir -e png" # Command to list wallpapers
 
-	local wallpapers=($(eval "$command")) # List of wallpapers
+	local wallpapers=($(eval "$command" | sed "s|$wallpapers_dir/||")) # List of wallpapers with only the part behind wallpapers_dir
 
 	local options=$(printf "%s\n" "${wallpapers[@]}") # Options for wallpaper selection menu
 
 	local selected_option=$(echo -e "$options" | $rofi_cmd) # Selected wallpaper option
 
 	if [ -n "$selected_option" ]; then
-		apply_wallpaper "$selected_option" "hyprpaper" # Apply the selected wallpaper
+		selected_option="$wallpapers_dir/$selected_option" # Reconstruct full path
+		apply_wallpaper "$selected_option" "hyprpaper"     # Apply the selected wallpaper
 	else
 		echo "No wallpaper selected."
 	fi

@@ -7,13 +7,14 @@ mkdir $project_name
 
 cd $project_name
 
-cat <<EOF > CMakeLists.txt
-# load the toolchain file
-include(CMakeToolchain.cmake)
-
+cat <<EOF >CMakeLists.txt
 # set the project name and version
 cmake_minimum_required(VERSION 3.11.0)
 project($project_name VERSION 0.1.0)
+
+# Set the C++ standard to use
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # specify the C++ standard
 include(CTest)
@@ -25,43 +26,17 @@ add_executable($project_name
 )
 
 target_include_directories($project_name PRIVATE include)
-target_compile_features($project_name PRIVATE cxx_std_20)
+target_compile_features($project_name PRIVATE cxx_std_23)
 target_compile_options($project_name PRIVATE -Wall -Wextra -Wpedantic)
 EOF
 
 echo "CMakeLists.txt created successfully!"
 
-cat <<'EOF' >> CMakeToolchain.cmake
-# Set the C and C++ compilers
-set(CMAKE_C_COMPILER "/usr/bin/clang")
-set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
-
-# Set the build type to Debug
-set(CMAKE_BUILD_TYPE Debug)
-
-# Export compile commands for tools like Ninja
-set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
-
-# Specify the generator
-set(CMAKE_GENERATOR "Ninja")
-
-# Set the C++ standard to use
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Include the current directory if using a CMake version earlier than 3.7.0
-if(CMAKE_VERSION VERSION_LESS "3.7.0")
-    set(CMAKE_INCLUDE_CURRENT_DIR ON)
-endif()
-EOF
-
-echo "CMakeToolchain.cmake created successfully!"
-
 mkdir include
 
 mkdir src
 
-cat <<'EOF' >> src/main.cpp
+cat <<'EOF' >>src/main.cpp
 #include <iostream>
 
 int main() {

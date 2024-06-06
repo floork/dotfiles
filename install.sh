@@ -6,7 +6,7 @@ function setup_dotfiles() {
 	echo "Setting up dotfiles..."
 	bash "$script_dir/bin/dotupdate"
 
-	echo "Dotfiles setup complete."
+	echo "Dotfiles setup complete. You can now use dotupdate to update your dotfiles."
 }
 
 setup_dotfiles

@@ -28,6 +28,8 @@ function update_symlinks() {
 		[".config/gh"]="$dotfiles_dir/gh"
 
 		# CLI
+		# # mensa-cli
+		[".config/mensa-cli"]="$dotfiles_dir/mensa-cli"
 		# # tmux
 		[".tmux.conf"]="$dotfiles_dir/tmux/tmux.conf"
 		# # neofetch

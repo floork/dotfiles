@@ -17,6 +17,7 @@ export XDG_RUNTIME_DIR=/run/user/$(id -u)
 export QT_QPA_PLATFORM=xcb
 export BAT_CONFIG_PATH="~/.config/bat/config"
 export WALLPAPER_BACKEND=hyprpaper
+export CMAKE_TOOLCHAIN_FILE=~/.config/cmake/CMakeToolchainFile.cmake
 
 # cargo env
 [ -f ~/.cargo/env ] && source $HOME/.cargo/env
@@ -89,6 +90,9 @@ alias tmuxClean=kill_tmux_sessions
 
 # plugins for zsh
 [ -f "$HOME/.config/zsh/plugins_config.zsh" ] && source "$HOME/.config/zsh/plugins_config.zsh"
+
+# /usr/bin/setxkbmap -option "caps:swapescape" > /dev/null
+if [ -t 0 ]; then echo "in a terminal"; fi
 
 # starship
 eval "$(starship init zsh)"

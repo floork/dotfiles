@@ -8,19 +8,12 @@ mkdir $project_name
 cd $project_name
 
 cat <<EOF >CMakeLists.txt
-# set the project name and version
 cmake_minimum_required(VERSION 3.11.0)
 project($project_name VERSION 0.1.0)
 
-# Set the C++ standard to use
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# specify the C++ standard
-include(CTest)
-enable_testing()
-
-# Add your source files and set compile features and options
 add_executable($project_name
     src/main.cpp
 )

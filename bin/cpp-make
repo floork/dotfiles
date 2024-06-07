@@ -11,9 +11,6 @@ cat <<EOF >CMakeLists.txt
 cmake_minimum_required(VERSION 3.11.0)
 project($project_name VERSION 0.1.0)
 
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 add_executable($project_name
     src/main.cpp
 )

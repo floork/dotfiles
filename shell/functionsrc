@@ -142,52 +142,62 @@ function frm {
 }
 
 function build-cpp() {
-	# Check if current directory is named "build"
+	# Track if the script changed directories
+	local changed_dir=false
+
+	# Ensure the script runs from the "build" directory
 	if [[ $(basename "$(pwd)") != "build" ]]; then
 		if [[ -d "build" ]]; then
 			cd build || return
+			changed_dir=true
 		elif [[ -f "CMakeLists.txt" ]]; then
 			mkdir build && cd build || return
+			changed_dir=true
 		else
 			echo "No C++ project found in this directory!"
-			return
+			return 1
 		fi
 	fi
 
 	# Check if cmake is installed
 	if ! command -v cmake &>/dev/null; then
 		echo "cmake could not be found"
-		return
+		return 1
 	fi
 
 	cmake ..
 
 	echo "Building C++ project..."
-	# not pretty but zsh doesn't like when defining prefix to /bin/mold
-	if [[ -x /bin/mold ]]; then
+
+	# Check if mold is installed and executable
+	if [[ -x /usr/bin/mold || -x /bin/mold ]]; then
 		if [[ -f CMakeCache.txt ]]; then
 			mold --run cmake --build . -- "$@"
 		elif [[ -f Makefile ]]; then
-			mold --run make -j $(nproc) "$@"
+			mold --run make -j "$(nproc)" "$@"
 		elif [[ -f build.ninja ]]; then
 			mold --run ninja "$@"
 		else
 			echo 'Could not determine a suitable build command!' >&2
+			return 1
 		fi
-
-		return
-	fi
-
-	if [[ -f CMakeCache.txt ]]; then
-		cmake --build . -- "$@"
-	elif [[ -f Makefile ]]; then
-		make -j $(nproc) "$@"
-	elif [[ -f build.ninja ]]; then
-		ninja "$@"
 	else
-		echo 'Could not determine a suitable build command!' >&2
+		if [[ -f CMakeCache.txt ]]; then
+			cmake --build . -- "$@"
+		elif [[ -f Makefile ]]; then
+			make -j "$(nproc)" "$@"
+		elif [[ -f build.ninja ]]; then
+			ninja "$@"
+		else
+			echo 'Could not determine a suitable build command!' >&2
+			return 1
+		fi
 	fi
 
+	if $changed_dir; then
+		cd ..
+	fi
+	return 0
 }
 
 function new() {

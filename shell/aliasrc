@@ -45,29 +45,6 @@ alias lg='lsd --git --long --icon always --color always --group-dirs first' # Di
 alias lr='lsd -aR --icon always --color always --group-dirs first' # list recursively
 alias lt='tree' # tree listing# tree listing
 
-# help and history
-alias h='history'
-alias help='man'
-
-# git
-alias gt-switch='git switch'
-alias gt-merge='git merge'
-alias gt-c='git clone'
-alias gt-undocommit='git reset HEAD~'
-alias gt-newbranch='git switch -c'
-alias gt-delbranch='git branch -d'
-alias gt-log='git log --oneline --decorate --graph --all'
-alias gt-logall='git log --oneline --decorate --graph --all --full-history --simplify-by-decoration'
-alias gt-legacyNewBranch='git checkout -b'
-alias gt-legacySwitchBranch='git checkout'
-
-# Brave fix
-alias fixBrave="rm -r cd ~/.config/BraveSoftware/Brave-Browser/SingletonLock"
-
-# Flatpak alias
-alias flatty='flatpak install flathub'
-alias rflatty='flatpak remove'
-
 # tmux
 alias tmuxrc='vim ~/.tmux.conf' # Quick access to the ~/.tmux.conf file
 
@@ -92,5 +69,3 @@ alias sshrc='cd ~/.ssh && vim ~/.ssh/config'
 alias vimrc='cd ~/.config/nvim && vim .'
 alias dotfiles='cd ~/dotfiles && vim .'
 alias gitconfig='cd ~/dotfiles/git && vim ~/.gitconfig'
-
-alias test='echo "test"'

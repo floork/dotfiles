@@ -20,6 +20,8 @@ export WALLPAPER_BACKEND=hyprpaper
 export CMAKE_TOOLCHAIN_FILE=~/.config/cmake/CMakeToolchain.cmake
 
 # cargo env
+export RUSTUP_HOME=$HOME/.rustup 
+export CARGO_HOME=$HOME/.cargo
 [ -f ~/.cargo/env ] && source $HOME/.cargo/env
 
 # pyenv

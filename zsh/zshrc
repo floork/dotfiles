@@ -1,16 +1,21 @@
-
-# Enable colors and change prompt:
+#------------------------------
+# Prompt and Colors
+#------------------------------
 autoload -U colors && colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 
+#------------------------------
+# Path Configuration
+#------------------------------
 export PATH=$PATH:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/games:/usr/local/games:/snap/bin
-
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH=$PATH:$GOPATH/bin
 export PATH="$HOME/.deno/bin:$PATH"
 
-# Custom Variables
+#------------------------------
+# Environment Variables
+#------------------------------
 export EDITOR=nvim
 export VISUAL=nvim
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
@@ -19,12 +24,16 @@ export BAT_CONFIG_PATH="~/.config/bat/config"
 export WALLPAPER_BACKEND=hyprpaper
 export CMAKE_TOOLCHAIN_FILE=~/.config/cmake/CMakeToolchain.cmake
 
-# cargo env
+#------------------------------
+# Rust Environment
+#------------------------------
 export RUSTUP_HOME=$HOME/.rustup 
 export CARGO_HOME=$HOME/.cargo
 [ -f ~/.cargo/env ] && source $HOME/.cargo/env
 
-# pyenv
+#------------------------------
+# Python Environment
+#------------------------------
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
@@ -33,13 +42,17 @@ then
     curl https://pyenv.run | bash
 fi
 
-# History in cache directory:
+#------------------------------
+# History Configuration
+#------------------------------
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zshhistory
 setopt appendhistory
 
-# Basic auto/tab complete:
+#------------------------------
+# Autocompletion
+#------------------------------
 autoload -U compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
@@ -47,51 +60,61 @@ compinit
 _comp_options+=(globdots)               # Include hidden files.
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' # for caseinsensite tab completion
 
-# start tmux
+#------------------------------
+# Tmux Integration
+#------------------------------
 [ -z "$TMUX" ] && exec tmux
 
-
-# Custom ZSH Binds
-
-# Navigation:
+#------------------------------
+# Custom ZSH Bindings
+#------------------------------
+### Navigation
 bindkey "\e[1;5D" backward-word        # Ctrl + Left Arrow: Move backward one word
 bindkey "\e[1;5C" forward-word         # Ctrl + Right Arrow: Move forward one word
 
-# History Search:
+### History Search
 bindkey "^[[A" history-beginning-search-backward   # Up Arrow: Search backward through history
 bindkey "^[[B" history-beginning-search-forward    # Down Arrow: Search forward through history
 bindkey "^[[A" history-search-backward             # Up Arrow: Search backward through history (alternate)
 bindkey "^[[B" history-search-forward              # Down Arrow: Search forward through history (alternate)
 
-# Text Manipulation:
+### Text Manipulation
 bindkey "\e[3;5~" kill-word               # Ctrl + Del: Delete word after cursor
 bindkey "\C-_"    backward-kill-word      # Ctrl + Backspace: Delete word before cursor
 bindkey "\e[3~" delete-char                # Delete: Delete character under cursor
 
-# Line Navigation:
+### Line Navigation
 bindkey "\e[H"  beginning-of-line         # Home: Move to beginning of line
 bindkey '^A' beginning-of-line            # Ctrl + A: Move to beginning of line
 bindkey "\e[F"  end-of-line               # End: Move to end of line
 bindkey '^E' end-of-line                  # Ctrl + E: Move to end of line
 
-# Load device specific configurations
+#------------------------------
+# Device Configuration
+#------------------------------
 [ -f "$HOME/.device_config" ] && source "$HOME/.device_config"
 
-# Load functions
+#------------------------------
+# Functions
+#------------------------------
 [ -f "$HOME/.functionsrc" ] && source "$HOME/.functionsrc"
 
-# Load aliases and shortcuts if existent.
+#------------------------------
+# Aliases and Shortcuts
+#------------------------------
 [ -f "$HOME/.aliasrc" ] && source "$HOME/.aliasrc"
-
-# special aliases
 alias reload='source ~/.zshrc && clear'
 alias frm=frm
 alias ex=ex
 alias plugins='vim ~/.config/zsh/plugins_config.zsh'
 alias tmuxClean=kill_tmux_sessions
 
-# plugins for zsh
+#------------------------------
+# Plugins
+#------------------------------
 [ -f "$HOME/.config/zsh/plugins_config.zsh" ] && source "$HOME/.config/zsh/plugins_config.zsh"
 
-# starship
+#------------------------------
+# Starship Prompt
+#------------------------------
 eval "$(starship init zsh)"

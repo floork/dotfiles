@@ -142,61 +142,39 @@ function frm {
 }
 
 function build-cpp() {
-	# Track if the script changed directories
-	local changed_dir=false
-
-	# Ensure the script runs from the "build" directory
-	if [[ $(basename "$(pwd)") != "build" ]]; then
-		if [[ -d "build" ]]; then
-			cd build || return
-			changed_dir=true
-		elif [[ -f "CMakeLists.txt" ]]; then
-			mkdir build && cd build || return
-			changed_dir=true
-		else
-			echo "No C++ project found in this directory!"
-			return 1
-		fi
-	fi
-
 	# Check if cmake is installed
 	if ! command -v cmake &>/dev/null; then
 		echo "cmake could not be found"
 		return 1
 	fi
 
-	cmake ..
+	local build_target="build"
+	local cmake_command="cmake"
+
+	# If already inside the build directory, adjust build_target accordingly
+	if [ "${PWD##*/}" = "build" ]; then
+		build_target="."
+	fi
+
+	# Check if build directory exists, otherwise generate cmake build files
+	if ! [[ -d "$build_target" ]]; then
+		echo "Running $cmake_command -B $build_target..."
+		$cmake_command -B $build_target
+		if [ $? -ne 0 ]; then
+			echo "Failed to run $cmake_command -B $build_target" >&2
+			return 1
+		fi
+	fi
 
 	echo "Building C++ project..."
 
 	# Check if mold is installed and executable
 	if [[ -x /usr/bin/mold || -x /bin/mold ]]; then
-		if [[ -f CMakeCache.txt ]]; then
-			mold --run cmake --build . -- "$@"
-		elif [[ -f Makefile ]]; then
-			mold --run make -j "$(nproc)" "$@"
-		elif [[ -f build.ninja ]]; then
-			mold --run ninja "$@"
-		else
-			echo 'Could not determine a suitable build command!' >&2
-			return 1
-		fi
+		mold --run cmake --build "$build_target" -- "$@"
 	else
-		if [[ -f CMakeCache.txt ]]; then
-			cmake --build . -- "$@"
-		elif [[ -f Makefile ]]; then
-			make -j "$(nproc)" "$@"
-		elif [[ -f build.ninja ]]; then
-			ninja "$@"
-		else
-			echo 'Could not determine a suitable build command!' >&2
-			return 1
-		fi
+		cmake --build "$build_target" -- "$@"
 	fi
 
-	if $changed_dir; then
-		cd ..
-	fi
 	return 0
 }
 

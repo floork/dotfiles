@@ -27,7 +27,7 @@ export CMAKE_TOOLCHAIN_FILE=~/.config/cmake/CMakeToolchain.cmake
 #------------------------------
 # Rust Environment
 #------------------------------
-export RUSTUP_HOME=$HOME/.rustup 
+export RUSTUP_HOME=$HOME/.rustup
 export CARGO_HOME=$HOME/.cargo
 [ -f ~/.cargo/env ] && source $HOME/.cargo/env
 
@@ -37,9 +37,8 @@ export CARGO_HOME=$HOME/.cargo
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
-if ! command -v pyenv &> /dev/null
-then
-    curl https://pyenv.run | bash
+if ! command -v pyenv &>/dev/null; then
+	curl https://pyenv.run | bash
 fi
 
 #------------------------------
@@ -57,7 +56,7 @@ autoload -U compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
-_comp_options+=(globdots)               # Include hidden files.
+_comp_options+=(globdots)                                    # Include hidden files.
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' # for caseinsensite tab completion
 
 #------------------------------
@@ -69,25 +68,25 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' # for caseinsensite
 # Custom ZSH Bindings
 #------------------------------
 ### Navigation
-bindkey "\e[1;5D" backward-word        # Ctrl + Left Arrow: Move backward one word
-bindkey "\e[1;5C" forward-word         # Ctrl + Right Arrow: Move forward one word
+bindkey "\e[1;5D" backward-word # Ctrl + Left Arrow: Move backward one word
+bindkey "\e[1;5C" forward-word  # Ctrl + Right Arrow: Move forward one word
 
 ### History Search
-bindkey "^[[A" history-beginning-search-backward   # Up Arrow: Search backward through history
-bindkey "^[[B" history-beginning-search-forward    # Down Arrow: Search forward through history
-bindkey "^[[A" history-search-backward             # Up Arrow: Search backward through history (alternate)
-bindkey "^[[B" history-search-forward              # Down Arrow: Search forward through history (alternate)
+bindkey "^[[A" history-beginning-search-backward # Up Arrow: Search backward through history
+bindkey "^[[B" history-beginning-search-forward  # Down Arrow: Search forward through history
+bindkey "^[[A" history-search-backward           # Up Arrow: Search backward through history (alternate)
+bindkey "^[[B" history-search-forward            # Down Arrow: Search forward through history (alternate)
 
 ### Text Manipulation
-bindkey "\e[3;5~" kill-word               # Ctrl + Del: Delete word after cursor
-bindkey "\C-_"    backward-kill-word      # Ctrl + Backspace: Delete word before cursor
-bindkey "\e[3~" delete-char                # Delete: Delete character under cursor
+bindkey "\e[3;5~" kill-word       # Ctrl + Del: Delete word after cursor
+bindkey "\C-_" backward-kill-word # Ctrl + Backspace: Delete word before cursor
+bindkey "\e[3~" delete-char       # Delete: Delete character under cursor
 
 ### Line Navigation
-bindkey "\e[H"  beginning-of-line         # Home: Move to beginning of line
-bindkey '^A' beginning-of-line            # Ctrl + A: Move to beginning of line
-bindkey "\e[F"  end-of-line               # End: Move to end of line
-bindkey '^E' end-of-line                  # Ctrl + E: Move to end of line
+bindkey "\e[H" beginning-of-line # Home: Move to beginning of line
+bindkey '^A' beginning-of-line   # Ctrl + A: Move to beginning of line
+bindkey "\e[F" end-of-line       # End: Move to end of line
+bindkey '^E' end-of-line         # Ctrl + E: Move to end of line
 
 #------------------------------
 # Switch Caps:escape in TTY

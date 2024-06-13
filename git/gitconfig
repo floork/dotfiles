@@ -37,7 +37,7 @@
   # Use Neovim as the default text editor
   editor = nvim                          
   # Global gitignore file
-  excludesFile = ~/.gitignore_global      
+  excludesFile = ~/.gitignore
 
 [credential "https://github.com"]
   helper = !gh auth git-credential

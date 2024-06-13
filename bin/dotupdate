@@ -26,7 +26,7 @@ function update_symlinks() {
 
 		# GIT
 		[".gitconfig"]="$dotfiles_dir/git/gitconfig"
-		[".gitignore_global"]="$dotfiles_dir/git/gitignore_global"
+		[".gitignore"]="$dotfiles_dir/git/gitignore"
 		[".config/gh"]="$dotfiles_dir/gh"
 
 		# CLI

@@ -4,8 +4,6 @@ export EDITOR=nvim
 export VISUAL=nvim
 ### End of functions
 
-alias reload='source ~/.bashrc'
-
 # Load device specific configurations
 [ -f "$HOME/.device_config" ] && source "$HOME/.device_config"
 
@@ -20,4 +18,3 @@ alias reload='source ~/.bashrc'
 
 #starship
 eval "$(starship init bash)"
-

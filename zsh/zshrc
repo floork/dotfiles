@@ -109,11 +109,6 @@ fi
 # Aliases and Shortcuts
 #------------------------------
 [ -f "$HOME/.aliasrc" ] && source "$HOME/.aliasrc"
-alias reload='source ~/.zshrc && clear'
-alias frm=frm
-alias ex=ex
-alias plugins='vim ~/.config/zsh/plugins_config.zsh'
-alias tmuxClean=kill_tmux_sessions
 
 #------------------------------
 # Plugins

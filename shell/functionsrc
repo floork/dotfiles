@@ -202,4 +202,29 @@ function note() {
 	vim "+set ft=$1" "/tmp/note.$1"
 }
 
+function reload() {
+	case "$SHELL" in
+	*/bash)
+		source ~/.bashrc
+		;;
+	*/zsh)
+		source ~/.zshrc
+		;;
+	*)
+		echo "You are using another shell: $SHELL."
+		;;
+	esac
+}
+
+function plugins() {
+	case "$SHELL" in
+	*/zsh)
+		vim ~/.config/zsh/plugins_config.zsh
+		;;
+	*)
+		echo "No plugin manager defined for: $SHELL."
+		;;
+	esac
+}
+
 pack_man

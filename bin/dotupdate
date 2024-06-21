@@ -54,6 +54,7 @@ function update_symlinks() {
 		[".config/waybar"]="$dotfiles_dir/waybar"
 		[".config/wofi"]="$dotfiles_dir/wofi"
 		# # terminal
+		[".config/alacritty"]="$dotfiles_dir/alacritty"
 		[".config/warp-terminal"]="$dotfiles_dir/warp-terminal"
 		[".config/wezterm"]="$dotfiles_dir/wezterm"
 	)

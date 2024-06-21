@@ -18,7 +18,7 @@ config.warn_about_missing_glyphs = false -- disable warning about missing glyphs
 
 -- Configuring the window
 config.window_background_opacity = 0.9
-
+config.hide_tab_bar_if_only_one_tab = true
 config.scrollback_lines = 10000
 
 Wayland_per_os(config, "*", true)

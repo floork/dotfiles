@@ -14,7 +14,7 @@
   # Shortcut for interactive rebase
   ri = rebase --interactive 
   # Init and Clone the submodules of a repo
-  clone-submodules = submodule update --init --recursive
+  init-submodules = submodule update --init --recursive
   # Undo the last commit and leave changes staged
   undo = reset --soft HEAD~1   
   # Update current branch with rebase and autostash changes, specify branch as argument

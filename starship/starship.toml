@@ -25,13 +25,13 @@ disabled = false
 
 # SYMBOLS
 [os.symbols]
-# Linux = ''
-Arch = '󰣇'
-Debian = ''
-Fedora = ''
-NixOS = ''
-Ubuntu = ''
-Macos = '󰀵'
+# Linux = ' '
+Arch = '󰣇 '
+Debian = ' '
+Fedora = ' '
+NixOS = ' '
+Ubuntu = ' '
+Macos = '󰀵 '
 Windows = ' '
 
 [directory]

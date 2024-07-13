@@ -29,6 +29,7 @@ export CMAKE_TOOLCHAIN_FILE=~/.config/cmake/CMakeToolchain.cmake
 #------------------------------
 export RUSTUP_HOME=$HOME/.rustup
 export CARGO_HOME=$HOME/.cargo
+export RUST_BACKTRACE=full
 [ -f ~/.cargo/env ] && source $HOME/.cargo/env
 
 #------------------------------

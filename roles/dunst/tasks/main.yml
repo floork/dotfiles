@@ -1,0 +1,14 @@
+---
+- name: Configure Dunst
+  hosts: localhost
+  tasks:
+    - name: Ensure dunst directory exists
+      file:
+        path: ~/.config/dunst/
+        state: directory
+        mode: '0755'
+
+    - name: Copy the Dunst config file
+      copy:
+        src: dunstrc
+        dest: ~/.config/dunst/dunstrc

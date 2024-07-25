@@ -1,0 +1,4 @@
+- name: Configure waybar
+  copy:
+    src: waybar-config
+    dest: ~/.config/waybar/waybar-config

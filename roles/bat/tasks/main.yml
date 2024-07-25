@@ -1,0 +1,14 @@
+---
+- name: Configure bat
+  hosts: localhost
+  tasks:
+    - name: Ensure bat directory exists
+      file:
+        path: ~/.config/bat
+        state: directory
+        mode: '0755'
+
+    - name: Copy the bat config
+      copy:
+        src: config
+        dest: ~/.config/bat/config

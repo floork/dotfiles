@@ -1,0 +1,14 @@
+---
+- name: Configure CMake config
+  hosts: localhost
+  tasks:
+    - name: Ensure cmake directory exists
+      file:
+        path: ~/.config/cmake
+        state: directory
+        mode: '0755'
+
+    - name: Copy the CMake Toolchain
+      copy:
+        src: CMakeToolchain.cmake
+        dest: ~/.config/cmake/CMakeToolchain.cmake

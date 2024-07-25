@@ -1,0 +1,4 @@
+- name: Configure obs
+  copy:
+    src: obs-config
+    dest: ~/.config/obs/obs-config

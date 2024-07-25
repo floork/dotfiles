@@ -1,0 +1,8 @@
+--theme=fly16
+--italic-text=always
+--style="header,grid"
+--map-syntax "*bashrc:Bourne Again Shell (bash)"
+--map-syntax "*aliasrc:Bourne Again Shell (bash)"
+--map-syntax "*zshrc:Bourne Again Shell (bash)"
+--map-syntax "*inputrc:Bourne Again Shell (bash)"
+--map-syntax ".ignore:Git Ignore"

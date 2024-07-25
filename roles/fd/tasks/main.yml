@@ -1,0 +1,14 @@
+---
+- name: Configure fd
+  hosts: localhost
+  tasks:
+    - name: Ensure fd directory exists
+      file:
+        path: ~/.config/fd/
+        state: directory
+        mode: '0755'
+
+    - name: Copy the global fd ignore
+      copy:
+        src: ignore
+        dest: ~/.config/fd/ignore

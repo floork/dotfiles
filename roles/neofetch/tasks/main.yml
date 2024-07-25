@@ -1,0 +1,4 @@
+- name: Configure neofetch
+  copy:
+    src: neofetch-config
+    dest: ~/.config/neofetch/neofetch-config

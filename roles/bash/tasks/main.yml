@@ -1,0 +1,8 @@
+---
+- name: Configure alacritty
+  hosts: localhost
+  tasks:
+    - name: Copy the bashrc
+      copy:
+        src: bashrc
+        dest: ~/.bashrc

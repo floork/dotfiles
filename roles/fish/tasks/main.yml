@@ -1,0 +1,63 @@
+---
+- name: Configure fish shell
+  hosts: localhost
+  tasks:
+    - name: Ensure fish configuration directory exists
+      file:
+        path: ~/.config/fish
+        state: directory
+        mode: '0755'
+
+    - name: Ensure fish completions directory exists
+      file:
+        path: ~/.config/fish/completions
+        state: directory
+        mode: '0755'
+
+    - name: Copy fish completions
+      copy:
+        src: roles/alacritty/files/completions/
+        dest: ~/.config/fish/completions/
+        mode: '0755'
+
+    - name: Copy fish config.fish
+      copy:
+        src: roles/alacritty/files/config.fish
+        dest: ~/.config/fish/config.fish
+        mode: '0644'
+
+    - name: Copy fish_variables
+      copy:
+        src: roles/alacritty/files/fish_variables
+        dest: ~/.config/fish/fish_variables
+        mode: '0644'
+
+    - name: Ensure fish conf.d directory exists
+      file:
+        path: ~/.config/fish/conf.d
+        state: directory
+        mode: '0755'
+
+    - name: Copy fish conf.d
+      copy:
+        src: roles/alacritty/files/conf.d/
+        dest: ~/.config/fish/conf.d/
+        mode: '0755'
+
+    - name: Copy fish plugins
+      copy:
+        src: roles/alacritty/files/fish_plugins
+        dest: ~/.config/fish/fish_plugins
+        mode: '0644'
+
+    - name: Ensure fish functions directory exists
+      file:
+        path: ~/.config/fish/functions
+        state: directory
+        mode: '0755'
+
+    - name: Copy fish functions
+      copy:
+        src: roles/alacritty/files/functions/
+        dest: ~/.config/fish/functions/
+        mode: '0755'

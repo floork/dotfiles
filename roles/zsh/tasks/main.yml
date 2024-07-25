@@ -1,0 +1,4 @@
+- name: Configure zsh
+  copy:
+    src: zsh-config
+    dest: ~/.config/zsh/zsh-config

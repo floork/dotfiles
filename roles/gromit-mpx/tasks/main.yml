@@ -1,0 +1,4 @@
+- name: Configure gromit-mpx
+  copy:
+    src: gromit-mpx-config
+    dest: ~/.config/gromit-mpx/gromit-mpx-config

@@ -1,0 +1,4 @@
+- name: Configure wofi
+  copy:
+    src: wofi-config
+    dest: ~/.config/wofi/wofi-config

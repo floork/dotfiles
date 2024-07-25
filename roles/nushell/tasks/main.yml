@@ -1,0 +1,4 @@
+- name: Configure nushell
+  copy:
+    src: nushell-config
+    dest: ~/.config/nushell/nushell-config

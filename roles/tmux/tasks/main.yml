@@ -1,0 +1,4 @@
+- name: Configure tmux
+  copy:
+    src: tmux-config
+    dest: ~/.config/tmux/tmux-config

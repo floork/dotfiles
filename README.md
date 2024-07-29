@@ -57,6 +57,7 @@ To install these dotfiles on your system:
    ```bash
    git clone https://github.com/yourusername/dotfiles.git
    ```
+
 2. Change into the directory:
 
 ```bash
@@ -75,8 +76,8 @@ This script will symlink the dotfiles to their appropriate locations in your hom
 
 - [x] overhaul
 - [ ] nushell
-   - [ ] aliases in separate file
-   - [ ] fix uncommented functions and import them properly
+  - [ ] aliases in separate file
+  - [ ] fix uncommented functions and import them properly
 
 ## Contributing
 
@@ -86,3 +87,6 @@ Contributions to improve or expand these dotfiles are welcome! Please refer to t
 
 This project is licensed under the MIT License.
 
+NOTES:
+switch to [zellij](https://github.com/zellij-org/zellij)
+switch to [zellij-nav.nvim](https://github.com/swaits/zellij-nav.nvim/) // evtl. do it self in nvim (less plugins)

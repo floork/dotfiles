@@ -116,6 +116,7 @@ fi
 # Plugins
 #------------------------------
 [ -f "$HOME/.config/zsh/plugins_config.zsh" ] && source "$HOME/.config/zsh/plugins_config.zsh"
+alias plugins='vim $HOME/.config/zsh/plugins_config.zsh'
 
 #------------------------------
 # Starship Prompt

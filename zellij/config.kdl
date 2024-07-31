@@ -1,0 +1,66 @@
+// General Settings
+// ------------------------------
+
+// Enable mouse support
+mouse-mode true
+
+// Copy Mode (Equivalent to TMUX Vi mode)
+// ------------------------------
+// Zellij's copy mode uses vi-style keybindings by default.
+
+keybinds {
+    // Custom Key Bindings
+    // ------------------------------
+
+    // Horizontal split
+    ["Ctrl+t"] {
+        action = "SplitHorizontally"
+    }
+
+    // Vertical split
+    ["Ctrl+v"] {
+        action = "SplitVertically"
+    }
+
+    // Kill active pane
+    ["Ctrl+q"] {
+        action = "ClosePane"
+    }
+
+    // Switch to the next pane
+    ["Ctrl+n"] {
+        action = "FocusNextPane"
+    }
+
+    // Reload Zellij configuration
+    ["Ctrl+r"] {
+        action = "ReloadConfig"
+    }
+}
+
+// Zellij currently doesn't have direct support for plugin management or running shell commands like TMUX Plugin Manager (TPM). You may need to use external scripts or tools for similar functionality.
+
+// Theme and Status Line
+// ------------------------------
+// Zellij's themes are customizable via themes.toml. You can create a minimal theme to match TMUX's minimal status line.
+
+theme {
+    name = "minimal"
+    colors {
+        primary-bg = "none"
+        primary-fg = "none"
+        secondary-bg = "none"
+        secondary-fg = "none"
+        statusbar-bg = "none"
+        statusbar-fg = "none"
+    }
+}
+
+// Apply the theme
+theme = "minimal"
+
+// Other configuration options for plugins, etc. are to be placed here as needed.
+
+// Example Plugin (if Zellij supports them in the future)
+// [plugins]
+// tpm = { url = "https://github.com/tmux-plugins/tpm" }

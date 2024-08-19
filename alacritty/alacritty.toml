@@ -10,7 +10,7 @@ padding.x = 10
 padding.y = 10
 
 decorations = "None"
-decorations_theme_variant = "Light"
+decorations_theme_variant = "Dark"
 
 [font]
 

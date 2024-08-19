@@ -35,12 +35,12 @@ alias mvSame='rsync -av --progress --exclude="$1" $2 --remove-source-files --pru
 alias scp='sudo cp -r'
 alias open='xdg-open'
 
-# Changing "ls" to "exa"
+# Changing "ls" to "lsd"
 alias l='ls'
 alias ls='lsd --icon always --color always --group-dirs first' # my preferred listing
-alias ll='lsd -l --icon always --color always --group-dirs first' # long format
+alias ll='lsd -l --total-size --icon always --color always --group-dirs first' # long format
 alias la='lsd -a --icon always --color always --group-dirs first' # all files and dirs
-alias lal='lsd -la --icon always --color always --group-dirs first' # long format all files and dirs
+alias lal='lsd -la --total-size --icon always --color always --group-dirs first' # long format all files and dirs
 alias lg='lsd --git --long --icon always --color always --group-dirs first' # Display git status.  Directory git status is a reduction of included file statuses (recursively).
 alias lr='lsd -aR --icon always --color always --group-dirs first' # list recursively
 alias lt='tree' # tree listing# tree listing

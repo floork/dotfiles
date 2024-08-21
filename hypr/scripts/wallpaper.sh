@@ -24,7 +24,7 @@ function apply_wallpaper() {
   kill_random_wallpaper   # Kill the random wallpaper script
 
   cp "$wallpaper" ~/.cache/current.png # Copy the selected wallpaper to cache directory
-  export CURRENT_WALLPAPER=$wallpaper
+  $CURRENT_WALLPAPER=$wallpaper
 
   # Check the wallpaper backend and apply accordingly
   if [ "$backend" == "swaybg" ]; then

@@ -65,7 +65,12 @@ alias laptopbuild='sudo nixos-rebuild switch --flake .#laptop'
 alias cval='make && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ${1} 2> valgrind.log'
 
 # shorcuts
-alias sshrc='cd ~/.ssh && vim ~/.ssh/config'
+alias sshrc='vim ~/.ssh/config'
 alias vimrc='cd ~/.config/nvim && vim .'
 alias dotfiles='cd ~/dotfiles && vim .'
-alias gitconfig='cd ~/dotfiles/git && vim ~/.gitconfig'
+alias gitconfig='vim ~/.gitconfig'
+
+# fast open
+alias mensa="xdg-open https://www.studentenwerk-dresden.de/mensen/speiseplan/"
+alias shitpoint="xdg-open https://sharepoint.tu-dresden.de/sites/zih/SitePages/Homepage.aspx"
+alias shitpoint-liste="xdg-open https://sharepoint.tu-dresden.de/sites/zih/SitePages/Anwesenheitsliste.aspx"

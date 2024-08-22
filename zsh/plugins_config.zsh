@@ -13,6 +13,5 @@ znap source chisui/zsh-nix-shell
 znap source nix-community/nix-zsh-completions
 
 # custom configs
-ZSH_WEB_SEARCH_ENGINES=(chatgpt "https://chat.openai.com/", mensa "https://www.studentenwerk-dresden.de/mensen/speiseplan/")
+ZSH_WEB_SEARCH_ENGINES=(chatgpt "https://chat.openai.com/")
 alias chatgpt="web_search chatgpt"
-alias mensa="web_search mensa"

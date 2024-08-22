@@ -5,17 +5,23 @@ local function get_selected(config)
   local selected = nil
   local menu_cmd = nil
 
-  -- Check if wofi or rofi is installed
-  if os.execute("command -v wofi > /dev/null") then
-    menu_cmd = "wofi"
+  -- Determine which launcher to use based on APP_LAUNCHER or installed command
+  local app_launcher = os.getenv("APP_LAUNCHER")
+
+  if app_launcher == "wofi" then
+    menu_cmd = "wofi --show dmenu -i -p 'Hyprland Keybinds:'"
+  elseif app_launcher == "fuzzel" then
+    menu_cmd = "fuzzel --dmenu -p 'Hyprland Keybinds:'"
+  elseif os.execute("command -v wofi > /dev/null") then
+    menu_cmd = "wofi --show dmenu -i -p 'Hyprland Keybinds:'"
   elseif os.execute("command -v rofi > /dev/null") then
-    menu_cmd = "rofi"
+    menu_cmd = "rofi -dmenu -i -markup-rows -p 'Hyprland Keybinds:'"
   else
-    print("wofi or rofi not installed")
+    print("Neither wofi, fuzzel, nor rofi are installed or set.")
     os.exit(1)
   end
 
-  -- Extract the keybinding from the Hyprland config file
+  -- Extract the keybindings from the Hyprland config file
   local binds = {}
   for line in io.lines(config) do
     if line:match("^bind") then
@@ -38,24 +44,18 @@ local function get_selected(config)
       else
         bind_str = parts[2] .. " " .. parts[3]
       end
-      print(parts[1])
       table.insert(binds, bind_str)
     end
   end
 
-  -- Display the menu using wofi or rofi
+  -- Display the menu using the selected launcher
   local menu_input = table.concat(binds, "\n")
-  local menu_cmd_str = ""
-  if menu_cmd == "wofi" then
-    menu_cmd_str = "echo '" .. menu_input .. "' | wofi --show dmenu -i -p 'Hyprland Keybinds:'"
-  else
-    menu_cmd_str = "echo '" .. menu_input .. "' | rofi -dmenu -i -markup-rows -p 'Hyprland Keybinds:'"
-  end
+  local menu_cmd_str = "echo '" .. menu_input .. "' | " .. menu_cmd
 
   local handle = io.popen(menu_cmd_str)
   if (handle == nil) then
-    print("handle is nil")
-    os.exit()
+    print("Failed to open menu.")
+    os.exit(1)
   end
 
   selected = handle:read("*a")
@@ -69,8 +69,13 @@ local function keybindings()
   local config_file = os.getenv("HOME") .. "/.config/hypr/hyprland.conf"
   local selected = get_selected(config_file)
 
-  -- Extract cmd from span <span color='gray'>cmd</span>
-  local cmd = selected:match("<span color='gray'>(.*)</span>")
+  if not selected or selected == "" then
+    print("No selection made.")
+    os.exit(1)
+  end
+
+  -- Extract the command from the selection
+  local cmd = selected:match("<span color='gray'>(.*)</span>") or selected
 
   -- Execute the command
   if cmd then

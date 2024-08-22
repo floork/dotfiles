@@ -23,6 +23,7 @@ function update_symlinks() {
     [".themes/my-cursor"]="$dotfiles_dir/my-cursor"
     [".config/systemd"]="$dotfiles_dir/systemd"
     [".config/cmake"]="$dotfiles_dir/cmake"
+    [".docker"]="$dotfiles_dir/docker"
 
     # GIT
     [".gitconfig"]="$dotfiles_dir/git/gitconfig"

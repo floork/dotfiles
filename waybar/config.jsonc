@@ -63,10 +63,23 @@
     "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
   },
   "clock": {
-    "format": "{:%T:%Z,   󰃭  %a %d/%m}",
+    "format": "{:%T:%Z,   󰃭  %a %d.%m/KW: %V}",
     "interval": 1,
     "locale": "C",
-    "on-click": "thunderbird"
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
   },
   "cpu": {
     "format": "  &#8239;{usage}%",

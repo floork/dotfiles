@@ -50,6 +50,7 @@ function update_symlinks() {
 
     # Desktop applications
     [".config/dunst"]="$dotfiles_dir/dunst"
+    [".config/fuzzel"]="$dotfiles_dir/fuzzel"
     [".config/gromit-mpx.ini"]="$dotfiles_dir/gromit-mpx/gromit-mpx.ini"
     [".config/gromit-mpx.cfg"]="$dotfiles_dir/gromit-mpx/gromit-mpx.cfg"
     [".config/hypr"]="$dotfiles_dir/hypr"

@@ -63,7 +63,7 @@
     "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
   },
   "clock": {
-    "format": "{:%T:%Z,   󰃭  %a %d.%m/KW: %V}",
+    "format": "{:%T:%Z,󰃭 %a %d.%m/KW:%V}",
     "interval": 1,
     "locale": "C",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
@@ -82,7 +82,7 @@
     },
   },
   "cpu": {
-    "format": "  &#8239;{usage}%",
+    "format": " &#8239;{usage}%",
     "on-click": "wezterm start -e 'htop'",
     "tooltip": true
   },
@@ -123,7 +123,7 @@
   },
   "memory": {
     "critical": 90,
-    "format": "  {used:0.2f}GB",
+    "format": " {used:0.2f}GB",
     "interval": 30,
     "max-length": 10,
     "tooltip": true,
@@ -157,10 +157,10 @@
   },
   "network": {
     "format-disabled": "",
-    "format-disconnected": "  Disconnected",
-    "format-ethernet": "  eth",
+    "format-disconnected": " Disconnected",
+    "format-ethernet": " eth",
     "format-linked": " {ipaddr}",
-    "format-wifi": "  {signalStrength}%",
+    "format-wifi": " {signalStrength}%",
     "interval": 2,
     "max-length": 20,
     "min-length": 6,

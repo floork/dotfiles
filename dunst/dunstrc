@@ -1,5 +1,5 @@
 [global]
-monitor = 2
+monitor = 0
 follow = none
 origin = top-right offset = 20x73
 offset = 20x73

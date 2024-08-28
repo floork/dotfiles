@@ -121,6 +121,7 @@ function pack_man() {
     echo 'This Distro is not supported!'
   fi
 }
+pack_man
 
 function build-cpp() {
   # Check if cmake is installed
@@ -183,5 +184,3 @@ function plugins() {
     ;;
   esac
 }
-
-pack_man

@@ -24,6 +24,7 @@ function update_symlinks() {
     [".config/systemd"]="$dotfiles_dir/systemd"
     [".config/cmake"]="$dotfiles_dir/cmake"
     [".docker"]="$dotfiles_dir/docker"
+    [".config/mimeapps.list"]="$dotfiles_dir/mimeapps/mimeapps.list"
 
     # GIT
     [".gitconfig"]="$dotfiles_dir/git/gitconfig"

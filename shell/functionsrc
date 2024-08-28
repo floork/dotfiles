@@ -3,228 +3,185 @@
 # ex - archive extractor
 # usage: ex <file>
 function ex() {
-	if [ -f $1 ]; then
-		case $1 in
-		*.7z) 7z x $1 ;;
-		*.bz2) bunzip2 $1 ;;
-		*.tar.bz2) tar xjf $1 ;;
-		*.tar.gz) tar xzf $1 ;;
-		*.tar.xz) tar xJf $1 ;;
-		*.rar) unrar x $1 ;;
-		*.gz) gunzip $1 ;;
-		*.tar) tar xf $1 ;;
-		*.tbz2) tar xjf $1 ;;
-		*.tgz) tar xzf $1 ;;
-		*.zip) unzip $1 ;;
-		*.Z) uncompress $1 ;;
-		*) echo "'$1' cannot be extracted via ex()" ;;
-		esac
-	else
-		echo "'$1' is not a valid file"
-	fi
+  if [ -f $1 ]; then
+    case $1 in
+    *.7z) 7z x $1 ;;
+    *.bz2) bunzip2 $1 ;;
+    *.tar.bz2) tar xjf $1 ;;
+    *.tar.gz) tar xzf $1 ;;
+    *.tar.xz) tar xJf $1 ;;
+    *.rar) unrar x $1 ;;
+    *.gz) gunzip $1 ;;
+    *.tar) tar xf $1 ;;
+    *.tbz2) tar xjf $1 ;;
+    *.tgz) tar xzf $1 ;;
+    *.zip) unzip $1 ;;
+    *.Z) uncompress $1 ;;
+    *) echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
 }
 
 function compress() {
-	local source="$1"
-	local format="$2"
-	local output="${source%.*}.$format"
+  local source="$1"
+  local format="$2"
+  local output="${source%.*}.$format"
 
-	if [ -z "$source" ] || [ -z "$format" ]; then
-		echo "Usage: compress <source> <format>"
-		echo "Example: compress /path/to/directory tar.gz"
-		return 1
-	fi
+  if [ -z "$source" ] || [ -z "$format" ]; then
+    echo "Usage: compress <source> <format>"
+    echo "Example: compress /path/to/directory tar.gz"
+    return 1
+  fi
 
-	case "$format" in
-	7z)
-		7z a "$output" "$source"
-		;;
-	bz2)
-		tar -cjvf "$output" "$source"
-		;;
-	gz)
-		gzip "$source"
-		mv "$source.gz" "$output"
-		;;
-	rar)
-		rar a "$output" "$source"
-		;;
-	tbz2)
-		tar -xjf "$source"
-		mv "$source.tar" "$output"
-		;;
-	tgz)
-		tar -czvf "$output" "$source"
-		;;
-	tar)
-		tar -cvf "$output" "$source"
-		;;
-	tar.bz2)
-		tar -cjvf "$output" "$source"
-		;;
-	tar.gz)
-		tar -czvf "$output" "$source"
-		;;
-	tar.xz)
-		tar -cJvf "$output" "$source"
-		;;
-	zip)
-		zip -r "$output" "$source"
-		;;
-	Z)
-		compress "$source"
-		mv "$source.Z" "$output"
-		;;
-	*)
-		echo "Unsupported format: $format"
-		return 1
-		;;
-	esac
+  case "$format" in
+  7z)
+    7z a "$output" "$source"
+    ;;
+  bz2)
+    tar -cjvf "$output" "$source"
+    ;;
+  gz)
+    gzip "$source"
+    mv "$source.gz" "$output"
+    ;;
+  rar)
+    rar a "$output" "$source"
+    ;;
+  tbz2)
+    tar -xjf "$source"
+    mv "$source.tar" "$output"
+    ;;
+  tgz)
+    tar -czvf "$output" "$source"
+    ;;
+  tar)
+    tar -cvf "$output" "$source"
+    ;;
+  tar.bz2)
+    tar -cjvf "$output" "$source"
+    ;;
+  tar.gz)
+    tar -czvf "$output" "$source"
+    ;;
+  tar.xz)
+    tar -cJvf "$output" "$source"
+    ;;
+  zip)
+    zip -r "$output" "$source"
+    ;;
+  Z)
+    compress "$source"
+    mv "$source.Z" "$output"
+    ;;
+  *)
+    echo "Unsupported format: $format"
+    return 1
+    ;;
+  esac
 
-	echo "Compression complete: $output"
-}
-
-function gt-push() {
-	git add .
-	git commit -m "$*"
-	git pull
-	git push
+  echo "Compression complete: $output"
 }
 
 function pack_man() {
-	if [ -x "$(command -v apk)" ]; then
-		alias pkm='sudo apk add --no-cache '
-	elif [ -x "$(command -v apt-get)" ]; then
-		alias pkm='sudo apt install '
-		alias rpkm='sudo apt remove'
-		alias rpkmcleanup='sudo apt autoremove'
-		alias packdate='sudo apt -y update && flatpak -y --noninteractive update'
-	elif [ -x "$(command -v dnf)" ]; then
-		alias pkm='sudo dnf install '
-		alias rpkm='sudo dnf remove '
-		alias rpkmcleanup='sudo dnf -y autoremove'
-		alias packdate='sudo dnf -y upgrade --refresh'
-	elif [ -x "$(command -v zypper)" ]; then
-		alias pkm='sudo zypper install '
-	elif [ -x "$(command -v paru)" ]; then
-		alias pkm="paru -S "
-		alias rpkm='paru -Rdd'
-		alias pacman-update='sudo pacman-mirrors --geoip'
-		alias rpkmcleanup='paru -Rns $(paru -Qdtq)' # Cleanup orphaned packages
-		alias fixpacman="sudo rm /var/lib/pacman/db.lck"
-		alias pkmgrade='paru --noconfirm -Syu && sudo flatpak -y --noninteractive update'
-		# get fastest mirrors
-		alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
-		alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
-		alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
-		alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
-	elif [ -x "$(command -v nix-env)" ]; then
-		# Nix package manager
-		alias pkm='nix-env -iA'
-		alias rpkm='nix-env -e'
-		alias rpkmcleanup='nix-collect-garbage -d'
-		alias packdate='nix-channel --update'
-	else
-		echo 'This Distro is not supported!'
-	fi
-}
-
-function frm {
-	echo "Are you sure you want to delete [$@]? (y/N): "
-	read -r -k 1 response
-	echo # move to a new line
-	if [[ "$response" == "y" || "$response" == "Y" ]]; then
-		rm -rf "$@"
-		echo "Deleted [$@]"
-	else
-		echo "Aborted."
-	fi
+  if [ -x "$(command -v apk)" ]; then
+    alias pkm='sudo apk add --no-cache '
+  elif [ -x "$(command -v apt-get)" ]; then
+    alias pkm='sudo apt install '
+    alias rpkm='sudo apt remove'
+    alias rpkmcleanup='sudo apt autoremove'
+    alias packdate='sudo apt -y update && flatpak -y --noninteractive update'
+  elif [ -x "$(command -v dnf)" ]; then
+    alias pkm='sudo dnf install '
+    alias rpkm='sudo dnf remove '
+    alias rpkmcleanup='sudo dnf -y autoremove'
+    alias packdate='sudo dnf -y upgrade --refresh'
+  elif [ -x "$(command -v zypper)" ]; then
+    alias pkm='sudo zypper install '
+  elif [ -x "$(command -v paru)" ]; then
+    alias pkm="paru -S "
+    alias rpkm='paru -Rdd'
+    alias pacman-update='sudo pacman-mirrors --geoip'
+    alias rpkmcleanup='paru -Rns $(paru -Qdtq)' # Cleanup orphaned packages
+    alias fixpacman="sudo rm /var/lib/pacman/db.lck"
+    alias pkmgrade='paru --noconfirm -Syu && sudo flatpak -y --noninteractive update'
+    # get fastest mirrors
+    alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
+    alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
+    alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
+    alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
+  elif [ -x "$(command -v nix-env)" ]; then
+    # Nix package manager
+    alias pkm='nix-env -iA'
+    alias rpkm='nix-env -e'
+    alias rpkmcleanup='nix-collect-garbage -d'
+    alias packdate='nix-channel --update'
+  else
+    echo 'This Distro is not supported!'
+  fi
 }
 
 function build-cpp() {
-	# Check if cmake is installed
-	if ! command -v cmake &>/dev/null; then
-		echo "cmake could not be found"
-		return 1
-	fi
+  # Check if cmake is installed
+  if ! command -v cmake &>/dev/null; then
+    echo "cmake could not be found"
+    return 1
+  fi
 
-	local build_target="build"
-	local cmake_command="cmake"
+  local build_target="build"
+  local cmake_command="cmake"
 
-	# If already inside the build directory, adjust build_target accordingly
-	if [ "${PWD##*/}" = "build" ]; then
-		build_target="."
-	fi
+  # If already inside the build directory, adjust build_target accordingly
+  if [ "${PWD##*/}" = "build" ]; then
+    build_target="."
+  fi
 
-	# Check if build directory exists, otherwise generate cmake build files
-	if ! [[ -d "$build_target" ]]; then
-		echo "Running $cmake_command -B $build_target..."
-		$cmake_command -B $build_target
-		if [ $? -ne 0 ]; then
-			echo "Failed to run $cmake_command -B $build_target" >&2
-			return 1
-		fi
-	fi
+  # Check if build directory exists, otherwise generate cmake build files
+  if ! [[ -d "$build_target" ]]; then
+    echo "Running $cmake_command -B $build_target..."
+    $cmake_command -B $build_target
+    if [ $? -ne 0 ]; then
+      echo "Failed to run $cmake_command -B $build_target" >&2
+      return 1
+    fi
+  fi
 
-	echo "Building C++ project..."
+  echo "Building C++ project..."
 
-	# Check if mold is installed and executable
-	if [[ -x /usr/bin/mold || -x /bin/mold ]]; then
-		mold --run cmake --build "$build_target" -- "$@"
-	else
-		cmake --build "$build_target" -- "$@"
-	fi
+  # Check if mold is installed and executable
+  if [[ -x /usr/bin/mold || -x /bin/mold ]]; then
+    mold --run cmake --build "$build_target" -- "$@"
+  else
+    cmake --build "$build_target" -- "$@"
+  fi
 
-	return 0
-}
-
-function new() {
-	# Find directories in both the regular home directory and specific home directory
-	directories=$(fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~)
-	my_home=$(echo ~)
-	directories+=" $my_home"
-
-	# Use fzf to select a directory from the list
-	dir=$(echo "$directories" | tr ' ' '\n' | fzf)
-	if [ -n "$dir" ]; then
-		if [[ "$dir" == "$my_home" ]]; then
-			cd "$dir"
-		else
-			cd ~/"$dir"
-		fi
-		if [ -n "$TMUX" ]; then
-			tmux rename-window "$(basename "$dir")"
-		fi
-	fi
-}
-
-function note() {
-	vim "+set ft=$1" "/tmp/note.$1"
+  return 0
 }
 
 function reload() {
-	case "$SHELL" in
-	*/bash)
-		source ~/.bashrc
-		;;
-	*/zsh)
-		source ~/.zshrc
-		;;
-	*)
-		echo "You are using another shell: $SHELL."
-		;;
-	esac
+  case "$SHELL" in
+  */bash)
+    source ~/.bashrc
+    ;;
+  */zsh)
+    source ~/.zshrc
+    ;;
+  *)
+    echo "You are using another shell: $SHELL."
+    ;;
+  esac
 }
 
 function plugins() {
-	case "$SHELL" in
-	*/zsh)
-		vim ~/.config/zsh/plugins_config.zsh
-		;;
-	*)
-		echo "No plugin manager defined for: $SHELL."
-		;;
-	esac
+  case "$SHELL" in
+  */zsh)
+    vim ~/.config/zsh/plugins_config.zsh
+    ;;
+  *)
+    echo "No plugin manager defined for: $SHELL."
+    ;;
+  esac
 }
 
 pack_man

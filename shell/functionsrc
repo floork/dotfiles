@@ -27,11 +27,19 @@ function ex() {
 function compress() {
   local source="$1"
   local format="$2"
-  local output="${source%.*}.$format"
+  local out="$3"
+  local output=""
+
+  if [ -z "$out" ]; then
+    output="${source%.*}.$format"
+  else
+    output="$out.$format"
+  fi
 
   if [ -z "$source" ] || [ -z "$format" ]; then
-    echo "Usage: compress <source> <format>"
+    echo "Usage: compress <source> <format> <name>"
     echo "Example: compress /path/to/directory tar.gz"
+    echo "or compress /path/to/directory tar.gz test"
     return 1
   fi
 

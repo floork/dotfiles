@@ -48,6 +48,8 @@ function update_symlinks() {
     [".config/vim"]="$dotfiles_dir/vim"
     # # zellij
     [".config/zellij"]="$dotfiles_dir/zellij"
+    # # lf
+    [".config/lf"]="$dotfiles_dir/lf"
 
     # Desktop applications
     [".config/dunst"]="$dotfiles_dir/dunst"

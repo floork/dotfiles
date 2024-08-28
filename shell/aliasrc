@@ -26,7 +26,7 @@ alias fontsList='fc-list'
 # copy and moving
 alias cd..='cd ..'
 alias ..='cd ..'
-alias rm='trash-put'
+alias rm='trashy put'
 # alias rm='rm -r'
 # alias frm='rm -rf'
 alias copy='ls && rsync -avh --progress'

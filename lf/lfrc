@@ -1,21 +1,23 @@
 # credit https://github.com/ericmurphyxyz/dotfiles/blob/master/.config/lf/lfrc
 
-set previewer ~/.config/lf/previewer
-
 # Basic Settings
-set hidden true
-set ignorecase true
-set icons true
-set sixel true
+# General configuration for lf (list files)
+set previewer ~/.config/lf/previewer
+set hidden true  # Show hidden files
+set ignorecase true  # Ignore case when searching
+set icons true  # Display icons
+set sixel true  # Support sixel graphics
 set rulerfmt "%d  |%a  |%p  |\033[7;31m %m \033[0m  |\033[7;33m %c \033[0m  |\033[7;35m %s \033[0m  |\033[7;34m %f \033[0m  |%i/%t"
 
 # Custom Functions
+# Create a new directory
 cmd mkdir ${{
   printf "Directory Name: "
   read ans
   mkdir $ans
 }}
 
+# Create a new file and open it with the editor
 cmd mkfile ${{
   printf "File Name: "
   read ans
@@ -23,6 +25,7 @@ cmd mkfile ${{
 }}
 
 # Archive bindings
+# Unarchive files based on their extension
 cmd unarchive ${{
   case "$f" in
       *.zip) unzip "$f" ;;
@@ -36,11 +39,11 @@ cmd unarchive ${{
 }}
 
 # Trash bindings
+# Move files to trash using the trashy utility
 cmd trash ${{
   files=$(printf "$fx" | tr '\n' ';')
   while [ "$files" ]; do
     file=${files%%;*}
-
     trashy put "$(basename "$file")"
     if [ "$files" = "$file" ]; then
       files=''
@@ -50,43 +53,49 @@ cmd trash ${{
   done
 }}
 
+# Open file based on its MIME type
 cmd open &{{
-	case $(file --mime-type -Lb $f) in
-		text/*) lf -remote "send $id \$nvim \$fx";;
-		*) xdg-open "$f"
-	esac
+  case $(file --mime-type -Lb $f) in
+    text/*) lf -remote "send $id \$nvim \$fx" ;;  # Open text files with nvim
+    *) xdg-open "$f"  # Open other file types with xdg-open
+  esac
 }}
 
+# Display file information on selection
 cmd on-select &{{
-    lf -remote "send $id set statfmt \"$(exa -ld --color=always "$f")\""
+  lf -remote "send $id set statfmt \"$(exa -ld --color=always "$f")\""
 }}
 
+# FZF Bindings
+# Jump to a directory or select a file using fzf
 cmd fzf_jump ${{
-    res="$(find . -maxdepth 1 | fzf --reverse --header='Jump to location')"
-    if [ -n "$res" ]; then
-        if [ -d "$res" ]; then
-            cmd="cd"
-        else
-            cmd="select"
-        fi
-        res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
-        lf -remote "send $id $cmd \"$res\""
+  res="$(find . -maxdepth 1 | fzf --reverse --header='Jump to location')"
+  if [ -n "$res" ]; then
+    if [ -d "$res" ]; then
+      cmd="cd"
+    else
+      cmd="select"
     fi
+    res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    lf -remote "send $id $cmd \"$res\""
+  fi
 }}
 map <c-f> :fzf_jump
 
+# FZF search for files using ripgrep (rg)
 cmd fzf_search ${{
-    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
-    res="$(
-        FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
-            fzf --bind "change:reload:$RG_PREFIX {q} || true" \
-            --ansi --layout=reverse --header 'Search in files' \
-            | cut -d':' -f1 | sed 's/\\/\\\\/g;s/"/\\"/g'
-    )"
-    [ -n "$res" ] && lf -remote "send $id select \"$res\""
+  RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+  res="$(
+    FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
+      fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+      --ansi --layout=reverse --header 'Search in files' \
+      | cut -d':' -f1 | sed 's/\\/\\\\/g;s/"/\\"/g'
+  )"
+  [ -n "$res" ] && lf -remote "send $id select \"$res\""
 }}
 map <c-g> :fzf_search
 
+# Jump to a location using z.lua
 cmd z-jump ${{
   ZLUA_SCRIPT="$ZDOTDIR/plugins/z.lua/z.lua"
   lf -remote "send ${id} cd \"$($ZLUA_SCRIPT -e $@ | sed 's/\\/\\\\/g;s/"/\\"/g')\""
@@ -95,7 +104,8 @@ map Z push :z-jump<space>-I<space>
 map zb push :z-jump<space>-b<space>
 map zz push :z-jump<space>
 
-# Bindings
+# Key Mappings
+# Custom key mappings for various commands
 map c
 map d
 map m
@@ -103,7 +113,6 @@ map m
 map au unarchive
 map ae $wine "$f"
 
-# Basic Functions
 map . set hidden!
 map dd trashy
 map u $trashy restore -r 0
@@ -112,11 +121,13 @@ map p paste
 map x cut
 map y copy
 map <enter> open
+map o open
 map R reload
 map mf mkfile
 map md mkdir
 map C clear
 
 # Movement
+# Custom commands for changing directories
 map gs cd ~/.local/bin
 map gt cd ~/.local/share/Trash/files

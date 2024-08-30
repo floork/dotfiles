@@ -181,7 +181,7 @@ function reload() {
     source ~/.bashrc
     ;;
   */zsh)
-    source ~/.zshrc
+    source ~/.zshrc 2>/dev/null
     ;;
   *)
     echo "You are using another shell: $SHELL."

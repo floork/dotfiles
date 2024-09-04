@@ -1,70 +1,66 @@
-# Regular alias
-alias please='sudo $(fc -ln -1)'
-alias fuck='please'
-alias fck='please'
+# File Operations
+alias ..='cd ..'
+alias cd..='cd ..'
+alias cat='bat'
+alias copy='ls && rsync -avh --progress'
+alias cp='cp -r'
+alias rm='trashy put'
+
+# ls alternative
+alias ls='lsd --icon always --color always --group-dirs first'
+alias ll='lsd -l --total-size --icon always --color always --group-dirs first'
+alias la='lsd -a --icon always --color always --group-dirs first'
+alias lal='lsd -la --total-size --icon always --color always --group-dirs first'
+alias lg='lsd --git --long --icon always --color always --group-dirs first'
+alias lr='lsd -aR --icon always --color always --group-dirs first'
+alias lt='tree'
+alias tree='lsd --tree --icon always --color always'
+
+# System Commands
 alias reboot='sudo reboot'
 alias poweroff='sudo poweroff'
 alias shutdown='sudo shutdown now'
 alias suspend='systemctl suspend'
-alias cls='clear'
-alias tree='lsd --tree --icon always --color always' # tree listing
-alias vi='nvim'
-alias vim='nvim'
-alias svim='sudo -E nvim'
-alias cat='bat'
-
-# sys
 alias sctl='sudo systemctl'
+alias usystemctl='systemctl --user'
 alias blkid='sudo blkid -o export'
 alias dlist='sudo blkid -o list'
 alias fontsReload='fc-cache -f -v'
 alias fontsList='fc-list'
-
-# copy and moving
-alias cd..='cd ..'
-alias ..='cd ..'
-alias rm='trashy put'
-alias copy='ls && rsync -avh --progress'
-alias cp='cp -r'
+alias please='sudo $(fc -ln -1)'
+alias fuck='please'
+alias fck='please'
 alias open='xdg-open'
+alias cls='clear'
 
-# Changing "ls" to "lsd"
-alias l='ls'
-alias ls='lsd --icon always --color always --group-dirs first' # my preferred listing
-alias ll='lsd -l --total-size --icon always --color always --group-dirs first' # long format
-alias la='lsd -a --icon always --color always --group-dirs first' # all files and dirs
-alias lal='lsd -la --total-size --icon always --color always --group-dirs first' # long format all files and dirs
-alias lg='lsd --git --long --icon always --color always --group-dirs first' # Display git status.  Directory git status is a reduction of included file statuses (recursively).
-alias lr='lsd -aR --icon always --color always --group-dirs first' # list recursively
-alias lt='tree' # tree listing# tree listing
+# Editors & Configurations
+alias vi='nvim'
+alias vim='nvim'
+alias svim='sudo -E nvim'
+alias tmuxrc='vim ~/.tmux.conf'
+alias zshrc='cd ~/dotfiles/zsh && vim ~/dotfiles/zsh/zshrc'
+alias bashrc='cd ~/dotfiles/bash && vim ~/dotfiles/bash/bashrc'
+alias fishrc='cd ~/dotfiles/fish && vim ~/dotfiles/fish/fishrc'
+alias aliasrc='cd ~/dotfiles/shell/ && vim ~/dotfiles/shell/aliasrc'
+alias functionsrc='cd ~/dotfiles/shell/ && vim ~/dotfiles/shell/functionsrc'
+alias vimrc='cd ~/.config/nvim && vim .'
+alias dotfiles='cd ~/dotfiles && vim .'
+alias gitconfig='vim ~/.gitconfig'
+alias sshrc='vim ~/.ssh/config'
+alias nixrc='cd /etc/nixos && vim /etc/nixos/'
 
-# tmux
-alias tmuxrc='vim ~/.tmux.conf' # Quick access to the ~/.tmux.conf file
+# Development & Build Tools
+alias cval='make && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ${1} 2> valgrind.log'
+alias diff='git diff --no-index'
 
-# shell alias
-alias zshrc='cd ~/dotfiles/zsh && vim ~/dotfiles/zsh/zshrc' # Quick access to the ~/.zshrc file
-alias bashrc='cd ~/dotfiles/bash && vim ~/dotfiles/bash/bashrc' # Quick access to the ~/.bashrc file
-alias fishrc='cd ~/dotfiles/fish && vim ~/dotfiles/fish/fishrc' # Quick access to the ~/.fishrc file
-alias aliasrc='cd ~/dotfiles/shell/ && vim ~/dotfiles/shell/aliasrc' # Quick access to this file
-alias functionsrc='cd ~/dotfiles/shell/ && vim ~/dotfiles/shell/functionsrc' # Quick access to this file
-
-# nix alias
-alias nixrc='cd /etc/nixos && vim /etc/nixos/' 
+# Nix
 alias nixsearch='nix-env -qaP'
 alias desktopbuild='sudo nixos-rebuild switch --flake .#desktop'
 alias laptopbuild='sudo nixos-rebuild switch --flake .#laptop'
 
-# dev alias
-alias cval='make && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ${1} 2> valgrind.log'
-alias diff="git diff --no-index" 
+# Misc
+alias mensa='xdg-open https://www.studentenwerk-dresden.de/mensen/speiseplan/'
+alias shitpoint='xdg-open https://sharepoint.tu-dresden.de/sites/zih/SitePages/Homepage.aspx'
+alias shitpoint-liste='xdg-open https://sharepoint.tu-dresden.de/sites/zih/SitePages/Anwesenheitsliste.aspx'
+alias work='time_tracking'
 
-# shorcuts
-alias sshrc='vim ~/.ssh/config'
-alias vimrc='cd ~/.config/nvim && vim .'
-alias dotfiles='cd ~/dotfiles && vim .'
-alias gitconfig='vim ~/.gitconfig'
-
-# fast open
-alias mensa="xdg-open https://www.studentenwerk-dresden.de/mensen/speiseplan/"
-alias shitpoint="xdg-open https://sharepoint.tu-dresden.de/sites/zih/SitePages/Homepage.aspx"
-alias shitpoint-liste="xdg-open https://sharepoint.tu-dresden.de/sites/zih/SitePages/Anwesenheitsliste.aspx"

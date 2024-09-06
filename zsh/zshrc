@@ -91,14 +91,6 @@ bindkey "\e[F" end-of-line       # End: Move to end of line
 bindkey '^E' end-of-line         # Ctrl + E: Move to end of line
 
 #------------------------------
-# Switch Caps:escape in TTY
-#------------------------------
-if tty | grep -q "^/dev/tty"; then
-  setxkbmap us
-  echo "keycode 58 = Escape" | sudo loadkeys
-fi
-
-#------------------------------
 # Device Configuration
 #------------------------------
 [ -f "$HOME/.device_config" ] && source "$HOME/.device_config"

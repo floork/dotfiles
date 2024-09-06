@@ -7,6 +7,7 @@ alias cp='cp -r'
 alias rm='trashy put'
 
 # ls alternative
+alias l='ls'
 alias ls='lsd --icon always --color always --group-dirs first'
 alias ll='lsd -l --total-size --icon always --color always --group-dirs first'
 alias la='lsd -a --icon always --color always --group-dirs first'
@@ -32,6 +33,7 @@ alias fuck='please'
 alias fck='please'
 alias open='xdg-open'
 alias cls='clear'
+alias unlock-hyprlock='pkill -USR1 hyprlock'
 
 # Editors & Configurations
 alias vi='nvim'

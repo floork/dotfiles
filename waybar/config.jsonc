@@ -35,8 +35,8 @@
     "on-scroll-up": "brightnessctl -c backlight set +1%"
   },
   "battery": {
-    "format": "{icon}&#8239;{capacity}%",
-    "format-charging": " &#8239;{capacity}%",
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
     "format-icons": [
       "",
       "",
@@ -46,7 +46,7 @@
       "",
       ""
     ],
-    "format-plugged": " &#8239;{capacity}%",
+    "format-plugged": "{capacity}%",
     "format-alt": "{icon} {time}",
     "states": {
       "warning": 30,
@@ -81,10 +81,10 @@
         "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
         "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
       }
-    },
+    }
   },
   "cpu": {
-    "format": " &#8239;{usage}%",
+    "format": " {usage}%",
     "on-click": "wezterm start -e 'htop'",
     "tooltip": true
   },
@@ -148,11 +148,11 @@
       "on": " "
     },
     "single-icons": {
-      "on": "1 "
+      "on": " 1"
     },
     "state-icons": {
-      "paused": "",
-      "playing": ""
+      "paused": " ",
+      "playing": " "
     },
     "tooltip-format": "MPD (connected)",
     "tooltip-format-disconnected": "MPD (disconnected)"
@@ -169,7 +169,7 @@
     "tooltip": true
   },
   "pulseaudio": {
-    "format": "{icon} {volume}% {format_source}",
+    "format": "{icon}{volume}% {format_source}",
     "format-bluetooth": "{icon} {volume}% {format_source}",
     "format-bluetooth-muted": " {format_source}",
     "format-muted": "  {format_source}",

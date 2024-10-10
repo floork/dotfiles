@@ -23,11 +23,12 @@ config.scrollback_lines = 10000
 
 Wayland_per_os(config, "*", true)
 
+config.disable_default_key_bindings = true
 config.keys = {
   {
-    key = "w",
-    mods = "SUPER",
-    action = wezterm.action.DisableDefaultAssignment,
+    key = "D",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action.ShowDebugOverlay,
   },
 }
 

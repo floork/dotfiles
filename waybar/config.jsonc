@@ -116,7 +116,7 @@
   "custom/work": {
     "exec": "python ~/.config/waybar/scripts/work.py",
     "format": " work left: {}",
-    "interval": 3600,
+    "interval": 60,
     "return-type": "json",
     "tooltip": true,
     "on-click": "xdg-open https://www.wetter.com/deutschland/dresden/leubnitz/DE0002265107.html"

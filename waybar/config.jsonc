@@ -107,7 +107,7 @@
   },
   "custom/weather": {
     "exec": "wttrbar",
-    "format": "{} °",
+    "format": "{}°C",
     "interval": 3600,
     "return-type": "json",
     "tooltip": true,
@@ -118,8 +118,7 @@
     "format": " work left: {}",
     "interval": 60,
     "return-type": "json",
-    "tooltip": true,
-    "on-click": "xdg-open https://www.wetter.com/deutschland/dresden/leubnitz/DE0002265107.html"
+    "tooltip": true
   },
   "hyprland/language": {
     "format": "{}"

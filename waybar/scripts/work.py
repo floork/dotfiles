@@ -6,13 +6,15 @@ try:
     day = subprocess.run(["taim-o-meter", "day"], stdout=subprocess.PIPE, check=True)
     day_out = day.stdout.decode()
 
-    remaining_time_match = re.search(r"Remaining time for today: (\d+h \d+m)", day_out)
+    remaining_time_match = re.search(
+        r"Remaining time for today:\s*(\d+h\s*\d+m)", day_out
+    )
 
     output = {}
 
     if remaining_time_match:
         remaining_time = remaining_time_match.group(1)
-        formatted_output = f"{remaining_time.replace(' ', ':')}h"
+        formatted_output = f"{remaining_time.replace(' ', ':')}"
         output["text"] = formatted_output
 
     week = subprocess.run(["taim-o-meter", "week"], stdout=subprocess.PIPE, check=True)
@@ -23,7 +25,6 @@ try:
     data = json.dumps(output)
 
     print(data)
-
 
 except:
     pass

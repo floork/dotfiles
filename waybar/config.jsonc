@@ -10,7 +10,8 @@
     "temperature", // currently not working
     "systemd-failed-units",
     "network",
-    "hyprland/language"
+    "hyprland/language",
+    "custom/work"
   ],
   "modules-center": [
     "hyprland/workspaces"
@@ -107,6 +108,14 @@
   "custom/weather": {
     "exec": "wttrbar",
     "format": "{} °",
+    "interval": 3600,
+    "return-type": "json",
+    "tooltip": true,
+    "on-click": "xdg-open https://www.wetter.com/deutschland/dresden/leubnitz/DE0002265107.html"
+  },
+  "custom/work": {
+    "exec": "python ~/.config/waybar/scripts/work.py",
+    "format": " work left: {}",
     "interval": 3600,
     "return-type": "json",
     "tooltip": true,

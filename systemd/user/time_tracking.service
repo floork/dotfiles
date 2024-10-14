@@ -1,0 +1,10 @@
+[Unit]
+Description=Time Tracking Service
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash -c 'exec taim-o-meter record'
+
+[Install]
+WantedBy=multi-user.target

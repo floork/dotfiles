@@ -30,6 +30,16 @@ config.keys = {
     mods = "CTRL|SHIFT",
     action = wezterm.action.ShowDebugOverlay,
   },
+  {
+    key = 'V',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.PasteFrom 'Clipboard'
+  },
+  {
+    key = 'C',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.CopyTo 'Clipboard',
+  },
 }
 
 return config

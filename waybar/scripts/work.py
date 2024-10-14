@@ -7,7 +7,6 @@ try:
     day_out = day.stdout.decode()
 
     remaining_time_match = re.search(r"Remaining time for today: (\d+h \d+m)", day_out)
-    total_time = "8h 30m"
 
     output = {}
 

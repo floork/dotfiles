@@ -199,3 +199,38 @@ function plugins() {
     ;;
   esac
 }
+
+function completions() {
+  case "$SHELL" in
+  */zsh)
+    if [[ -d ~/.completions ]]; then
+      # Enable nullglob to prevent "no matches found" errors
+      setopt nullglob
+      # Source Zsh completions
+      for file in ~/.completions/*.zsh; do
+        [[ -f $file ]] && source "$file"
+      done
+
+      # Source Bash completions (if any)
+      for file in ~/.completions/*.bash; do
+        [[ -f $file ]] && source "$file"
+      done
+      # Disable nullglob to avoid affecting the rest of the shell
+      unsetopt nullglob
+    fi
+    ;;
+  */bash)
+    if [[ -d ~/.completions ]]; then
+      # Source Bash completions
+      shopt -s nullglob
+      for file in ~/.completions/*.bash; do
+        [[ -f $file ]] && source "$file"
+      done
+      shopt -u nullglob
+    fi
+    ;;
+  *) ;;
+  esac
+}
+
+completions

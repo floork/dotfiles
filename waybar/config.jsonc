@@ -68,7 +68,7 @@
   "clock": {
     "format": "{:%T:%Z,󰃭 %a %d.%m/KW:%V}",
     "interval": 1,
-    "locale": "C",
+    "locale": "de_DE.UTF-8",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
       "mode": "year",
@@ -82,6 +82,13 @@
         "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
         "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
       }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "tz_up",
+      "on-scroll-down": "tz_down",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
     }
   },
   "cpu": {

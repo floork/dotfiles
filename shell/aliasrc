@@ -3,6 +3,7 @@ alias ..='cd ..'
 alias cd..='cd ..'
 alias cat='bat'
 alias copy='ls && rsync -avh --progress'
+alias rsync='rsync --progress'
 alias cp='cp -r'
 alias rm='trashy put'
 

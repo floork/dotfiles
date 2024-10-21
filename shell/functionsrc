@@ -114,6 +114,18 @@ function pack_man() {
     alias packdate='sudo dnf -y upgrade --refresh'
   elif [ -x "$(command -v zypper)" ]; then
     alias pkm='sudo zypper install '
+  elif [ -x "$(command -v yay)" ]; then
+    alias pkm="yay -S "
+    alias rpkm='yay -Rdd'
+    alias pacman-update='sudo pacman-mirrors --geoip'
+    alias rpkmcleanup='yay -Rns $(yay -Qdtq)' # Cleanup orphaned packages
+    alias fixpacman="sudo rm /var/lib/pacman/db.lck"
+    alias pkmgrade='yay --noconfirm -Syu && sudo flatpak -y --noninteractive update'
+    # get fastest mirrors
+    alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
+    alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
+    alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
+    alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
   elif [ -x "$(command -v paru)" ]; then
     alias pkm="paru -S "
     alias rpkm='paru -Rdd'
@@ -169,7 +181,7 @@ function build-cpp() {
   if [[ -x /usr/bin/mold || -x /bin/mold ]]; then
     mold --run cmake --build "$build_target" -- "$@"
   else
-    cmake --build "$build_target" -- "$@"
+    cmake --build "$build_target" -j4 -- "$@"
   fi
 
   return 0
@@ -200,37 +212,42 @@ function plugins() {
   esac
 }
 
-function completions() {
-  case "$SHELL" in
-  */zsh)
-    if [[ -d ~/.completions ]]; then
-      # Enable nullglob to prevent "no matches found" errors
-      setopt nullglob
-      # Source Zsh completions
-      for file in ~/.completions/*.zsh; do
-        [[ -f $file ]] && source "$file"
-      done
-
-      # Source Bash completions (if any)
-      for file in ~/.completions/*.bash; do
-        [[ -f $file ]] && source "$file"
-      done
-      # Disable nullglob to avoid affecting the rest of the shell
-      unsetopt nullglob
-    fi
-    ;;
-  */bash)
-    if [[ -d ~/.completions ]]; then
-      # Source Bash completions
-      shopt -s nullglob
-      for file in ~/.completions/*.bash; do
-        [[ -f $file ]] && source "$file"
-      done
-      shopt -u nullglob
-    fi
-    ;;
-  *) ;;
-  esac
+function run-bg() {
+  nohup "$@" >/dev/null 2>&1 &
 }
 
-completions
+#
+# function completions() {
+#   case "$SHELL" in
+#   */zsh)
+#     if [[ -d ~/.completions ]]; then
+#       # Enable nullglob to prevent "no matches found" errors
+#       setopt nullglob
+#       # Source Zsh completions
+#       for file in ~/.completions/*.zsh; do
+#         [[ -f $file ]] && source "$file"
+#       done
+#
+#       # Source Bash completions (if any)
+#       for file in ~/.completions/*.bash; do
+#         [[ -f $file ]] && source "$file"
+#       done
+#       # Disable nullglob to avoid affecting the rest of the shell
+#       unsetopt nullglob
+#     fi
+#     ;;
+#   */bash)
+#     if [[ -d ~/.completions ]]; then
+#       # Source Bash completions
+#       shopt -s nullglob
+#       for file in ~/.completions/*.bash; do
+#         [[ -f $file ]] && source "$file"
+#       done
+#       shopt -u nullglob
+#     fi
+#     ;;
+#   *) ;;
+#   esac
+# }
+#
+# completions

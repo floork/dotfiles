@@ -100,45 +100,46 @@ function compress() {
 }
 
 function pack_man() {
-  if [ -x "$(command -v apk)" ]; then
+  # Define aliases for Pacman-related commands
+  function pacmanAlias() {
+    alias pacman-update='sudo pacman-mirrors --geoip'
+    alias fixpacman='sudo rm /var/lib/pacman/db.lck'
+    # Get fastest mirrors
+    alias mirror='sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist'
+    alias mirrord='sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist'
+    alias mirrors='sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist'
+    alias mirrora='sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist'
+  }
+
+  # Define package management aliases based on available package manager
+  if command -v apk &>/dev/null; then
     alias pkm='sudo apk add --no-cache '
-  elif [ -x "$(command -v apt-get)" ]; then
+  elif command -v apt-get &>/dev/null; then
     alias pkm='sudo apt install '
     alias rpkm='sudo apt remove'
     alias rpkmcleanup='sudo apt autoremove'
     alias packdate='sudo apt -y update && flatpak -y --noninteractive update'
-  elif [ -x "$(command -v dnf)" ]; then
+  elif command -v dnf &>/dev/null; then
     alias pkm='sudo dnf install '
     alias rpkm='sudo dnf remove '
     alias rpkmcleanup='sudo dnf -y autoremove'
     alias packdate='sudo dnf -y upgrade --refresh'
-  elif [ -x "$(command -v zypper)" ]; then
+  elif command -v zypper &>/dev/null; then
     alias pkm='sudo zypper install '
-  elif [ -x "$(command -v yay)" ]; then
-    alias pkm="yay -S "
-    alias rpkm='yay -Rdd'
-    alias pacman-update='sudo pacman-mirrors --geoip'
-    alias rpkmcleanup='yay -Rns $(yay -Qdtq)' # Cleanup orphaned packages
-    alias fixpacman="sudo rm /var/lib/pacman/db.lck"
-    alias pkmgrade='yay --noconfirm -Syu && sudo flatpak -y --noninteractive update'
-    # get fastest mirrors
-    alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
-    alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
-    alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
-    alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
-  elif [ -x "$(command -v paru)" ]; then
-    alias pkm="paru -S "
-    alias rpkm='paru -Rdd'
-    alias pacman-update='sudo pacman-mirrors --geoip'
-    alias rpkmcleanup='paru -Rns $(paru -Qdtq)' # Cleanup orphaned packages
-    alias fixpacman="sudo rm /var/lib/pacman/db.lck"
-    alias pkmgrade='paru --noconfirm -Syu && sudo flatpak -y --noninteractive update'
-    # get fastest mirrors
-    alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
-    alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
-    alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
-    alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
-  elif [ -x "$(command -v nix-env)" ]; then
+  elif command -v yay &>/dev/null || command -v paru &>/dev/null; then
+    if command -v yay &>/dev/null && command -v paru &>/dev/null; then
+      alias pkm='paru -S '
+      alias rpkm='paru -Rdd'
+      alias rpkmcleanup='paru -Rns $(paru -Qdtq)' # Cleanup orphaned packages
+      alias pkmgrade='paru --noconfirm -Syu && sudo flatpak -y --noninteractive update'
+    else
+      alias pkm='yay -S '
+      alias rpkm='yay -Rdd'
+      alias rpkmcleanup='yay -Rns $(yay -Qdtq)' # Cleanup orphaned packages
+      alias pkmgrade='yay --noconfirm -Syu && sudo flatpak -y --noninteractive update'
+    fi
+    pacmanAlias
+  elif command -v nix-env &>/dev/null; then
     # Nix package manager
     alias pkm='nix-env -iA'
     alias rpkm='nix-env -e'
@@ -148,6 +149,8 @@ function pack_man() {
     echo 'This Distro is not supported!'
   fi
 }
+
+# Call the function to set up the aliases
 pack_man
 
 function build-cpp() {

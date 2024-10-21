@@ -141,7 +141,7 @@
   "memory": {
     "critical": 90,
     "format": " {used:0.2f}GB",
-    "interval": 30,
+    "interval": 10,
     "max-length": 10,
     "tooltip": true,
     "warning": 70

@@ -113,37 +113,37 @@ function pack_man() {
 
   # Define package management aliases based on available package manager
   if command -v apk &>/dev/null; then
-    alias pkm='sudo apk add --no-cache '
+    alias pkmgr='sudo apk add --no-cache '
   elif command -v apt-get &>/dev/null; then
-    alias pkm='sudo apt install '
-    alias rpkm='sudo apt remove'
-    alias rpkmcleanup='sudo apt autoremove'
+    alias pkmgr='sudo apt install '
+    alias rpkmgr='sudo apt remove'
+    alias rpkmgrcleanup='sudo apt autoremove'
     alias packdate='sudo apt -y update && flatpak -y --noninteractive update'
   elif command -v dnf &>/dev/null; then
-    alias pkm='sudo dnf install '
-    alias rpkm='sudo dnf remove '
-    alias rpkmcleanup='sudo dnf -y autoremove'
+    alias pkmgr='sudo dnf install '
+    alias rpkmgr='sudo dnf remove '
+    alias rpkmgrcleanup='sudo dnf -y autoremove'
     alias packdate='sudo dnf -y upgrade --refresh'
   elif command -v zypper &>/dev/null; then
-    alias pkm='sudo zypper install '
+    alias pkmgr='sudo zypper install '
   elif command -v yay &>/dev/null || command -v paru &>/dev/null; then
     if command -v yay &>/dev/null && command -v paru &>/dev/null; then
-      alias pkm='paru -S '
-      alias rpkm='paru -Rdd'
-      alias rpkmcleanup='paru -Rns $(paru -Qdtq)' # Cleanup orphaned packages
-      alias pkmgrade='paru --noconfirm -Syu && sudo flatpak -y --noninteractive update'
+      alias pkmgr='paru -S '
+      alias rpkmgr='paru -Rdd'
+      alias rpkmgrcleanup='paru -Rns $(paru -Qdtq)' # Cleanup orphaned packages
+      alias pkmgrgrade='paru --noconfirm -Syu && sudo flatpak -y --noninteractive update'
     else
-      alias pkm='yay -S '
-      alias rpkm='yay -Rdd'
-      alias rpkmcleanup='yay -Rns $(yay -Qdtq)' # Cleanup orphaned packages
-      alias pkmgrade='yay --noconfirm -Syu && sudo flatpak -y --noninteractive update'
+      alias pkmgr='yay -S '
+      alias rpkmgr='yay -Rdd'
+      alias rpkmgrcleanup='yay -Rns $(yay -Qdtq)' # Cleanup orphaned packages
+      alias pkmgrgrade='yay --noconfirm -Syu && sudo flatpak -y --noninteractive update'
     fi
     pacmanAlias
   elif command -v nix-env &>/dev/null; then
     # Nix package manager
-    alias pkm='nix-env -iA'
-    alias rpkm='nix-env -e'
-    alias rpkmcleanup='nix-collect-garbage -d'
+    alias pkmgr='nix-env -iA'
+    alias rpkmgr='nix-env -e'
+    alias rpkmgrcleanup='nix-collect-garbage -d'
     alias packdate='nix-channel --update'
   else
     echo 'This Distro is not supported!'

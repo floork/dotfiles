@@ -66,7 +66,8 @@ function change_wallpaper() {
 function set_wallpaper() {
   get_wallpaper "$WALLPAPERS_DIR"
   cp "$wallpaper" ~/.cache/current.png
-  $CURRENT_WALLPAPER=$wallpaper
+  export CURRENT_WALLPAPER="$wallpaper"
+  echo "export CURRENT_WALLPAPER=\"$wallpaper\"" >~/.cache/current_wallpaper.sh
   change_wallpaper "hyprpaper"
 }
 

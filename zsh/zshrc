@@ -26,6 +26,13 @@ export WALLPAPER_BACKEND=hyprpaper
 export CMAKE_TOOLCHAIN_FILE=~/.config/cmake/CMakeToolchain.cmake
 
 #------------------------------
+# Current Wallpaer
+#------------------------------
+if [ -f ~/.cache/current_wallpaper.sh ]; then
+  source ~/.cache/current_wallpaper.sh
+fi
+
+#------------------------------
 # Rust Environment
 #------------------------------
 export RUSTUP_HOME=$HOME/.rustup

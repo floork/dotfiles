@@ -36,6 +36,7 @@ alias open='xdg-open'
 alias cls='clear'
 alias unlock-hyprlock='pkill -USR1 hyprlock'
 alias watch-cpu-speed='watch -n.1 "grep \"^[c]pu MHz\" /proc/cpuinfo"'
+alias current-wallpaper='source ~/.cache/current_wallpaper.sh && echo $CURRENT_WALLPAPER'
 
 # Editors & Configurations
 alias vi='nvim'

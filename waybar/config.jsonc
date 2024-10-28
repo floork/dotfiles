@@ -7,7 +7,8 @@
   "modules-left": [
     "cpu",
     "memory",
-    "temperature", // currently not working
+    "disk",
+    "temperature",
     "systemd-failed-units",
     "network",
     "hyprland/language",
@@ -126,6 +127,11 @@
     "interval": 20,
     "return-type": "json",
     "tooltip": true
+  },
+  "disk": {
+    "interval": 30,
+    "format": " {percentage_used}% ",
+    "path": "/home"
   },
   "hyprland/language": {
     "format": "{}"

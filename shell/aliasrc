@@ -17,6 +17,7 @@ alias lg='lsd --git --long --icon always --color always --group-dirs first'
 alias lr='lsd -aR --icon always --color always --group-dirs first'
 alias lt='tree'
 alias tree='lsd --tree --icon always --color always'
+alias sl='sl -ac'
 
 # System Commands
 alias reboot='sudo reboot'

@@ -58,7 +58,6 @@ alias notes='vim ~/obsidian/vault'
 
 # Development & Build Tools
 alias cval='make && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ${1} 2> valgrind.log'
-alias diff='git diff --no-index'
 
 # Nix
 alias nixsearch='nix-env -qaP'

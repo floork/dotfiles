@@ -99,11 +99,6 @@ bindkey "\e[F" end-of-line       # End: Move to end of line
 bindkey '^E' end-of-line         # Ctrl + E: Move to end of line
 
 #------------------------------
-# Device Configuration
-#------------------------------
-[ -f "$HOME/.device_config" ] && source "$HOME/.device_config"
-
-#------------------------------
 # Functions
 #------------------------------
 [ -f "$HOME/.functionsrc" ] && source "$HOME/.functionsrc"
@@ -118,6 +113,11 @@ bindkey '^E' end-of-line         # Ctrl + E: Move to end of line
 #------------------------------
 [ -f "$HOME/.config/zsh/plugins_config.zsh" ] && source "$HOME/.config/zsh/plugins_config.zsh"
 alias plugins='vim $HOME/.config/zsh/plugins_config.zsh'
+
+#------------------------------
+# Device Configuration
+#------------------------------
+[ -f "$HOME/.device_config" ] && source "$HOME/.device_config"
 
 #------------------------------
 # Funny Startup

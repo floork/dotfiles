@@ -23,6 +23,7 @@ function ex() {
     *.tar) tar xf "$source" ;;
     *.tbz2) tar xjf "$source" ;;
     *.tgz) tar xzf "$source" ;;
+    *.xz) xz -d "$source" ;;
     *.zip) unzip "$source" ;;
     *.Z) uncompress "$source" ;;
     *) echo "'"$source"' cannot be extracted via ex()" ;;

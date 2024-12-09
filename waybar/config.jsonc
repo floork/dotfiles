@@ -122,7 +122,7 @@
     "on-click": "xdg-open https://www.wetter.com/deutschland/dresden/leubnitz/DE0002265107.html"
   },
   "custom/work": {
-    "exec": "taim-o-meter status-line",
+    "exec": "~/.cargo/bin/taim-o-meter status-line",
     "format": " {}",
     "interval": 20,
     "return-type": "json",

@@ -1,6 +1,6 @@
 # Nushell Config File
 #
-# version = "0.91.0"
+# version = "0.99.1"
 
 # For more information on defining custom themes, see
 # https://www.nushell.sh/book/coloring_and_theming.html
@@ -47,7 +47,8 @@ let dark_theme = {
     shape_flag: blue_bold
     shape_float: purple_bold
     # shapes are used to change the cli syntax highlighting
-    shape_garbage: { fg: white bg: red attr: b}
+    shape_garbage: { fg: white bg: red attr: b }
+    shape_glob_interpolation: cyan_bold
     shape_globpattern: cyan_bold
     shape_int: purple_bold
     shape_internalcall: cyan_bold
@@ -69,6 +70,7 @@ let dark_theme = {
     shape_table: blue_bold
     shape_variable: purple
     shape_vardecl: purple
+    shape_raw_string: light_purple
 }
 
 let light_theme = {
@@ -112,7 +114,8 @@ let light_theme = {
     shape_flag: blue_bold
     shape_float: purple_bold
     # shapes are used to change the cli syntax highlighting
-    shape_garbage: { fg: white bg: red attr: b}
+    shape_garbage: { fg: white bg: red attr: b }
+    shape_glob_interpolation: cyan_bold
     shape_globpattern: cyan_bold
     shape_int: purple_bold
     shape_internalcall: cyan_bold
@@ -134,6 +137,7 @@ let light_theme = {
     shape_table: blue_bold
     shape_variable: purple
     shape_vardecl: purple
+    shape_raw_string: light_purple
 }
 
 # External completer example
@@ -143,7 +147,7 @@ let light_theme = {
 
 # The default config record. This is where much of your global configuration is setup.
 $env.config = {
-    show_banner: false # true or false to enable or disable the welcome banner at startup
+    show_banner: true # true or false to enable or disable the welcome banner at startup
 
     ls: {
         use_ls_colors: true # use the LS_COLORS environment variable to colorize output
@@ -170,6 +174,14 @@ $env.config = {
 
     error_style: "fancy" # "fancy" or "plain" for screen reader-friendly error messages
 
+    # Whether an error message should be printed if an error of a certain kind is triggered.
+    display_errors: {
+        exit_code: false # assume the external command prints an error message
+        # Core dump errors are always printed, and SIGPIPE never triggers an error.
+        # The setting below controls message printing for termination by all other signals.
+        termination_signal: true
+    }
+
     # datetime_format determines what a datetime rendered in the shell would look like.
     # Behavior without this configuration point will be to "humanize" the datetime display,
     # showing something like "a day ago."
@@ -187,12 +199,7 @@ $env.config = {
             warn: {}
             info: {}
         },
-        table: {
-            split_line: { fg: "#404040" },
-            selected_cell: { bg: light_blue },
-            selected_row: {},
-            selected_column: {},
-        },
+        selected_cell: { bg: light_blue },
     }
 
     history: {
@@ -207,6 +214,7 @@ $env.config = {
         quick: true    # set this to false to prevent auto-selecting completions when only one remains
         partial: true    # set this to false to prevent partial filling of the prompt
         algorithm: "prefix"    # prefix or fuzzy
+        sort: "smart" # "smart" (alphabetical for prefix matching, fuzzy score for fuzzy matching) or "alphabetical"
         external: {
             enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up may be very slow
             max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
@@ -227,19 +235,61 @@ $env.config = {
     }
 
     color_config: $dark_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
-    use_grid_icons: true
-    footer_mode: "25" # always, never, number_of_rows, auto
+    footer_mode: 25 # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
-    buffer_editor: "" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
+    buffer_editor: null # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
     use_ansi_coloring: true
     bracketed_paste: true # enable bracketed paste, currently useless on windows
     edit_mode: emacs # emacs, vi
-    shell_integration: false # enables terminal shell integration. Off by default, as some terminals have issues with this.
+    shell_integration: {
+        # osc2 abbreviates the path if in the home_dir, sets the tab/window title, shows the running command in the tab/window title
+        osc2: true
+        # osc7 is a way to communicate the path to the terminal, this is helpful for spawning new tabs in the same directory
+        osc7: true
+        # osc8 is also implemented as the deprecated setting ls.show_clickable_links, it shows clickable links in ls output if your terminal supports it. show_clickable_links is deprecated in favor of osc8
+        osc8: true
+        # osc9_9 is from ConEmu and is starting to get wider support. It's similar to osc7 in that it communicates the path to the terminal
+        osc9_9: false
+        # osc133 is several escapes invented by Final Term which include the supported ones below.
+        # 133;A - Mark prompt start
+        # 133;B - Mark prompt end
+        # 133;C - Mark pre-execution
+        # 133;D;exit - Mark execution finished with exit code
+        # This is used to enable terminals to know where the prompt is, the command is, where the command finishes, and where the output of the command is
+        osc133: true
+        # osc633 is closely related to osc133 but only exists in visual studio code (vscode) and supports their shell integration features
+        # 633;A - Mark prompt start
+        # 633;B - Mark prompt end
+        # 633;C - Mark pre-execution
+        # 633;D;exit - Mark execution finished with exit code
+        # 633;E - Explicitly set the command line with an optional nonce
+        # 633;P;Cwd=<path> - Mark the current working directory and communicate it to the terminal
+        # and also helps with the run recent menu in vscode
+        osc633: true
+        # reset_application_mode is escape \x1b[?1l and was added to help ssh work better
+        reset_application_mode: true
+    }
     render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
     use_kitty_protocol: false # enables keyboard enhancement protocol implemented by kitty console, only if your terminal support this.
     highlight_resolved_externals: false # true enables highlighting of external commands in the repl resolved by which.
+    recursion_limit: 50 # the maximum number of times nushell allows recursion before stopping it
 
     plugins: {} # Per-plugin configuration. See https://www.nushell.sh/contributor-book/plugins.html#configuration.
+
+    plugin_gc: {
+        # Configuration for plugin garbage collection
+        default: {
+            enabled: true # true to enable stopping of inactive plugins
+            stop_after: 10sec # how long to wait after a plugin is inactive to stop it
+        }
+        plugins: {
+            # alternate configuration for specific plugins, by name, for example:
+            #
+            # gstat: {
+            #     enabled: false
+            # }
+        }
+    }
 
     hooks: {
         pre_prompt: [{ null }] # run before the prompt is shown
@@ -354,9 +404,16 @@ $env.config = {
             }
         }
         {
+            name: completion_previous_menu
+            modifier: shift
+            keycode: backtab
+            mode: [emacs, vi_normal, vi_insert]
+            event: { send: menuprevious }
+        }
+        {
             name: ide_completion_menu
             modifier: control
-            keycode: char_n
+            keycode: space
             mode: [emacs vi_normal vi_insert]
             event: {
                 until: [
@@ -365,6 +422,27 @@ $env.config = {
                     { edit: complete }
                 ]
             }
+        }
+        {
+            name: history_menu
+            modifier: control
+            keycode: char_r
+            mode: [emacs, vi_insert, vi_normal]
+            event: { send: menu name: history_menu }
+        }
+        {
+            name: help_menu
+            modifier: none
+            keycode: f1
+            mode: [emacs, vi_insert, vi_normal]
+            event: { send: menu name: help_menu }
+        }
+        {
+            name: next_page_menu
+            modifier: control
+            keycode: char_x
+            mode: emacs
+            event: { send: menupagenext }
         }
         {
             name: undo_or_previous_page_menu
@@ -392,19 +470,26 @@ $env.config = {
             mode: [emacs, vi_normal, vi_insert]
             event: { send: ctrlc }
         }
-        # {
-        #     name: quit_shell
-        #     modifier: control
-        #     keycode: char_d
-        #     mode: [emacs, vi_normal, vi_insert]
-        #     event: { send: ctrld }
-        # }
+        {
+            name: quit_shell
+            modifier: control
+            keycode: char_d
+            mode: [emacs, vi_normal, vi_insert]
+            event: { send: ctrld }
+        }
         {
             name: clear_screen
             modifier: control
             keycode: char_l
             mode: [emacs, vi_normal, vi_insert]
             event: { send: clearscreen }
+        }
+        {
+            name: search_history
+            modifier: control
+            keycode: char_q
+            mode: [emacs, vi_normal, vi_insert]
+            event: { send: searchhistory }
         }
         {
             name: open_command_editor
@@ -508,6 +593,18 @@ $env.config = {
             }
         }
         {
+            name: move_to_line_end_or_take_history_hint
+            modifier: control
+            keycode: char_e
+            mode: [emacs, vi_normal, vi_insert]
+            event: {
+                until: [
+                    { send: historyhintcomplete }
+                    { edit: movetolineend }
+                ]
+            }
+        }
+        {
             name: move_to_line_start
             modifier: control
             keycode: home
@@ -522,6 +619,18 @@ $env.config = {
             event: { edit: movetolineend }
         }
         {
+            name: move_down
+            modifier: control
+            keycode: char_n
+            mode: [emacs, vi_normal, vi_insert]
+            event: {
+                until: [
+                    { send: menudown }
+                    { send: down }
+                ]
+            }
+        }
+        {
             name: move_up
             modifier: control
             keycode: char_p
@@ -530,18 +639,6 @@ $env.config = {
                 until: [
                     { send: menuup }
                     { send: up }
-                ]
-            }
-        }
-        {
-            name: move_down
-            modifier: control
-            keycode: char_t
-            mode: [emacs, vi_normal, vi_insert]
-            event: {
-                until: [
-                    { send: menudown }
-                    { send: down }
                 ]
             }
         }
@@ -659,7 +756,7 @@ $env.config = {
             modifier: control
             keycode: char_k
             mode: emacs
-            event: { edit: cuttoend }
+            event: { edit: cuttolineend }
         }
         {
             name: cut_line_from_start
@@ -762,12 +859,18 @@ $env.config = {
             mode: emacs
             event: { edit: capitalizechar }
         }
+        # The following bindings with `*system` events require that Nushell has
+        # been compiled with the `system-clipboard` feature.
+        # If you want to use the system clipboard for visual selection or to
+        # paste directly, uncomment the respective lines and replace the version
+        # using the internal clipboard.
         {
             name: copy_selection
             modifier: control_shift
             keycode: char_c
             mode: emacs
             event: { edit: copyselection }
+            # event: { edit: copyselectionsystem }
         }
         {
             name: cut_selection
@@ -775,7 +878,15 @@ $env.config = {
             keycode: char_x
             mode: emacs
             event: { edit: cutselection }
+            # event: { edit: cutselectionsystem }
         }
+        # {
+        #     name: paste_system
+        #     modifier: control_shift
+        #     keycode: char_v
+        #     mode: emacs
+        #     event: { edit: pastesystem }
+        # }
         {
             name: select_all
             modifier: control_shift
@@ -783,296 +894,5 @@ $env.config = {
             mode: emacs
             event: { edit: selectall }
         }
-        {
-            name: paste
-            modifier: control_shift
-            keycode: char_v
-            mode: emacs
-            event: { edit: pastecutbufferbefore }
-        }
     ]
 }
-
-# start tmux
-# exec tmux
-
-# Regular alias
-alias please = please_function
-alias fuck = please
-alias fck = please
-alias reboot = sudo reboot
-alias poweroff = sudo poweroff
-alias shutdown = sudo shutdown now
-alias suspend = systemctl suspend
-alias cls = clear
-alias ende = suspend and exit
-alias tree = lsd --tree --icon always --color always # tree listing
-alias vi = nvim
-alias vim = vi
-alias svim = sudo -E nvim
-
-# sys
-alias fontsReload = fc-cache -f -v
-alias fontsList = fc-list
-
-# copy and moving
-alias cd.. = cd ..
-alias rm = trash-put
-alias cp = cp -r
-alias open = xdg-open
-
-alias l = ls
-alias la = ls -a
-alias ll = ls -l
-alias lal = ls -al
-alias lla = ls -la
-
-# help and history
-alias h = history
-alias help = man
-
-# Brave fix
-alias fixBrave = rm -r cd ~/.config/BraveSoftware/Brave-Browser/SingletonLock
-
-# nix alias
-alias nixsearch = nix-env -qaP
-alias desktopbuild = sudo nixos-rebuild switch --flake .#desktop
-alias laptopbuild = sudo nixos-rebuild switch --flake .#laptop
-
-
-# Define the functions
-def please [] {
-    fc -ln -1 | sudo -
-}
-
-def cval [arg] {
-    make and valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose $arg err> valgrind.log
-}
-
-def tmuxrc [] {
-    cd ~/dotfiles/tmux/ ; nvim ~/.tmux.conf # Quick access to the ~/.tmux.conf file
-}
-
-def zshrc [] {
-    cd ~/dotfiles/zsh ; nvim ~/dotfiles/zsh/zshrc # Quick access to the ~/.zshrc file
-}
-
-def bashrc [] {
-    cd ~/dotfiles/bash ; nvim ~/dotfiles/bash/bashrc # Quick access to the ~/.bashrc file
-}
-
-def fishrc [] {
-    cd ~/dotfiles/fish ; nvim ~/dotfiles/fish/fishrc # Quick access to the ~/.fishrc file
-}
-
-def nushellrc [] {
-    cd ~/dotfiles/nushell/ ; nvim ~/dotfiles/nushell/config.nu
-}
-
-def nixrc [] {
-    cd /etc/nixos ; nvim /etc/nixos/
-}
-
-def sshrc [] {
-    cd ~/.ssh ; nvim ~/.ssh/config
-}
-
-def vimrc [] {
-    cd ~/.config/nvim ; nvim .
-}
-
-def dotfiles [] {
-    cd ~/dotfiles ; nvim .
-}
-
-def gitconfig [] {
-    cd ~/dotfiles/git ; nvim ~/.gitconfig
-}
-
-def pkm [] {
-	if not (which apk | is-empty) {
-		sudo apk add --no-cache
-  } else if not (which apt | is-empty) {
-		sudo apt install
- } else if not (which dnf | is-empty) {
-		sudo dnf install
- } else if not (which zypper | is-empty) {
-		sudo zypper install
- } else if not (which paru | is-empty) {
-		paru -S
- } else if not (which nix-env | is-empty) {
-		nix-env -iA
- } else {
-		echo 'This Distro is not supported!'
- }
-}
-
-def rpkm [] {
-  if not (which apt | is-empty) {
-		sudo apt remove
- } else if not (which dnf | is-empty) {
-		sudo dnf remove
- } else if not (which paru | is-empty) {
-	  paru -Rdd
- } else {
-		echo 'This Distro is not supported!'
- }
-}
-
-def rpkmcleanup [] {
-  if not (which apt | is-empty) {
-        sudo apt autoremove
- } else if not (which dnf | is-empty) {
-        sudo dnf autoremove
- } else if not (which paru | is-empty) {
-      paru -Yc
- } else if not (which nix-env | is-empty) {
-        nix-collect-garbage -d
- } else {
-        echo 'This Distro is not supported!'
- }
-}
-
-def pkmgrade [] {
-  if not (which apt | is-empty) {
-        sudo apt -y update and flatpak -y --noninteractive update
- } else if not (which dnf | is-empty) {
-        sudo dnf -y upgrade --refresh
- } else if not (which paru | is-empty) {
-      paru -Sy
- } else {
-        echo 'This Distro is not supported!'
- }
-}
-
-alias pacman-update = sudo pacman-mirrors --geoip
-alias fixpacman = sudo rm /var/lib/pacman/db.lck
-# get fastest mirrors
-alias mirror = sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist
-alias mirrord = sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist
-alias mirrors = sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist
-alias mirrora = sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist
-
-# ex - archive extractor
-# usage: ex <file>
-def ex [file] {
-    let ext = ls $file | get name | grep -oP '(?<=\.)[A-Za-z]+'
-    print $ext
-    match $ext {
-        "7z" => { 7z x $file }
-        "bz2" => { bunzip2 $file }
-        "tar.bz2" => { tar xjf $file }
-        "tar.gz" => { tar xzf $file }
-        "tar.xz" => { tar xf $file }
-        "gz" => { gunzip $file }
-        "rar" => { rar x $file }
-        "tar" => { tar xf $file }
-        "tbz2" => { tar xjf $file }
-        "tgz" => { tar xzf $file }
-        "zip" => { unzip $file }
-        "Z" => { uncompress $file }
-        _ => { echo "Unsupported archive format: $file" }
-    }
-}
-
-def compress [source format] {
-    let source_fmt = $source  | path basename
-    let output = $source_fmt  + "." + $format
-    match $format {
-        7z => { 7z a $output $source }
-        bz2 => { tar -cjvf $output $source }
-        gz => {
-            gzip $source
-            mv $source.gz $output
-        }
-        rar => { rar a $output $source }
-        tbz2 => {
-            tar -cjvf $output $source
-            mv $source.tbz2 $output
-        }
-        tgz => { tar -czvf $output $source }
-        tar => { tar -cvf $output $source }
-        tar.bz2 => { tar -cjvf $output $source }
-        tar.gz => { tar -czvf $output $source }
-        tar.xz => { tar -cJvf $output $source }
-        _ => { echo "Unsupported format: $format" }
-    }
-
-    echo "Compression complete: $output"
-}
-
-def new --env [] {
-    let home_directories = fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~
-    let my_home = $env.HOME
-
-    let directories = [$home_directories, $my_home] | str join
-
-    let dir = $directories | fzf
-    if ($dir | is-empty) {
-        print "Directory is empty"
-    }
-
-    if not ($env.TMUX | is-empty) {
-        tmux rename-window ($dir | path basename)
-    }
-
-    if $dir == $my_home {
-        cd $dir ; return
-    }
-
-    print ($my_home + "/" + $dir)
-    let final_dir = ($my_home + "/" + $dir)
-    cd $final_dir
-}
-
-def note [filetype] {
-    # Open a note file with the specified filetype in vim
-    vim ("+set ft=" + $filetype) ("/tmp/note." + $filetype)
-}
-
-def build-cpp [...args] {
-    if (pwd | path basename) != "build" {
-        if ([ "build" ] | all {path exists}) {
-            cd build
-        } else if (path.exists "CMakeLists.txt") {
-            mkdir build; cd build
-        } else {
-            echo "No C++ project found in this directory!"
-            return
-        }
-    }
-
-    if (which cmake | is-empty) {
-        echo "cmake could not be found"
-        return
-    }
-
-    cmake ..
-
-    echo "Building C++ project..."
-    if (which mold | is-empty) {
-        if not (ls | where name == "CMakeCache.txt" | is-empty) {
-            mold --run cmake --build . -- ...$args
-        } else if not (ls | where name == "Makefile" | is-empty) {
-            mold --run make -j (sysctl -n hw.ncpu) ...$args
-        } else if not (ls | where name == "build.ninja" | is-empty) {
-            mold --run ninja ...$args
-        } else {
-            echo 'Could not determine a suitable build command!' | stderr
-        }
-
-        return
-    }
-
-    if not (ls | where name == "CMakeCache.txt" | is-empty) {
-        mold --run cmake --build . -- ...$args
-    } else if not (ls | where name == "Makefile" | is-empty) {
-        mold --run make -j (sysctl -n hw.ncpu) ...$args
-    } else if not (ls | where name == "build.ninja" | is-empty) {
-        mold --run ninja ...$args
-    } else {
-        echo 'Could not determine a suitable build command!' | stderr
-    }
-}
-
-use ~/.cache/starship/init.nu

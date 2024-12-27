@@ -1,0 +1,9 @@
+font-family = "FiraCode Nerd Font"
+font-family = "Fira Code"
+font-feature = "-liga"
+theme = GruvboxDarkHard
+background-opacity = 0.9
+window-decoration = false
+keybind=clear
+keybind=ctrl+shift+,=reload_config
+

@@ -6,6 +6,7 @@ alias rsync-remote='rsync -avh --progress'
 alias rsync='rsync --progress'
 alias cp='cp -r'
 alias rm='trashy put'
+alias img='chafa'
 
 # ls alternative
 alias l='ls'
@@ -15,7 +16,7 @@ alias la='lsd -a --icon always --color always --group-dirs first'
 alias lal='lsd -la --total-size --icon always --color always --group-dirs first'
 alias lg='lsd --git --long --icon always --color always --group-dirs first'
 alias lr='lsd -aR --icon always --color always --group-dirs first'
-alias lt='tree'
+alias lt='lsd --tree'
 alias tree='lsd --tree --icon always --color always'
 alias sl='sl -ac'
 

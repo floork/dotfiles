@@ -9,13 +9,13 @@ local function get_selected(config)
   local app_launcher = os.getenv("APP_LAUNCHER")
 
   if app_launcher == "wofi" then
-    menu_cmd = "wofi --show dmenu -i -p 'Hyprland Keybinds:'"
+    menu_cmd = "wofi --show dmenu -i -p 'Hyprland Keybinds: '"
   elseif app_launcher == "fuzzel" then
-    menu_cmd = "fuzzel --dmenu -p 'Hyprland Keybinds:'"
+    menu_cmd = "fuzzel --dmenu -p 'Hyprland Keybinds: '"
   elseif os.execute("command -v wofi > /dev/null") then
-    menu_cmd = "wofi --show dmenu -i -p 'Hyprland Keybinds:'"
+    menu_cmd = "wofi --show dmenu -i -p 'Hyprland Keybinds: '"
   elseif os.execute("command -v rofi > /dev/null") then
-    menu_cmd = "rofi -dmenu -i -markup-rows -p 'Hyprland Keybinds:'"
+    menu_cmd = "rofi -dmenu -i -markup-rows -p 'Hyprland Keybinds: '"
   else
     print("Neither wofi, fuzzel, nor rofi are installed or set.")
     os.exit(1)

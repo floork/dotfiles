@@ -1,5 +1,5 @@
 # style
-theme = "Retro"
+theme = "classic_retro"
 background-opacity = 0.9
 window-decoration = false
 confirm-close-surface = false

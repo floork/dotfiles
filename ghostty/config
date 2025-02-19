@@ -5,6 +5,13 @@ window-decoration = false
 confirm-close-surface = false
 mouse-hide-while-typing = true
 
+# shaders
+# https://github.com/hackr-sh/ghostty-shaders
+# just-snow
+# inside-the-matrix
+# matrix-hallway
+
+
 # fonts
 font-family = FiraCode Nerd Font
 font-family = Fira Code

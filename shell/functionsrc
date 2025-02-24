@@ -154,6 +154,13 @@ function pack_man() {
 # Call the function to set up the aliases
 pack_man
 
+function fix-trashy() {
+  if command -v trashy &>/dev/null; then
+    alias trash='trashy'
+  fi
+}
+fix-trashy
+
 function build-cpp() {
   # Check if cmake is installed
   if ! command -v cmake &>/dev/null; then

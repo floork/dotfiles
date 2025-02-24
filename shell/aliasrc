@@ -5,7 +5,7 @@ alias cat='bat --wrap=never'
 alias rsync-remote='rsync -avh --progress'
 alias rsync='rsync --progress'
 alias cp='cp -r'
-alias rm='trashy put'
+alias rm='trash put'
 alias img='chafa'
 
 # ls alternative

@@ -28,3 +28,4 @@ keybind=ctrl+shift+c=copy_to_clipboard
 keybind=ctrl+shift+v=paste_from_clipboard
 keybind=ctrl+shift+plus=increase_font_size:1
 keybind=ctrl+shift+minus=decrease_font_size:1
+keybind=ctrl+shift+0=reset_font_size

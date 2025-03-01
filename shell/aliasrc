@@ -1,5 +1,4 @@
 # File Operations
-alias ..='cd ..'
 alias cd..='cd ..'
 alias cat='bat --wrap=never'
 alias rsync-remote='rsync -avh --progress'

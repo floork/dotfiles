@@ -40,13 +40,16 @@
     "format": "{icon} {capacity}%",
     "format-charging": " {capacity}%",
     "format-icons": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
     ],
     "format-plugged": "{capacity}%",
     "format-alt": "{icon} {time}",

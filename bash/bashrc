@@ -15,6 +15,3 @@ export VISUAL=nvim
 
 # cargo env
 [ -f ~/.cargo/env ] && source $HOME/.cargo/env
-
-#starship
-eval "$(starship init bash)"

@@ -1,64 +1,4 @@
 #------------------------------
-# Prompt and Colors
-#------------------------------
-autoload -U colors && colors
-PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
-export HISTCONTROL=ignorespace
-
-#------------------------------
-# Path Configuration
-#------------------------------
-export PATH="$PATH:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/games:/usr/local/games:/snap/bin"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.npm-global/bin:$PATH"
-export PATH="$PATH:$GOPATH/bin"
-export PATH="$HOME/.deno/bin:$PATH"
-export PATH="$HOME/.bin/bin:$PATH"
-
-#------------------------------
-# Environment Variables
-#------------------------------
-export EDITOR=nvim
-export VISUAL=nvim
-export XDG_RUNTIME_DIR=/run/user/$(id -u)
-export QT_QPA_PLATFORM=xcb
-export BAT_CONFIG_PATH="~/.config/bat/config"
-export CMAKE_TOOLCHAIN_FILE=~/.config/cmake/CMakeToolchain.cmake
-
-#------------------------------
-# Current Wallpaer
-#------------------------------
-if [ -f ~/.cache/current_wallpaper.sh ]; then
-  source ~/.cache/current_wallpaper.sh
-fi
-
-#------------------------------
-# Rust Environment
-#------------------------------
-export RUSTUP_HOME=$HOME/.rustup
-export CARGO_HOME=$HOME/.cargo
-export RUST_BACKTRACE=full
-[ -f ~/.cargo/env ] && source $HOME/.cargo/env
-
-#------------------------------
-# Python Environment
-#------------------------------
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-if ! command -v pyenv &>/dev/null; then
-  curl https://pyenv.run | bash
-fi
-
-#------------------------------
-# History Configuration
-#------------------------------
-HISTSIZE=10000
-SAVEHIST=10000
-HISTFILE=~/.zshhistory
-setopt appendhistory
-
-#------------------------------
 # Autocompletion
 #------------------------------
 autoload -Uz compinit
@@ -69,11 +9,21 @@ _comp_options+=(globdots)                                    # Include hidden fi
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' # for caseinsensite tab completion
 autoload -Uz bashcompinit
 bashcompinit
+setopt autocd
+setopt auto_param_slash
+setopt no_case_glob no_case_match
+setopt interactive_comments
+unsetopt prompt_sp
+stty stop undef
 
 #------------------------------
-# Tmux Integration
+# History Configuration
 #------------------------------
-[ -z "$TMUX" ] && exec tmux
+HISTSIZE=1000000
+SAVEHIST=1000000
+HISTFILE=~/.zshhistory
+setopt append_history inc_append_history share_history
+HISTCONTROL=ignoreboth
 
 #------------------------------
 # Custom ZSH Bindings
@@ -100,6 +50,59 @@ bindkey "\e[F" end-of-line       # End: Move to end of line
 bindkey '^E' end-of-line         # Ctrl + E: Move to end of line
 
 #------------------------------
+# Path Configuration
+#------------------------------
+export PATH="$PATH:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/games:/usr/local/games:/snap/bin"
+export PATH="$HOME/.bin/bin:$PATH"
+
+#------------------------------
+# Environment Variables
+#------------------------------
+export EDITOR=nvim
+export VISUAL=nvim
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
+export QT_QPA_PLATFORM=xcb
+export BAT_CONFIG_PATH="~/.config/bat/config"
+export CMAKE_TOOLCHAIN_FILE=~/.config/cmake/CMakeToolchain.cmake
+
+#------------------------------
+# Language Environments
+#------------------------------
+export PATH="$HOME/.npm-global/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
+export PATH="$HOME/.deno/bin:$PATH"
+
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
+export RUSTUP_HOME=$HOME/.rustup
+export CARGO_HOME=$HOME/.cargo
+export RUST_BACKTRACE=full
+[ -f ~/.cargo/env ] && source $HOME/.cargo/env
+
+# Python
+# export PYENV_ROOT="$HOME/.pyenv"
+# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
+# if ! command -v pyenv &>/dev/null; then
+#   curl https://pyenv.run | bash
+# fi
+
+#------------------------------
+# Tmux Integration
+#------------------------------
+[ -z "$TMUX" ] && command -v tmux >/dev/null 2>&1 && exec tmux
+
+#------------------------------
+# Prompt and Colors
+#------------------------------
+[ -f "$HOME/.config/zsh/prompt.zsh" ] && source "$HOME/.config/zsh/prompt.zsh"
+
+#------------------------------
+# Current Wallpaer
+#------------------------------
+[ -f ~/.cache/current_wallpaper.sh ] && source ~/.cache/current_wallpaper.sh
+
+#------------------------------
 # Functions
 #------------------------------
 [ -f "$HOME/.functionsrc" ] && source "$HOME/.functionsrc"
@@ -112,8 +115,8 @@ bindkey '^E' end-of-line         # Ctrl + E: Move to end of line
 #------------------------------
 # Plugins
 #------------------------------
-[ -f "$HOME/.config/zsh/plugins_config.zsh" ] && source "$HOME/.config/zsh/plugins_config.zsh"
-alias plugins='vim $HOME/.config/zsh/plugins_config.zsh'
+# [ -f "$HOME/.config/zsh/plugins_config.zsh" ] && source "$HOME/.config/zsh/plugins_config.zsh"
+# alias plugins='vim $HOME/.config/zsh/plugins_config.zsh'
 
 #------------------------------
 # Device Configuration
@@ -123,9 +126,6 @@ alias plugins='vim $HOME/.config/zsh/plugins_config.zsh'
 #------------------------------
 # Funny Startup
 #------------------------------
-fortune | cowsay | lolcat
-
-#------------------------------
-# Starship Prompt
-#------------------------------
-eval "$(starship init zsh)"
+if command -v fortune >/dev/null 2>&1 && command -v cowsay >/dev/null 2>&1 && command -v lolcat >/dev/null 2>&1; then
+  fortune | cowsay | lolcat
+fi

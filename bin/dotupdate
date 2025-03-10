@@ -59,6 +59,7 @@ function update_symlinks() {
     [".config/gromit-mpx.cfg"]="$dotfiles_dir/gromit-mpx/gromit-mpx.cfg"
     [".config/hypr"]="$dotfiles_dir/hypr"
     [".config/Thunar"]="$dotfiles_dir/Thunar"
+    [".config/walker"]="$dotfiles_dir/walker"
     [".config/waybar"]="$dotfiles_dir/waybar"
     [".config/wofi"]="$dotfiles_dir/wofi"
     # # terminal

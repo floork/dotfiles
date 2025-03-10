@@ -51,6 +51,8 @@ function show_wallpaper_menu() {
     launcher_cmd="$APP_LAUNCHER --show dmenu -i -p 'Select a wallpaper: '"
   elif [ "$APP_LAUNCHER" == "fuzzel" ]; then
     launcher_cmd="$APP_LAUNCHER --dmenu -p 'Select a wallpaper: '"
+  elif [ "$APP_LAUNCHER" == "walker" ]; then
+    launcher_cmd="$APP_LAUNCHER --dmenu -p 'Select a wallpaper: '"
   fi
 
   local wallpapers_dir="$HOME/.config/wallpapers"         # Directory containing wallpapers

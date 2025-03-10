@@ -17,6 +17,8 @@ if app_launcher == "wofi" then
   rofi_cmd = "wofi --show dmenu -i -p 'Power Menu: '"
 elseif app_launcher == "fuzzel" then
   rofi_cmd = "fuzzel --dmenu -p 'Power Menu: '"
+elseif app_launcher == "walker" then
+  rofi_cmd = "walker --dmenu -p 'Power Menu: '"
 else
   print("Unsupported app launcher: " .. app_launcher)
   os.exit(1)

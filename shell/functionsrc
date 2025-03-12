@@ -158,6 +158,11 @@ function fix-trashy() {
   if command -v trashy &>/dev/null; then
     alias trash='trashy'
   fi
+
+  source /etc/os-release
+  if [ "$ID" = "nixos" ]; then
+    compdef -d trash
+  fi
 }
 fix-trashy
 

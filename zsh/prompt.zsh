@@ -18,7 +18,7 @@ os_icon() {
 git_info() {
   local branch
   branch=$(git symbolic-ref --short HEAD 2>/dev/null)
-  [[ -n "$branch" ]] && echo "%F{green}%Bon  $branch%b%f"
+  [[ -n "$branch" ]] && echo "%F{green}%Bon $branch%b%f"
 }
 
 # Git Status

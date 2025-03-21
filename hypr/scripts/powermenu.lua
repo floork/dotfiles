@@ -10,7 +10,7 @@ local options = {
 }
 
 -- Determine the appropriate command based on the APP_LAUNCHER environment variable
-local app_launcher = os.getenv("APP_LAUNCHER") or "wofi"
+local app_launcher = os.getenv("APP_LAUNCHER") or "walker"
 local rofi_cmd
 
 if app_launcher == "wofi" then

@@ -37,6 +37,7 @@ bindkey "^[[A" history-beginning-search-backward # Up Arrow: Search backward thr
 bindkey "^[[B" history-beginning-search-forward  # Down Arrow: Search forward through history
 bindkey "^[[A" history-search-backward           # Up Arrow: Search backward through history (alternate)
 bindkey "^[[B" history-search-forward            # Down Arrow: Search forward through history (alternate)
+bindkey '^R' history-incremental-search-backward
 
 ### Text Manipulation
 bindkey "\e[3;5~" kill-word       # Ctrl + Del: Delete word after cursor

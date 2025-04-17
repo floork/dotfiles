@@ -109,7 +109,7 @@ function update_nvim() {
   fi
 
   cd "$NVIM_CONFIG_DIR" || exit
-  git pull || {
+  git pull --autostash || {
     echo "Failed to update nvim configuration"
     exit 1
   }

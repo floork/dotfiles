@@ -109,7 +109,7 @@ function update_nvim() {
   fi
 
   cd "$NVIM_CONFIG_DIR" || exit
-  git pull --autostash || {
+  git pull --autostash --rebase || {
     echo "Failed to update nvim configuration"
     exit 1
   }
@@ -132,7 +132,7 @@ function update_wallpapers() {
   WALLPAPERS_DIR="$HOME/.config/wallpapers"
   if [ -d "$WALLPAPERS_DIR" ]; then
     cd "$WALLPAPERS_DIR" || exit
-    git pull || {
+    git pull --autostash --rebase || {
       echo "Failed to update wallpapers"
       exit 1
     }

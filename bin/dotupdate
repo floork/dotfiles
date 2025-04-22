@@ -146,6 +146,15 @@ function update_wallpapers() {
   git submodule update --init --recursive
 }
 
+function update_submodules() {
+  cd "$dotfiles_dir" || exit
+  git pull --autostash --rebase || {
+    echo "Failed to update submodules"
+    exit 1
+  }
+  echo "Submodules updated. Please commit your changes."
+}
+
 function main() {
   local dir_from_cmd_source
 
@@ -158,6 +167,7 @@ function main() {
 
   # Update the repository
   update_symlinks
+  update_submodules
   update_dotfiles
   update_nvim
   update_user_bin_directory

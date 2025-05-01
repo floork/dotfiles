@@ -4,6 +4,7 @@
   become: false
   vars:
     dotfiles_dir: "{{ ansible_env.HOME }}/dotfiles"
+    dotfiles_repo: "https://github.com/floork/dotfiles.git"
 
   pre_tasks:
     - name: Check OS

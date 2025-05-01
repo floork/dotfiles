@@ -204,18 +204,12 @@
   register: nvim_update
 
 # Update dotfiles repository
-- name: Update git submodules
-  ansible.builtin.command: git submodule update --init --recursive
-  args:
-    chdir: "{{ dotfiles_dir }}"
-  register: submodules_update 
-
-# Update submodules
-# - name: Update git submodules
-#   ansible.builtin.command: git submodule update --init --recursive
-#   args:
-#     chdir: "{{ dotfiles_dir }}"
-#   register: submodules_update
+- name: Pull this repository
+  ansible.builtin.git:
+    repo: "{{ dotfiles_repo }}"
+    dest: "{{ dotfiles_dir }}"
+    force: yes
+  register: dotfiles_update
 
 # Wallpapers
 - name: Check if wallpapers directory exists

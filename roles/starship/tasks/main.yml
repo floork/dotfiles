@@ -1,4 +1,0 @@
-- name: Configure starship
-  copy:
-    src: starship-config
-    dest: ~/.config/starship/starship-config

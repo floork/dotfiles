@@ -1,0 +1,9 @@
+
+[Unit]
+Description=Load custom keymap
+
+[Service]
+ExecStart=/usr/bin/loadkeys ~/dotfiles/keymap/custom.map
+
+[Install]
+WantedBy=multi-user.target

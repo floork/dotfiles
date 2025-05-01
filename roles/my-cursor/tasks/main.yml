@@ -1,4 +1,0 @@
-- name: Configure my-cursor
-  copy:
-    src: my-cursor-config
-    dest: ~/.config/my-cursor/my-cursor-config

@@ -1,0 +1,228 @@
+---
+- name: Get parent directory name
+  ansible.builtin.set_fact:
+    project_name: "{{ dotfiles_dir | basename }}"
+
+- name: Check if .config/zsh is a symlink
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.config/zsh"
+  register: zsh_dir
+
+- name: Remove .config/zsh if it's a symlink
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/zsh"
+    state: absent
+  when: zsh_dir.stat.exists and zsh_dir.stat.islnk
+
+- name: Ensure .config/zsh exists as a directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/zsh"
+    state: directory
+    mode: '0755'
+  when: not zsh_dir.stat.islnk
+
+- name: Create required directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - "{{ ansible_env.HOME }}/.config"
+    - "{{ ansible_env.HOME }}/.local/bin"
+    - "{{ ansible_env.HOME }}/.icons"
+    - "{{ ansible_env.HOME }}/.themes"
+    - "{{ dotfiles_dir }}/configs"
+
+- name: Verify directory structure
+  ansible.builtin.debug:
+    msg: "Checking directory: {{ dotfiles_dir }}/configs"
+
+- name: Check if configs directory is empty
+  ansible.builtin.find:
+    paths: "{{ dotfiles_dir }}/configs"
+    recurse: yes
+  register: config_files
+
+- name: Show configs status
+  ansible.builtin.debug:
+    msg: "{{ 'No config files found. Please move your configs to ' + dotfiles_dir + '/configs' if config_files.matched == 0 else 'Found ' + config_files.matched | string + ' config files' }}"
+
+- name: Check original config directory
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/{{ project_name }}"
+  register: old_configs
+
+- name: Suggest moving files
+  ansible.builtin.debug:
+    msg: 
+      - "Found original configs at ~/{{ project_name }}"
+      - "To move them, run:"
+      - "mv ~/{{ project_name }}/* {{ dotfiles_dir }}/configs/"
+      - "mv ~/{{ project_name }}/.* {{ dotfiles_dir }}/configs/ 2>/dev/null || true"
+  when: old_configs.stat.exists and config_files.matched == 0
+
+- name: Set symlinks variable
+  ansible.builtin.set_fact:
+    symlinks:
+    # SHELL
+    # bash
+    - { src: "bash/bashrc", dest: ".bashrc" }
+    # fish
+    - { src: "fish", dest: ".config/fish" }
+    # nushell
+    - { src: "nushell", dest: ".config/nushell" }
+    # zsh
+    - { src: "zsh/zshrc", dest: ".zshrc" }
+    - { src: "zsh/prompt.zsh", dest: ".config/zsh/prompt.zsh" }
+    # shared resources
+    - { src: "shell/aliasrc", dest: ".aliasrc" }
+    - { src: "shell/functionsrc", dest: ".functionsrc" }
+
+    # SYSTEM
+    - { src: "my-cursor", dest: ".icons/my-cursor" }
+    - { src: "my-cursor", dest: ".themes/my-cursor" }
+    - { src: "systemd", dest: ".config/systemd" }
+    - { src: "cmake", dest: ".config/cmake" }
+    - { src: "docker", dest: ".docker" }
+    - { src: "mimeapps/mimeapps.list", dest: ".config/mimeapps.list" }
+
+    # GIT
+    - { src: "git/gitconfig", dest: ".gitconfig" }
+    - { src: "git/gitignore", dest: ".gitignore" }
+    - { src: "gh", dest: ".config/gh" }
+
+    # CLI
+    # discord-bot
+    - { src: "discord-bot", dest: ".config/discord-bot" }
+    # tmux
+    - { src: "tmux/tmux.conf", dest: ".tmux.conf" }
+    # neofetch
+    - { src: "neofetch", dest: ".config/neofetch" }
+    # starship
+    - { src: "starship/starship.toml", dest: ".config/starship.toml" }
+    # fd
+    - { src: "fd", dest: ".config/fd" }
+    # bat
+    - { src: "bat", dest: ".config/bat" }
+    # vim
+    - { src: "vim", dest: ".config/vim" }
+    # zellij
+    - { src: "zellij", dest: ".config/zellij" }
+    # lf
+    - { src: "lf", dest: ".config/lf" }
+
+    # Desktop applications
+    - { src: "dunst", dest: ".config/dunst" }
+    - { src: "fuzzel", dest: ".config/fuzzel" }
+    - { src: "gromit-mpx/gromit-mpx.ini", dest: ".config/gromit-mpx.ini" }
+    - { src: "gromit-mpx/gromit-mpx.cfg", dest: ".config/gromit-mpx.cfg" }
+    - { src: "hypr", dest: ".config/hypr" }
+    - { src: "Thunar", dest: ".config/Thunar" }
+    - { src: "walker", dest: ".config/walker" }
+    - { src: "waybar", dest: ".config/waybar" }
+    - { src: "wofi", dest: ".config/wofi" }
+    # terminal
+    - { src: "alacritty", dest: ".config/alacritty" }
+    - { src: "ghostty", dest: ".config/ghostty" }
+    - { src: "kitty", dest: ".config/kitty" }
+    - { src: "warp-terminal", dest: ".config/warp-terminal" }
+    - { src: "wezterm", dest: ".config/wezterm" }
+
+- name: Check if source files exist
+  ansible.builtin.stat:
+    path: "{{ dotfiles_dir }}/configs/{{ item.src }}"
+  register: source_files
+  loop: "{{ symlinks }}"
+
+- name: Ensure parent directories for symlinks exist
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/{{ item.item.dest | dirname }}"
+    state: directory
+    mode: '0755'
+  loop: "{{ source_files.results }}"
+  when: item.stat.exists
+
+- name: Create symlinks for existing files
+  ansible.builtin.file:
+    src: "{{ dotfiles_dir }}/configs/{{ item.item.src }}"
+    dest: "{{ ansible_env.HOME }}/{{ item.item.dest }}"
+    state: link
+    force: yes
+    follow: false
+  loop: "{{ source_files.results }}"
+  when: item.stat.exists
+
+- name: Report missing files
+  ansible.builtin.debug:
+    msg: "Warning: Source file not found: {{ item.item.src }}"
+  loop: "{{ source_files.results }}"
+  when: not item.stat.exists
+
+# Neovim configuration
+- name: Check if nvim config exists
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.config/nvim"
+  register: nvim_config
+
+- name: Check for local nvim changes
+  ansible.builtin.command: git status --porcelain
+  args:
+    chdir: "{{ ansible_env.HOME }}/.config/nvim"
+  register: nvim_status
+  changed_when: false
+  failed_when: false
+  when: nvim_config.stat.exists
+
+- name: Backup existing nvim config if modified
+  ansible.builtin.command: mv ~/.config/nvim ~/.config/nvim.backup-{{ ansible_date_time.epoch }}
+  when: 
+    - nvim_config.stat.exists
+    - nvim_status.stdout != ""
+  register: nvim_backup
+
+- name: Update nvim configuration
+  ansible.builtin.git:
+    repo: "https://github.com/floork/nvim.git"
+    dest: "{{ ansible_env.HOME }}/.config/nvim"
+    force: yes
+  register: nvim_update
+
+# Update dotfiles repository
+- name: Update git submodules
+  ansible.builtin.command: git submodule update --init --recursive
+  args:
+    chdir: "{{ dotfiles_dir }}"
+  register: submodules_update 
+
+# Update submodules
+# - name: Update git submodules
+#   ansible.builtin.command: git submodule update --init --recursive
+#   args:
+#     chdir: "{{ dotfiles_dir }}"
+#   register: submodules_update
+
+# Wallpapers
+- name: Check if wallpapers directory exists
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.config/wallpapers"
+  register: wallpapers_dir
+
+- name: Create wallpapers directory if it doesn't exist
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/wallpapers"
+    state: directory
+  when: not wallpapers_dir.stat.exists
+
+- name: Clone/Update wallpapers
+  ansible.builtin.git:
+    repo: "https://github.com/floork/wallpapers"
+    dest: "{{ ansible_env.HOME }}/.config/wallpapers"
+    force: yes
+  register: wallpapers_update
+
+- name: Update wallpapers submodules
+  ansible.builtin.command: git submodule update --init --recursive
+  args:
+    chdir: "{{ ansible_env.HOME }}/.config/wallpapers"
+  when: wallpapers_update.changed
+

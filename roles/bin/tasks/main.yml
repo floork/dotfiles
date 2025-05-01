@@ -1,4 +1,0 @@
-- name: Configure bin
-  copy:
-    src: bin-config
-    dest: ~/.config/bin/bin-config

@@ -1,4 +1,0 @@
-- name: Configure warp-terminal
-  copy:
-    src: warp-terminal-config
-    dest: ~/.config/warp-terminal/warp-terminal-config

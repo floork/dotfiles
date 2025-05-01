@@ -1,4 +1,0 @@
-- name: Configure git
-  copy:
-    src: git-config
-    dest: ~/.config/git/git-config

@@ -1,4 +1,0 @@
-- name: Configure systemd
-  copy:
-    src: systemd-config
-    dest: ~/.config/systemd/systemd-config

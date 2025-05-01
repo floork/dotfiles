@@ -1,4 +1,0 @@
-- name: Configure hypr
-  copy:
-    src: hypr-config
-    dest: ~/.config/hypr/hypr-config

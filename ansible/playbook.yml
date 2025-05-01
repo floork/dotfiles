@@ -1,0 +1,17 @@
+---
+- name: Manage dotfiles
+  hosts: localhost
+  become: false
+  vars:
+    dotfiles_dir: "{{ ansible_env.HOME }}/dotfiles"
+
+  pre_tasks:
+    - name: Check OS
+      ansible.builtin.set_fact:
+        is_arch: "{{ ansible_distribution == 'Archlinux' }}"
+        is_debian: "{{ ansible_os_family == 'Debian' }}"
+        is_nixos: "{{ ansible_distribution == 'NixOS' }}"
+
+  roles:
+    - { role: install, tags: ['install'] }
+    - { role: update, tags: ['update'] }

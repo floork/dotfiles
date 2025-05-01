@@ -1,0 +1,7 @@
+[Unit]
+Description=Backup Task 
+
+[Service]
+Type=oneshot
+ExecStart=/bin/cron_backup
+

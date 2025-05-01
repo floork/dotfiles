@@ -1,4 +1,0 @@
-- name: Configure thunar
-  copy:
-    src: thunar-config
-    dest: ~/.config/thunar/thunar-config

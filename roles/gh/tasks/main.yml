@@ -1,4 +1,0 @@
-- name: Configure gh
-  copy:
-    src: gh-config
-    dest: ~/.config/gh/gh-config

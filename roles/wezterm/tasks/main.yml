@@ -1,4 +1,0 @@
-- name: Configure wezterm
-  copy:
-    src: wezterm-config
-    dest: ~/.config/wezterm/wezterm-config

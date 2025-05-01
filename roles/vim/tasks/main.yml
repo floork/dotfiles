@@ -1,4 +1,0 @@
-- name: Configure vim
-  copy:
-    src: vim-config
-    dest: ~/.config/vim/vim-config

@@ -1,4 +1,0 @@
-- name: Configure shell
-  copy:
-    src: shell-config
-    dest: ~/.config/shell/shell-config

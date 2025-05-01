@@ -1,3 +1,7 @@
+# Dotfile Management
+alias dotinstall='ANSIBLE_CONFIG=~/dotfiles/ansible/ansible.cfg ansible-playbook ~/dotfiles/ansible/playbook.yml --tags install'
+alias dotupdate='ANSIBLE_CONFIG=~/dotfiles/ansible/ansible.cfg ansible-playbook ~/dotfiles/ansible/playbook.yml --tags update'
+
 # File Operations
 alias cd..='cd ..'
 alias cat='bat --wrap=never'

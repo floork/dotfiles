@@ -1,0 +1,53 @@
+#!/bin/env bash
+
+# Function to get list of all TMUX sessions
+get_sessions() {
+    tmux list-sessions | awk -F: '{print $1}'
+}
+
+# Function to get index of current session in the list
+get_current_index() {
+    local current_session=$(tmux display-message -p '#S')
+    local sessions=($(get_sessions))
+    local index=0
+    for session in "${sessions[@]}"; do
+        if [ "$session" == "$current_session" ]; then
+            break
+        fi
+        ((index++))
+    done
+    echo "$index"
+}
+
+# Function to calculate index of next session
+get_next_index() {
+    local current_index=$(get_current_index)
+    local sessions=($(get_sessions))
+    local next_index=$((current_index + 1))
+    if [ $next_index -ge ${#sessions[@]} ]; then
+        next_index=0
+    fi
+    echo "$next_index"
+}
+
+# Function to switch to next session and kill the current session
+switch_to_next_session() {
+    local current_session=$(tmux display-message -p '#S')
+    local sessions=($(get_sessions))
+    local next_index=$(get_next_index)
+    local next_session="${sessions[$next_index]}"
+    
+    # Switch to next session
+    tmux switch-client -t "$next_session"
+
+    if [ "${#sessions[@]}" -gt 1 ]; then
+        # Kill the current session
+        tmux kill-session -t "$current_session"
+        return 0
+    fi
+
+    echo "You have only one session left. You can't close it."
+}
+
+# Call the function to switch to the next session and kill the current one
+switch_to_next_session

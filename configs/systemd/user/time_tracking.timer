@@ -1,0 +1,9 @@
+[Unit]
+Description=Start Time Tracking Service every minute from Monday to Friday
+
+[Timer]
+OnCalendar=Mon..Fri  *:00/1
+Persistent=true
+
+[Install]
+WantedBy=timers.target

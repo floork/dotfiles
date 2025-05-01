@@ -1,0 +1,84 @@
+[alias]
+  # Shortcut for cloning a repository without checking out a working directory
+  bclone = clone --bare    
+  # Amend the last commit with the current date and time
+  chdate-now = commit --amend --date=now  
+  # Force push with lease to prevent overwriting other's work unintentionally
+  fpush = push --force-with-lease         
+  # Shortcut for a custom log command, git lg1
+  lg = !git lg1
+  # Custom log format with relative dates and decorations
+  lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+  # Another custom log format with different decorations
+  lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''     %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+  # Shortcut for interactive rebase
+  ri = rebase --interactive 
+  # Init and Clone the submodules of a repo
+  init-submodules = submodule update --init --recursive
+  # Undo the last commit and leave changes staged
+  undo = reset --soft HEAD~1   
+  # Update current branch with rebase and autostash changes, specify branch as argument
+  update = pull --rebase --autostash origin $1 
+  # Update local 'dev' branch with rebase and autostash changes
+  update-dev = pull --rebase --autostash origin dev
+  # Update local 'main' branch with rebase and autostash changes
+  update-main = pull --rebase --autostash origin main 
+  # Update local 'master' branch with rebase and autostash changes
+  update-master = pull --rebase --autostash origin master 
+
+[branch]
+  # Sort branches by committer date in descending order
+  sort = -committerdate
+
+[commit]
+  gpgsign = true
+
+[core]
+  # Ensure consistent line endings
+  autocrlf = input 
+  # Use Neovim as the default text editor
+  editor = nvim                          
+  # Global gitignore file
+  excludesFile = ~/.gitignore
+
+[credential "https://github.com"]
+  helper = !gh auth git-credential
+
+[credential "https://gist.github.com"]
+  helper = !gh auth git-credential
+
+[credential "https://gitlab.com"]
+  helper = !glab auth git-credential
+
+[filter "lfs"]
+  # Clean filter for Git LFS
+  clean = git-lfs clean -- %f             
+  # Smudge filter for Git LFS
+  smudge = git-lfs smudge -- %f           
+  # Process filter for Git LFS
+  process = git-lfs filter-process        
+  # Git LFS required
+  required = true                         
+
+[init]
+  defaultBranch = main
+
+[rerere]
+  # Enable reuse recorded resolution feature
+  enabled = true                          
+  # Automatically update the index with reused resolutions
+  autoupdate = true                       
+
+[user]
+  email = florian_alexander.mros@tu-dresden.de
+  name = Florian Mros
+  signingKey = 970BFFDE20269FF4
+
+[maintenance]
+  repo = ~/.zsh/plugins/znap
+  repo = ~/.zsh/plugins/Anant-mishra1729/web-search
+  repo = ~/.zsh/plugins/arzzen/calc.plugin.zsh
+  repo = ~/.zsh/plugins/chisui/zsh-nix-shell
+  repo = ~/.zsh/plugins/marlonrichert/zsh-autosuggestions
+  repo = ~/.zsh/plugins/z-shell/zsh-navigation-tools
+  repo = ~/.zsh/plugins/zsh-users/zsh-syntax-highlighting

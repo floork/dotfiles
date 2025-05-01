@@ -1,0 +1,13 @@
+---
+
+- name: Install packages on Arch
+  include_tasks: arch.yml
+  when: ansible_distribution == "Archlinux"
+
+- name: Install packages on Debian/Ubuntu
+  include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Warn on NixOS
+  include_tasks: nixos.yml
+  when: ansible_distribution == "NixOS"

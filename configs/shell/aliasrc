@@ -1,0 +1,77 @@
+# Dotfile Management
+alias dotinstall='ANSIBLE_CONFIG=~/dotfiles/ansible/ansible.cfg ansible-playbook ~/dotfiles/ansible/playbook.yml --tags install'
+alias dotupdate='ANSIBLE_CONFIG=~/dotfiles/ansible/ansible.cfg ansible-playbook ~/dotfiles/ansible/playbook.yml --tags update'
+
+# File Operations
+alias cd..='cd ..'
+alias cat='bat --wrap=never'
+alias rsync-remote='rsync -avh --progress'
+alias rsync='rsync --progress'
+alias cp='cp -r'
+alias rm='trash put'
+alias img='chafa'
+
+# ls alternative
+alias l='ls'
+alias ls='lsd --icon always --color always --group-dirs first'
+alias ll='lsd -l --icon always --color always --group-dirs first'
+alias la='lsd -a --icon always --color always --group-dirs first'
+alias lal='lsd -la --icon always --color always --group-dirs first'
+alias lg='lsd --git --long --icon always --color always --group-dirs first'
+alias lr='lsd -aR --icon always --color always --group-dirs first'
+alias lt='lsd --tree'
+alias tree='lsd --tree --icon always --color always'
+alias sl='sl -ac'
+
+# System Commands
+alias reboot='sudo reboot'
+alias poweroff='sudo poweroff'
+alias shutdown='sudo shutdown now'
+alias suspend='systemctl suspend'
+alias sctl='sudo systemctl'
+alias usystemctl='systemctl --user'
+alias blkid='sudo blkid -o export'
+alias dlist='sudo blkid -o list'
+alias fontsReload='fc-cache -f -v'
+alias fontsList='fc-list'
+alias please='sudo $(fc -ln -1)'
+alias fuck='please'
+alias fck='please'
+alias open='xdg-open'
+alias cls='clear'
+alias unlock-hyprlock='pkill -USR1 hyprlock'
+alias watch-cpu-speed='watch -n.1 "grep \"^[c]pu MHz\" /proc/cpuinfo"'
+alias current-wallpaper='source ~/.cache/current_wallpaper.sh && echo $CURRENT_WALLPAPER'
+
+# Editors & Configurations
+alias vi='nvim'
+alias vim='nvim'
+alias svim='sudo -E nvim'
+alias tmuxrc='vim ~/.tmux.conf'
+alias zshrc='cd ~/dotfiles/configs/zsh && vim ~/dotfiles/configs/zsh/zshrc'
+alias bashrc='cd ~/dotfiles/configs/bash && vim ~/dotfiles/configs/bash/bashrc'
+alias fishrc='cd ~/dotfiles/configs/fish && vim ~/dotfiles/configs/fish/fishrc'
+alias aliasrc='cd ~/dotfiles/configs/shell/ && vim ~/dotfiles/configs/shell/aliasrc'
+alias functionsrc='cd ~/dotfiles/configs/shell/ && vim ~/dotfiles/configs/shell/functionsrc'
+alias vimrc='cd ~/.config/nvim && vim .'
+alias dotfiles='cd ~/dotfiles && vim .'
+alias gitconfig='vim ~/.gitconfig'
+alias sshrc='vim ~/.ssh/config'
+alias nixrc='cd /etc/nixos && vim /etc/nixos/'
+alias notes='vim ~/obsidian/vault'
+
+# Development & Build Tools
+alias cval='make && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ${1} 2> valgrind.log'
+alias val='valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ${1} 2> valgrind.log'
+
+# Nix
+alias nixsearch='nix-env -qaP'
+alias desktopbuild='sudo nixos-rebuild switch --flake .#desktop'
+alias laptopbuild='sudo nixos-rebuild switch --flake .#laptop'
+
+# Misc
+alias mensa='xdg-open https://www.studentenwerk-dresden.de/mensen/speiseplan/'
+alias shitpoint='xdg-open https://sharepoint.tu-dresden.de/sites/zih/SitePages/Homepage.aspx'
+alias shitpoint-liste='xdg-open https://sharepoint.tu-dresden.de/sites/zih/SitePages/Anwesenheitsliste.aspx'
+alias work='time_tracking'
+

@@ -69,8 +69,6 @@
     - { src: "bash/bashrc", dest: ".bashrc" }
     # fish
     - { src: "fish", dest: ".config/fish" }
-    # nushell
-    - { src: "nushell", dest: ".config/nushell" }
     # zsh
     - { src: "zsh/zshrc", dest: ".zshrc" }
     - { src: "zsh/prompt.zsh", dest: ".config/zsh/prompt.zsh" }
@@ -92,8 +90,6 @@
     - { src: "gh", dest: ".config/gh" }
 
     # CLI
-    # discord-bot
-    - { src: "discord-bot", dest: ".config/discord-bot" }
     # tmux
     - { src: "tmux/tmux.conf", dest: ".tmux.conf" }
     # neofetch
@@ -106,8 +102,6 @@
     - { src: "bat", dest: ".config/bat" }
     # vim
     - { src: "vim", dest: ".config/vim" }
-    # zellij
-    - { src: "zellij", dest: ".config/zellij" }
     # lf
     - { src: "lf", dest: ".config/lf" }
 
@@ -125,7 +119,6 @@
     - { src: "alacritty", dest: ".config/alacritty" }
     - { src: "ghostty", dest: ".config/ghostty" }
     - { src: "kitty", dest: ".config/kitty" }
-    - { src: "warp-terminal", dest: ".config/warp-terminal" }
     - { src: "wezterm", dest: ".config/wezterm" }
 
 - name: Check if source files exist

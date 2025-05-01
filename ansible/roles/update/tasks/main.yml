@@ -158,6 +158,29 @@
   loop: "{{ source_files.results }}"
   when: not item.stat.exists
 
+# Binarys
+- name: Find executables in configs/bin
+  ansible.builtin.find:
+    paths: "{{ dotfiles_dir }}/configs/bin"
+    file_type: file
+    recurse: no
+  register: local_bin_files
+
+- name: Create symlinks in ~/.local/bin/
+  ansible.builtin.file:
+    src: "{{ item.path }}"
+    dest: "{{ ansible_env.HOME }}/.local/bin/{{ item.path | basename }}"
+    state: link
+    force: yes
+  loop: "{{ local_bin_files.files }}"
+  when: local_bin_files.matched > 0
+
+- name: Debug local bin links
+  ansible.builtin.debug:
+    msg: "Linked {{ item.path }} → ~/.local/bin/{{ item.path | basename }}"
+  loop: "{{ local_bin_files.files }}"
+  when: local_bin_files.matched > 0
+
 # Neovim configuration
 - name: Check if nvim config exists
   ansible.builtin.stat:

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-kill `ps -aux | grep random | grep -v grep | awk '{ print $2 }'`
-
-nohup bash ~/.config/hypr/scripts/random_wallpaper.sh > /dev/null 2>&1 &
-
-exit 0

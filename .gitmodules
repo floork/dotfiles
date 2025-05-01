@@ -1,7 +1,0 @@
-[submodule "alacritty/themes"]
-	path = alacritty/themes
-  url = https://github.com/alacritty/alacritty-theme.git
-
-[submodule "colorscheme"]
-	path = colorscheme
-	url = https://github.com/floork/colorscheme.git

@@ -1,0 +1,30 @@
+---
+
+- name: Install packages on Debian/Ubuntu
+  become: true
+  apt:
+    name:
+      # - alacritty
+      - bat
+      - dunst
+      - fd
+      # - fish
+      # - fuzzel
+      - gh
+      - git
+      - ghostty
+      - gromit-mpx
+      - hyprland
+      - hypridle
+      - hyprlock
+      # - kitty
+      # - lf
+      - neovim
+      - tmux
+      - vim
+      - waybar
+      # - wofi
+- wezterm
+      - zsh
+    state: present
+    update_cache: yes

@@ -1,0 +1,38 @@
+---
+
+- name: Ensure yay is installed
+  become: true
+  pacman:
+    name: yay
+    state: present
+
+- name: Install packages on Arch using yay
+  become: true
+  become_user: "{{ ansible_user }}"
+  shell: |
+    yay -S --noconfirm --needed {{ item }}
+  loop:
+    # - alacritty
+    - bat
+    - dunst
+    - fd
+    # - fish
+    # - fuzzel
+    - gh
+    - git
+    - ghostty
+    - gromit-mpx
+    - hyprland-git
+    - hypridle
+    - hyprlock
+    # - kitty
+    # - lf
+    - neovim
+    - tmux
+    - vim
+    - waybar
+    # - wofi
+    - wezterm
+    - zsh
+  args:
+    executable: /bin/bash

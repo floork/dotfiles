@@ -1,34 +1,13 @@
 ---
-- name: Install packages (Arch)
-  become: true
-  community.general.pacman:
-    name:
-      - zsh
-      - fish
-      - tmux
-      - neofetch
-      - bat
-      - fd
-      - alacritty
-      - kitty
-      - dunst
-      - hyprland
-      - waybar
-      - wofi
-      - starship
-      - lf
-    state: present
-  when: is_arch
 
-- name: Install packages (Debian/Ubuntu)
-  become: true
-  ansible.builtin.apt:
-    name: "{{ packages }}"
-    state: present
-    update_cache: yes
-  when: is_debian
+- name: Install packages on Arch
+  include_tasks: arch.yml
+  when: ansible_distribution == "Archlinux"
 
-- name: Print NixOS notice
-  ansible.builtin.debug:
-    msg: "Please install required packages through your NixOS configuration"
-  when: is_nixos
+- name: Install packages on Debian/Ubuntu
+  include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Warn on NixOS
+  include_tasks: nixos.yml
+  when: ansible_distribution == "NixOS"

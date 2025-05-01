@@ -1,0 +1,6 @@
+---
+
+- name: Notify about NixOS package management
+  debug:
+    msg: |
+      Skipping package install on NixOS. Use `configuration.nix` or flakes to manage packages.

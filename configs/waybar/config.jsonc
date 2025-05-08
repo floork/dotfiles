@@ -6,6 +6,7 @@
   "margin-top": 0,
   "modules-left": [
     "cpu",
+    "custom/gpu-usage",
     "memory",
     "disk",
     "temperature",
@@ -106,6 +107,13 @@
     "interval": 1,
     "return-type": "json"
   },
+"custom/gpu-usage": {
+  // "exec": "cat /sys/class/hwmon/hwmon2/device/gpu_busy_percent",
+  "exec": "gpu_usage.sh",
+  "format": "GPU: {}%",
+  "return-type": "",
+  "interval": 1
+},
   "custom/recorder": {
     "exec": "echo '{\"class\": \"recording\"}'",
     "exec-if": "pgrep wf-recorder",
@@ -191,7 +199,7 @@
     "tooltip": true
   },
   "pulseaudio": {
-    "format": "{icon}{volume}% {format_source}",
+    "format": "{icon} {volume}% {format_source}",
     "format-bluetooth": "{icon} {volume}% {format_source}",
     "format-bluetooth-muted": " {format_source}",
     "format-muted": "  {format_source}",

@@ -4,4 +4,3 @@ gkt-3.0/servers
 nvim
 wezterm/wezterm
 zsh/prompt.zsh.zwc
-systemd/**

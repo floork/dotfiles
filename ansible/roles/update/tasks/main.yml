@@ -88,6 +88,7 @@
     - { src: "git/gitconfig", dest: ".gitconfig" }
     - { src: "git/gitignore", dest: ".gitignore" }
     - { src: "gh", dest: ".config/gh" }
+    - { src: "lazygit", dest: ".config/lazygit" }
 
     # CLI
     # tmux

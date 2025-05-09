@@ -1,63 +1,44 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 10,
-  "margin-bottom": 0,
-  "margin-top": 0,
-  "modules-left": [
-    "cpu",
-    "custom/gpu-usage",
-    "memory",
-    "disk",
-    "temperature",
-    "systemd-failed-units",
-    "network",
-    "hyprland/language",
-    "custom/work"
-  ],
-  "modules-center": [
-    "hyprland/workspaces"
-  ],
-  "modules-right": [
-    "custom/weather",
-    "tray",
-    // "idle_inhibitor",
-    "bluetooth",
-    "pulseaudio",
-    "backlight",
-    "battery",
-    "clock"
-  ],
+  "modules-left": ["group/system_info", "hyprland/workspaces"],
+  "modules-center": ["group/center_block"],
+  "modules-right": ["tray", "group/audio_network", "custom/work"],
+  "group/system_info": {
+    "orientation": "horizontal",
+    "modules": [
+      "cpu",
+      "custom/gpu-usage",
+      "memory",
+      "disk",
+      "temperature",
+      "systemd-failed-units",
+    ],
+  },
+  "group/center_block": {
+    "orientation": "horizontal",
+    "modules": ["hyprland/language", "clock", "custom/weather"],
+  },
+  "group/audio_network": {
+    "orientation": "horizontal",
+    "modules": ["pulseaudio", "backlight", "network", "bluetooth", "battery"],
+  },
   "backlight": {
     "format": "{icon}&#8239;{percent}%",
-    "format-icons": [
-      "",
-      ""
-    ],
+    "format-icons": ["", ""],
     "on-scroll-down": "brightnessctl -c backlight set 1%-",
-    "on-scroll-up": "brightnessctl -c backlight set +1%"
+    "on-scroll-up": "brightnessctl -c backlight set +1%",
   },
   "battery": {
     "format": "{icon} {capacity}%",
     "format-charging": " {capacity}%",
-    "format-icons": [
-      "󰁺",
-      "󰁻",
-      "󰁼",
-      "󰁽",
-      "󰁾",
-      "󰁿",
-      "󰂀",
-      "󰂁",
-      "󰂂",
-      "󰁹"
-    ],
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
     "format-plugged": "{capacity}%",
     "format-alt": "{icon} {time}",
     "states": {
       "warning": 30,
-      "critical": 15
-    }
+      "critical": 15,
+    },
   },
   "bluetooth": {
     "format": " {status}",
@@ -68,7 +49,18 @@
     "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+  },
+  "hyprland/workspaces": {
+    "format": "{name}: {icon}",
+    "format-icons": {
+      "active": "",
+      "default": "",
+    },
+  },
+  "tray": {
+    "icon-size": 21,
+    "spacing": 10,
   },
   "clock": {
     "format": "{:%T:%Z,󰃭 %a %d.%m/KW:%V}",
@@ -85,42 +77,46 @@
         "days": "<span color='#ecc6d9'><b>{}</b></span>",
         "weeks": "<span color='#99ffdd'><b>W{:%V}</b></span>",
         "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
-      }
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>",
+      },
     },
     "actions": {
       "on-click-right": "mode",
       "on-scroll-up": "tz_up",
-      "on-scroll-down": "tz_down"
-    }
+      "on-scroll-down": "tz_down",
+    },
+  },
+  "network": {
+    "format-disabled": "",
+    "format-disconnected": "  Disconnected",
+    "format-ethernet": "󰈀  eth",
+    "format-linked": " {ipaddr}",
+    "format-wifi": "  {signalStrength}%",
+    "interval": 5,
+    "tooltip": false,
   },
   "cpu": {
+    "interval": 1,
     "format": "  {usage}%",
-    "on-click": "wezterm start -e 'htop'",
-    "tooltip": true
+    "tooltip": true,
   },
-  "custom/audiorec": {
-    "exec": "echo '{\"class\": \"audio recording\"}'",
-    "exec-if": "pgrep ffmpeg",
-    "format": "♬ Rec",
-    "format-disabled": "♬ Off-air",
-    "interval": 1,
-    "return-type": "json"
+  "memory": {
+    "interval": 30,
+    "format": "  {used:0.1f}G/{total:0.1f}G",
   },
-"custom/gpu-usage": {
-  // "exec": "cat /sys/class/hwmon/hwmon2/device/gpu_busy_percent",
-  "exec": "gpu_usage.sh",
-  "format": "GPU: {}%",
-  "return-type": "",
-  "interval": 1
-},
-  "custom/recorder": {
-    "exec": "echo '{\"class\": \"recording\"}'",
-    "exec-if": "pgrep wf-recorder",
-    "format": " Rec",
-    "format-disabled": " Off-air",
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "",
+    "format-icons": {
+      "default": ["", "", " "],
+    },
+    "on-click": "pavucontrol",
+  },
+  "custom/gpu-usage": {
+    // "exec": "cat /sys/class/hwmon/hwmon2/device/gpu_busy_percent",
+    "exec": "gpu_usage.sh",
+    "format": "󰐷 {}%",
     "interval": 1,
-    "return-type": "json"
   },
   "custom/weather": {
     "exec": "wttrbar",
@@ -128,119 +124,34 @@
     "interval": 3600,
     "return-type": "json",
     "tooltip": true,
-    "on-click": "xdg-open https://www.wetter.com/deutschland/dresden/leubnitz/DE0002265107.html"
+    "on-click": "xdg-open https://www.wetter.com/deutschland/dresden/leubnitz/DE0002265107.html",
   },
   "custom/work": {
     "exec": "~/.cargo/bin/taim-o-meter status-line",
     "format": " {}",
     "interval": 20,
     "return-type": "json",
-    "tooltip": true
+    "tooltip": true,
   },
   "disk": {
     "interval": 30,
     "format": "  {percentage_used}% ",
-    "path": "/home"
+    "path": "/home",
   },
   "hyprland/language": {
-    "format": "{}"
-  },
-  "hyprland/window": {
-    "max-length": 200,
-    "separate-outputs": true
-  },
-  "hyprland/workspaces": {
-    "on-click": "activate",
-    "sort-by-name": true
-  },
-  "memory": {
-    "critical": 90,
-    "format": "  {used:0.2f}GB",
-    "interval": 10,
-    "max-length": 10,
-    "tooltip": true,
-    "warning": 70
-  },
-  "mpd": {
-    "consume-icons": {
-      "on": " "
-    },
-    "format": "{stateIcon} {artist} - {title}",
-    "format-disconnected": "🎶",
-    "format-stopped": "♪",
-    "interval": 10,
-    "max-length": 35,
-    "random-icons": {
-      "off": "<span color=\"#f53c3c\"></span> ",
-      "on": " "
-    },
-    "repeat-icons": {
-      "on": " "
-    },
-    "single-icons": {
-      "on": " 1"
-    },
-    "state-icons": {
-      "paused": " ",
-      "playing": " "
-    },
-    "tooltip-format": "MPD (connected)",
-    "tooltip-format-disconnected": "MPD (disconnected)"
-  },
-  "network": {
-    "format-disabled": "",
-    "format-disconnected": "  Disconnected",
-    "format-ethernet": "  eth",
-    "format-linked": " {ipaddr}",
-    "format-wifi": "  {signalStrength}%",
-    "interval": 2,
-    "max-length": 20,
-    "min-length": 6,
-    "tooltip": true
-  },
-  "pulseaudio": {
-    "format": "{icon} {volume}% {format_source}",
-    "format-bluetooth": "{icon} {volume}% {format_source}",
-    "format-bluetooth-muted": " {format_source}",
-    "format-muted": "  {format_source}",
-    "format-source": " {volume}%",
-    "format-source-muted": "",
-    "format-icons": {
-      "car": "",
-      "default": [
-        "",
-        "",
-        " "
-      ],
-      "hands-free": "",
-      "headphone": "",
-      "headset": "🎧",
-      "phone": "",
-      "portable": ""
-    },
-    "on-click": "pavucontrol"
+    "format": "{}",
   },
   "systemd-failed-units": {
     "format": "systemd: ✗ {nr_failed}",
     "format-ok": "systemd: ✓",
     "hide-on-ok": false,
     "system": true,
-    "user": false
+    "user": false,
   },
   "temperature": {
     "interval": 3,
     "format": "{icon} {temperatureC}°C",
-    "format-icons": [
-      "", // Icon: temperature-empty
-      "", // Icon: temperature-quarter
-      "", // Icon: temperature-half
-      "", // Icon: temperature-three-quarters
-      "" // Icon: temperature-full
-    ],
-    "tooltip": true
+    "format-icons": ["", "", "", "", ""],
+    "tooltip": true,
   },
-  "tray": {
-    "icon-size": 16,
-    "spacing": 6
-  }
 }

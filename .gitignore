@@ -1,6 +1,7 @@
-tmux/plugins/
-gkt-3.0/bookmarks
-gkt-3.0/servers
-nvim
-wezterm/wezterm
-zsh/prompt.zsh.zwc
+configs/tmux/plugins/
+configs/gkt-3.0/bookmarks
+configs/gkt-3.0/servers
+configs/nvim
+configs/wezterm/wezterm
+configs/zsh/prompt.zsh.zwc
+configs/systemd/user/**

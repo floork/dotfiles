@@ -113,13 +113,12 @@
     "on-click": "pavucontrol",
   },
   "custom/gpu-usage": {
-    // "exec": "cat /sys/class/hwmon/hwmon2/device/gpu_busy_percent",
-    "exec": "gpu_usage.sh",
+    "exec": "~/.local/bin/check_and_exec.sh ~/.local/bin/gpu_usage.sh",
     "format": "󰐷 {}%",
     "interval": 1,
   },
   "custom/weather": {
-    "exec": "wttrbar",
+    "exec": "~/.local/bin/check_and_exec.sh wttrbar",
     "format": "{}°C",
     "interval": 3600,
     "return-type": "json",
@@ -127,7 +126,7 @@
     "on-click": "xdg-open https://www.wetter.com/deutschland/dresden/leubnitz/DE0002265107.html",
   },
   "custom/work": {
-    "exec": "~/.cargo/bin/taim-o-meter status-line",
+    "exec": "~/.local/bin/check_and_exec.sh ~/.cargo/bin/taim-o-meter status-line",
     "format": " {}",
     "interval": 20,
     "return-type": "json",

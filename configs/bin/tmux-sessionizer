@@ -1,31 +1,132 @@
 #!/usr/bin/env bash
 
-if [[ $# -eq 1 ]]; then
-  selected=$1
-else
-  # Find directories in both the regular home directory and specific home directory
-  directories=$(fd -t d -E .git -E node_modules --exclude Downloads --base-directory ~)
-  my_home=$(echo ~)
-  directories+=" $my_home"
+# inspired by https://github.com/ThePrimeagen/tmux-sessionizer
+# but with some changes to fit my workflows
 
-  # Use fzf to select a directory from the list
-  selected=$(echo "$directories" | tr ' ' '\n' | fzf)
-fi
+# Configurable variables
+EXCLUDES=(".git" "node_modules" "Downloads")
+SEARCH_PATHS=("$HOME")
 
-if [[ -z $selected ]]; then
-  exit 0
-fi
+find_directories() {
+    # Convert arrays to fd-compatible exclude patterns
+    local exclude_args=()
+    for exclude in "${EXCLUDES[@]}"; do
+        exclude_args+=("-E" "$exclude")
+    done
 
-selected_name=$(basename "$selected" | tr . _)
-tmux_running=$(pgrep tmux)
+    # Find directories in all search paths
+    local directories=""
+    for path in "${SEARCH_PATHS[@]}"; do
+        directories+="$(fd -t d "${exclude_args[@]}" --base-directory "$path")"$'\n'
+    done
 
-if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-  tmux new-session -s $selected_name -c ~/$selected
-  exit 0
-fi
+    # add the SEARCH_PATHS itselves
+    for path in "${SEARCH_PATHS[@]}"; do
+        directories+="$path"$'\n'
+      done
 
-if ! tmux has-session -t=$selected_name 2>/dev/null; then
-  tmux new-session -ds $selected_name -c ~/$selected
-fi
+    # Remove empty lines and duplicates, then sort
+    echo "$directories" | awk 'NF' | sort -u
+}
 
-tmux switch-client -t $selected_name
+switch_to_tmux_session() {
+    if [[ -z $TMUX ]]; then
+        tmux attach-session -t "$1"
+    else
+        tmux switch-client -t "$1"
+    fi
+}
+
+tmux_session_exists() {
+    tmux list-sessions -F '#{session_name}' | grep -qx "$1"
+}
+
+source_tmux_sessionizer() {
+    local session_name="$1"
+    local directory="$2"
+    
+    local sessionizer_file="$directory/.tmux-sessionizer"
+    local home_sessionizer="$HOME/.tmux-sessionizer"
+    
+    if [ -f "$sessionizer_file" ]; then
+        tmux send-keys -t "$session_name" "source $sessionizer_file" C-m
+    elif [ -f "$home_sessionizer" ]; then
+        tmux send-keys -t "$session_name" "source $home_sessionizer" C-m
+    fi
+}
+
+check_tmux_popup_support() {
+    if ! command -v tmux > /dev/null 2>&1; then
+        echo false
+        return
+    fi
+
+    local tmux_version=$(tmux -V)
+    if [[ $tmux_version =~ tmux\ ([0-9]+)\.([0-9]+)([a-z]?) ]]; then
+        local major=${BASH_REMATCH[1]}
+        local minor=${BASH_REMATCH[2]}
+        
+        if (( major > 3 || (major == 3 && minor >= 2) )); then
+            echo true
+            return
+        fi
+    fi
+    
+    echo false
+}
+
+select_directory_with_fzf() {
+  local directories=$(find_directories)
+  
+  if [ "$1" = true ]; then
+    local tmp_file=$(mktemp)
+    local result_file=$(mktemp)
+    echo "$directories" > "$tmp_file"
+    
+    # Modify the command to write the result to result_file
+    tmux popup -w 80% -h 80% -E \
+      "fzf < \"$tmp_file\" > \"$result_file\"; rm \"$tmp_file\""
+    
+    # Read the result after the popup closes
+    local selected=$(cat "$result_file")
+    rm "$result_file"
+    echo "$selected"
+  else
+    echo "tmux version does not support popups. Using standard fzf selection." >&2
+    echo "$directories" | fzf
+  fi
+}
+
+create_and_attach_session() {
+    local session_name="$1"
+    local directory="$2"
+    
+    tmux new-session -ds "$session_name" -c "$directory"
+    source_tmux_sessionizer "$session_name" "$directory"
+    switch_to_tmux_session "$session_name"
+}
+
+main() {
+    local selected="$1"
+    local tmux_supports_popup=$(check_tmux_popup_support)
+    
+    if [[ -z $selected ]]; then
+        selected=$(select_directory_with_fzf "$tmux_supports_popup")
+    fi
+
+    [[ -z $selected ]] && exit 0
+
+
+    local session_name=$(basename "$selected" | tr . _)
+    local tmux_running=$(pgrep tmux)
+
+    # Create session if it doesn't exist
+    if ! tmux_session_exists "$session_name"; then
+        create_and_attach_session "$session_name" "$selected"
+    fi
+
+    # Always try to switch to the session
+    switch_to_tmux_session "$session_name"
+}
+
+main "$@"

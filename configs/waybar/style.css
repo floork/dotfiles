@@ -4,28 +4,28 @@
   font-size: 13px;
   min-height: 15px;
   color: white;
+  margin: 0.15rem 0rem;
 }
 
 #waybar {
   background: transparent;
   color: #c6d0f5;
-  margin: 2px 2px;
+  margin: 0 0;
 }
 
 /* ========= Workspaces ========= */
 #workspaces {
   border-radius: 5px;
-  margin: 5px;
   margin-left: 1rem;
   margin-right: 1rem;
   background: #101010;
-  padding: 0.5rem 1rem;
+  padding: 0rem 1rem;
 }
 
 #workspaces button {
   color: #babbf1;
   border-radius: 5px;
-  padding: 0.4rem;
+  padding: 0rem 0.4rem;
 }
 
 #workspaces button.active {
@@ -42,14 +42,13 @@
 #center_block {
   background-color: #101010;
   border-radius: 5px;
-  padding: 0.5rem 1rem;
-  margin: 5px 0;
+  padding: 0rem 1rem;
   margin-left: 1rem;
   margin-right: 1rem;
 }
 #clock {
   color: #8caaee;
-  padding: 0.5rem 1rem;
+  padding: 0rem 1rem;
   border-radius: 5px;
 }
 
@@ -74,8 +73,7 @@
 #system_info {
   background-color: #101010;
   border-radius: 5px;
-  padding: 0.5rem 1rem;
-  margin: 5px 0;
+  padding: 0rem 1rem;
 }
 
 #cpu {
@@ -138,26 +136,23 @@
 #audio_network {
   background-color: #101010;
   border-radius: 5px;
-  padding: 0.5rem 1rem;
-  margin: 5px 0;
+  padding: 0rem 1rem;
 }
 
 /* ========= Tray ========= */
 #tray {
   background-color: #101010;
   color: white;
-  margin: 5px;
   margin-left: 1rem;
   margin-right: 1rem;
   border-radius: 5px;
-  padding: 0.5rem 1rem;
+  padding: 0rem 1rem;
 }
 
 /* ========= Productivity / Custom ========= */
 #custom-work {
   background-color: #101010;
   color: #ef9f76;
-  padding: 0.5rem 1rem;
-  margin: 5px 0;
+  padding: 0rem 1rem;
   border-radius: 5px;
 }

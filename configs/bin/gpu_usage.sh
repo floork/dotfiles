@@ -12,7 +12,7 @@ for hwmon in /sys/class/hwmon/hwmon*; do
             # AMD GPU usage or temperature
             if [[ -f "$hwmon/device/gpu_busy_percent" ]]; then
                 usage=$(cat "$hwmon/device/gpu_busy_percent")
-                echo "${usage}%"
+                echo "${usage}"
                 gpu_found=true
                 break
             elif [[ -f "$hwmon/temp1_input" ]]; then

@@ -5,3 +5,4 @@ configs/nvim
 configs/wezterm/wezterm
 configs/zsh/prompt.zsh.zwc
 configs/systemd/user/**
+configs/docker/buildx/**

@@ -18,7 +18,7 @@
   border-radius: 5px;
   margin-left: 1rem;
   margin-right: 1rem;
-  background: #101010;
+  background: #2c2c2c;
   padding: 0rem 1rem;
 }
 
@@ -40,7 +40,7 @@
 
 /* ========= Center ========= */
 #center_block {
-  background-color: #101010;
+  background: #2c2c2c;
   border-radius: 5px;
   padding: 0rem 1rem;
   margin-left: 1rem;
@@ -71,7 +71,7 @@
 }
 
 #system_info {
-  background-color: #101010;
+  background: #2c2c2c;
   border-radius: 5px;
   padding: 0rem 1rem;
 }
@@ -134,14 +134,14 @@
 }
 
 #audio_network {
-  background-color: #101010;
+  background: #2c2c2c;
   border-radius: 5px;
   padding: 0rem 1rem;
 }
 
 /* ========= Tray ========= */
 #tray {
-  background-color: #101010;
+  background: #2c2c2c;
   color: white;
   margin-left: 1rem;
   margin-right: 1rem;
@@ -151,7 +151,7 @@
 
 /* ========= Productivity / Custom ========= */
 #custom-work {
-  background-color: #101010;
+  background: #2c2c2c;
   color: #ef9f76;
   padding: 0rem 1rem;
   border-radius: 5px;

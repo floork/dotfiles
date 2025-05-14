@@ -97,12 +97,12 @@
   },
   "cpu": {
     "interval": 1,
-    "format": " {usage}%",
+    "format": "  {usage}%",
     "tooltip": true,
   },
   "memory": {
     "interval": 30,
-    "format": " {used:0.1f}G/{total:0.1f}G",
+    "format": "  {used:0.1f}G/{total:0.1f}G",
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
@@ -114,7 +114,7 @@
   },
   "custom/gpu-usage": {
     "exec": "~/.local/bin/check_and_exec.sh ~/.local/bin/gpu_usage.sh",
-    "format": "󰐷 {}%",
+    "format": "󰐷  {}%",
     "interval": 1,
   },
   "custom/weather": {
@@ -134,7 +134,7 @@
   },
   "disk": {
     "interval": 30,
-    "format": " {percentage_used}% ",
+    "format": "  {percentage_used}% ",
     "path": "/home",
   },
   "hyprland/language": {

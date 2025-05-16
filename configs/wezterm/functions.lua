@@ -1,10 +1,8 @@
 #!/bin/env lua
 
-local wezterm = require("wezterm")
-
 local white_mode = false
 
-function _G.toggle_white_mode(window, pane)
+function Toggle_white_mode(window, pane)
   white_mode = not white_mode
 
   if white_mode then

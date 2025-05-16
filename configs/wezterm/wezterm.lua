@@ -1,5 +1,5 @@
 local wezterm = require("wezterm")
-local funcs = require("functions")
+require("functions")
 local config = {}
 
 -- Use config builder if possible
@@ -24,6 +24,7 @@ config.font = wezterm.font_with_fallback({
   { family = "FiraCode Nerd Font" },
   { family = "Fira Code" },
 })
+config.font_size = 11
 
 -- config.color_scheme = 'Atelier Cave Light (base16)' -- light theme
 -- config.harfbuzz_features = { "calt=0" }  -- disable ligatures
@@ -72,7 +73,7 @@ config.keys = {
     key = "L",
     mods = "CTRL|SHIFT",
     action = wezterm.action_callback(function(window, pane)
-      _G.toggle_white_mode(window, pane)
+      Toggle_white_mode(window, pane)
     end),
   },
 }

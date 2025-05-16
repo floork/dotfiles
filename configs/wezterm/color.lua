@@ -1,0 +1,1 @@
+/home/flmr799e/dotfiles/configs/colorscheme/retro-classic/wezterm.lua

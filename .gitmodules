@@ -1,0 +1,3 @@
+[submodule "configs/colorscheme"]
+	path = configs/colorscheme
+	url = https://github.com/floork/colorscheme

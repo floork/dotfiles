@@ -68,6 +68,13 @@ config.keys = {
     mods = "CTRL",
     action = wezterm.action.ResetFontSize,
   },
+  {
+    key = "L",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action_callback(function(window, pane)
+      _G.toggle_white_mode(window, pane)
+    end),
+  },
 }
 
 return config

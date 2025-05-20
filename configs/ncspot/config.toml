@@ -1,0 +1,4 @@
+initial_screen = "library"
+use_nerddfont = true
+notify = true
+shuffle = true

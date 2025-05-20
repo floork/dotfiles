@@ -60,7 +60,7 @@ config.keys = {
     action = wezterm.action.IncreaseFontSize,
   },
   {
-    key = "-",
+    key = "_",
     mods = "CTRL|SHIFT",
     action = wezterm.action.DecreaseFontSize,
   },

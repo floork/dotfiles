@@ -105,6 +105,8 @@
     - { src: "vim", dest: ".config/vim" }
     # lf
     - { src: "lf", dest: ".config/lf" }
+    # ncspot
+    - { src: "ncspot", dest: ".config/ncspot" }
 
     # Desktop applications
     - { src: "dunst", dest: ".config/dunst" }

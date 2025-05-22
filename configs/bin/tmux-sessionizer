@@ -67,7 +67,14 @@ create_and_attach_session() {
 
 generate_session_name() {
   local path="$1"
-  path=$(realpath "$path")
+
+  if [[ -z $path || ! -d $path ]]; then
+    echo "invalid_session"
+    return
+  fi
+
+  path=$(realpath "$path" 2>/dev/null)
+  [[ -z $path ]] && echo "invalid_session" && return
 
   IFS='/' read -ra parts <<<"$path"
   local count=${#parts[@]}
@@ -75,7 +82,7 @@ generate_session_name() {
   if ((count >= 2)); then
     local part1="${parts[count - 2]}"
     local part2="${parts[count - 1]}"
-    # Replace dots with underscores
+    # Sanitize: replace `.` with `_`
     part1="${part1//./_}"
     part2="${part2//./_}"
     echo "${part1}_${part2}"
@@ -87,15 +94,16 @@ generate_session_name() {
 main() {
   local selected="$1"
 
-  # Use FZF if no directory is passed as an argument
   if [[ -z $selected ]]; then
     selected=$(select_directory_with_fzf)
   fi
 
   [[ -z $selected ]] && exit 0
 
-  # Forcefully resolve to absolute path to avoid worktree path confusion
-  selected=$(realpath "$selected")
+  selected=$(realpath "$selected" 2>/dev/null) || {
+    echo "Error: Could not resolve path '$selected'" >&2
+    exit 1
+  }
 
   local session_name
   session_name=$(generate_session_name "$selected")

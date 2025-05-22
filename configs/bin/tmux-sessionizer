@@ -8,125 +8,103 @@ EXCLUDES=(".git" "node_modules" "Downloads")
 SEARCH_PATHS=("$HOME")
 
 find_directories() {
-    # Convert arrays to fd-compatible exclude patterns
-    local exclude_args=()
-    for exclude in "${EXCLUDES[@]}"; do
-        exclude_args+=("-E" "$exclude")
-    done
+  local exclude_args=()
+  for exclude in "${EXCLUDES[@]}"; do
+    exclude_args+=("-E" "$exclude")
+  done
 
-    # Find directories in all search paths
-    local directories=""
-    for path in "${SEARCH_PATHS[@]}"; do
-        directories+="$(fd -t d "${exclude_args[@]}" --base-directory "$path")"$'\n'
-    done
+  local directories=""
+  for path in "${SEARCH_PATHS[@]}"; do
+    directories+="$(fd -t d "${exclude_args[@]}" --base-directory "$path")"$'\n'
+  done
 
-    # add the SEARCH_PATHS itselves
-    for path in "${SEARCH_PATHS[@]}"; do
-        directories+="$path"$'\n'
-      done
+  # Add search paths themselves
+  for path in "${SEARCH_PATHS[@]}"; do
+    directories+="$path"$'\n'
+  done
 
-    # Remove empty lines and duplicates, then sort
-    echo "$directories" | awk 'NF' | sort -u
+  echo "$directories" | awk 'NF' | sort -u
 }
 
 switch_to_tmux_session() {
-    if [[ -z $TMUX ]]; then
-        tmux attach-session -t "$1"
-    else
-        tmux switch-client -t "$1"
-    fi
-}
-
-tmux_session_exists() {
-    tmux list-sessions -F '#{session_name}' | grep -qx "$1"
-}
-
-source_tmux_sessionizer() {
-    local session_name="$1"
-    local directory="$2"
-    
-    local sessionizer_file="$directory/.tmux-sessionizer"
-    local home_sessionizer="$HOME/.tmux-sessionizer"
-    
-    if [ -f "$sessionizer_file" ]; then
-        tmux send-keys -t "$session_name" "source $sessionizer_file" C-m
-    elif [ -f "$home_sessionizer" ]; then
-        tmux send-keys -t "$session_name" "source $home_sessionizer" C-m
-    fi
-}
-
-check_tmux_popup_support() {
-    if ! command -v tmux > /dev/null 2>&1; then
-        echo false
-        return
-    fi
-
-    local tmux_version=$(tmux -V)
-    if [[ $tmux_version =~ tmux\ ([0-9]+)\.([0-9]+)([a-z]?) ]]; then
-        local major=${BASH_REMATCH[1]}
-        local minor=${BASH_REMATCH[2]}
-        
-        if (( major > 3 || (major == 3 && minor >= 2) )); then
-            echo true
-            return
-        fi
-    fi
-    
-    echo false
-}
-
-select_directory_with_fzf() {
-  local directories=$(find_directories)
-  
-  if [ "$1" = true ]; then
-    local tmp_file=$(mktemp)
-    local result_file=$(mktemp)
-    echo "$directories" > "$tmp_file"
-    
-    # Modify the command to write the result to result_file
-    tmux popup -w 80% -h 80% -E \
-      "fzf < \"$tmp_file\" > \"$result_file\"; rm \"$tmp_file\""
-    
-    # Read the result after the popup closes
-    local selected=$(cat "$result_file")
-    rm "$result_file"
-    echo "$selected"
+  if [[ -z $TMUX ]]; then
+    tmux attach-session -t "$1"
   else
-    echo "tmux version does not support popups. Using standard fzf selection." >&2
-    echo "$directories" | fzf
+    tmux switch-client -t "$1"
   fi
 }
 
+tmux_session_exists() {
+  tmux list-sessions -F '#{session_name}' | grep -qx "$1"
+}
+
+source_tmux_sessionizer() {
+  local session_name="$1"
+  local directory="$2"
+
+  local sessionizer_file="$directory/.tmux-sessionizer"
+  local home_sessionizer="$HOME/.tmux-sessionizer"
+
+  if [ -f "$sessionizer_file" ]; then
+    tmux send-keys -t "$session_name" "source $sessionizer_file" C-m
+  elif [ -f "$home_sessionizer" ]; then
+    tmux send-keys -t "$session_name" "source $home_sessionizer" C-m
+  fi
+}
+
+select_directory_with_fzf() {
+  find_directories | fzf
+}
+
 create_and_attach_session() {
-    local session_name="$1"
-    local directory="$2"
-    
-    tmux new-session -ds "$session_name" -c "$directory"
-    source_tmux_sessionizer "$session_name" "$directory"
-    switch_to_tmux_session "$session_name"
+  local session_name="$1"
+  local directory="$2"
+
+  tmux new-session -ds "$session_name" -c "$directory"
+  source_tmux_sessionizer "$session_name" "$directory"
+  switch_to_tmux_session "$session_name"
+}
+
+generate_session_name() {
+  local path="$1"
+  path=$(realpath "$path")
+
+  IFS='/' read -ra parts <<<"$path"
+  local count=${#parts[@]}
+
+  if ((count >= 2)); then
+    local part1="${parts[count - 2]}"
+    local part2="${parts[count - 1]}"
+    # Replace dots with underscores
+    part1="${part1//./_}"
+    part2="${part2//./_}"
+    echo "${part1}_${part2}"
+  else
+    echo "$(basename "$path" | tr '.' '_')"
+  fi
 }
 
 main() {
-    local selected="$1"
-    local tmux_supports_popup=$(check_tmux_popup_support)
-    
-    if [[ -z $selected ]]; then
-        selected=$(select_directory_with_fzf "$tmux_supports_popup")
-    fi
+  local selected="$1"
 
-    [[ -z $selected ]] && exit 0
+  # Use FZF if no directory is passed as an argument
+  if [[ -z $selected ]]; then
+    selected=$(select_directory_with_fzf)
+  fi
 
+  [[ -z $selected ]] && exit 0
 
-    local session_name=$(basename "$selected" | tr . _)
-    local tmux_running=$(pgrep tmux)
+  # Forcefully resolve to absolute path to avoid worktree path confusion
+  selected=$(realpath "$selected")
 
-    # Create session if it doesn't exist
-    if ! tmux_session_exists "$session_name"; then
-        create_and_attach_session "$session_name" "$selected"
-    fi
+  local session_name
+  session_name=$(generate_session_name "$selected")
 
-    # Always try to switch to the session
+  if ! tmux_session_exists "$session_name"; then
+    create_and_attach_session "$session_name" "$selected"
+  else
     switch_to_tmux_session "$session_name"
+  fi
 }
 
 main "$@"

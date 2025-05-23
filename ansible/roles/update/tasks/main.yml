@@ -107,6 +107,8 @@
     - { src: "lf", dest: ".config/lf" }
     # ncspot
     - { src: "ncspot", dest: ".config/ncspot" }
+    # ripgrep
+    - {src: "ripgrep", dest: ".config/ripgrep"}
 
     # Desktop applications
     - { src: "dunst", dest: ".config/dunst" }

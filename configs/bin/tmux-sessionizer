@@ -7,26 +7,24 @@
 EXCLUDES=(".git" "node_modules" "Downloads")
 SEARCH_PATHS=("$HOME")
 
-find_directories() {
-  local exclude_args=()
-  for exclude in "${EXCLUDES[@]}"; do
-    exclude_args+=("-E" "$exclude")
-  done
+sanity_check() {
+  if ! command -v tmux &>/dev/null; then
+    echo "tmux is not installed. Please install it first."
+    exit 1
+  fi
 
-  local directories=""
-  for path in "${SEARCH_PATHS[@]}"; do
-    directories+="$(fd -t d "${exclude_args[@]}" --base-directory "$path")"$'\n'
-  done
+  if ! command -v fzf &>/dev/null; then
+    echo "fzf is not installed. Please install it first."
+    exit 1
+  fi
 
-  # Add search paths themselves
-  for path in "${SEARCH_PATHS[@]}"; do
-    directories+="$path"$'\n'
-  done
-
-  echo "$directories" | awk 'NF' | sort -u
+  if ! command -v fd &>/dev/null; then
+    echo "fd is not installed. Please install it first."
+    exit 1
+  fi
 }
 
-switch_to_tmux_session() {
+switch_to() {
   if [[ -z $TMUX ]]; then
     tmux attach-session -t "$1"
   else
@@ -34,85 +32,80 @@ switch_to_tmux_session() {
   fi
 }
 
-tmux_session_exists() {
-  tmux list-sessions -F '#{session_name}' | grep -qx "$1"
+has_session() {
+  tmux list-sessions 2>/dev/null | grep -q "^$1:"
 }
 
-source_tmux_sessionizer() {
-  local session_name="$1"
-  local directory="$2"
-
-  local sessionizer_file="$directory/.tmux-sessionizer"
-  local home_sessionizer="$HOME/.tmux-sessionizer"
-
-  if [ -f "$sessionizer_file" ]; then
-    tmux send-keys -t "$session_name" "source $sessionizer_file" C-m
-  elif [ -f "$home_sessionizer" ]; then
-    tmux send-keys -t "$session_name" "source $home_sessionizer" C-m
+hydrate() {
+  if [ -f "$2/.tmux-sessionizer" ]; then
+    tmux send-keys -t "$1" "source $2/.tmux-sessionizer" C-m
+  elif [ -f "$HOME/.tmux-sessionizer" ]; then
+    tmux send-keys -t "$1" "source $HOME/.tmux-sessionizer" C-m
   fi
 }
 
-select_directory_with_fzf() {
-  find_directories | fzf
-}
-
-create_and_attach_session() {
-  local session_name="$1"
-  local directory="$2"
-
-  tmux new-session -ds "$session_name" -c "$directory"
-  source_tmux_sessionizer "$session_name" "$directory"
-  switch_to_tmux_session "$session_name"
-}
-
-generate_session_name() {
-  local path="$1"
-
-  if [[ -z $path || ! -d $path ]]; then
-    echo "invalid_session"
-    return
-  fi
-
-  path=$(realpath "$path" 2>/dev/null)
-  [[ -z $path ]] && echo "invalid_session" && return
-
-  IFS='/' read -ra parts <<<"$path"
-  local count=${#parts[@]}
-
-  if ((count >= 2)); then
-    local part1="${parts[count - 2]}"
-    local part2="${parts[count - 1]}"
-    # Sanitize: replace `.` with `_`
-    part1="${part1//./_}"
-    part2="${part2//./_}"
-    echo "${part1}_${part2}"
+find_dirs() {
+  # List existing TMUX sessions
+  if [[ -n "${TMUX}" ]]; then
+    current_session=$(tmux display-message -p '#S')
+    tmux list-sessions -F "[TMUX] #{session_name}" 2>/dev/null |
+      grep -vFx "[TMUX] $current_session"
   else
-    echo "$(basename "$path" | tr '.' '_')"
+    tmux list-sessions -F "[TMUX] #{session_name}" 2>/dev/null
   fi
+
+  # Build exclude arguments for fd
+  local exclude_args=()
+  for exclude in "${EXCLUDES[@]}"; do
+    exclude_args+=("--exclude" "$exclude")
+  done
+
+  # Find directories in search paths
+  for path in "${SEARCH_PATHS[@]}"; do
+    if [[ -d "$path" ]]; then
+      # Add the search path itself
+      echo "$path"
+      # Find subdirectories using fd with more permissive settings
+      fd --type d --hidden --no-ignore "${exclude_args[@]}" . "$path"
+    fi
+  done
 }
+
+sanity_check
 
 main() {
-  local selected="$1"
+  if [[ $# -eq 1 ]]; then
+    selected="$1"
+  else
+    selected=$(find_dirs | fzf)
+  fi
 
   if [[ -z $selected ]]; then
-    selected=$(select_directory_with_fzf)
+    exit 0
   fi
 
-  [[ -z $selected ]] && exit 0
-
-  selected=$(realpath "$selected" 2>/dev/null) || {
-    echo "Error: Could not resolve path '$selected'" >&2
-    exit 1
-  }
-
-  local session_name
-  session_name=$(generate_session_name "$selected")
-
-  if ! tmux_session_exists "$session_name"; then
-    create_and_attach_session "$session_name" "$selected"
-  else
-    switch_to_tmux_session "$session_name"
+  # Handle TMUX session selection
+  if [[ "$selected" =~ ^\[TMUX\]\ (.+)$ ]]; then
+    switch_to "${BASH_REMATCH[1]}"
+    exit 0
   fi
+
+  # Generate session name from directory
+  selected_name=$(basename "$selected" | tr . _)
+  tmux_running=$(pgrep tmux)
+
+  # Create session if it doesn't exist
+  if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    tmux new-session -ds "$selected_name" -c "$selected"
+    hydrate "$selected_name" "$selected"
+  fi
+
+  if ! has_session "$selected_name"; then
+    tmux new-session -ds "$selected_name" -c "$selected"
+    hydrate "$selected_name" "$selected"
+  fi
+
+  switch_to "$selected_name"
 }
 
 main "$@"

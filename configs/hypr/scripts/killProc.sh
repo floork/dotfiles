@@ -16,7 +16,7 @@ function get_pid() {
 }
 
 function kill_menu() {
-  local options=("Kill" "Force" "Cancel")
+  local options=("Kill" "Force" "Killall" "Cancel")
 
   local selected=$(echo "${options[@]}" | tr ' ' '\n' | $launcher_cmd)
   echo "$selected"
@@ -32,6 +32,9 @@ function kill_process() {
     ;;
   Force)
     kill -9 "$pid"
+    ;;
+  Killall)
+    killall -9 "$pid"
     ;;
   esac
 }

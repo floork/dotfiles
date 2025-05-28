@@ -15,6 +15,13 @@ function get_pid() {
   ps --user $(id --user) -o pid,user,comm | sed '1d' | $launcher_cmd | awk '{print $1}'
 }
 
+function get_pid_name() {
+  local pid=$1
+  local name=$(ps -p "$pid" -o comm=)
+
+  echo "$name"
+}
+
 function kill_menu() {
   local options=("Kill" "Force" "Killall" "Cancel")
 
@@ -34,9 +41,17 @@ function kill_process() {
     kill -9 "$pid"
     ;;
   Killall)
-    killall -9 "$pid"
+    killall -9 "$(get_pid_name "$pid")"
     ;;
   esac
+}
+
+function verfication() {
+  local options=("Yes" "No")
+
+  local selected=$(echo "${options[@]}" | tr ' ' '\n' | $launcher_cmd)
+
+  echo "$selected"
 }
 
 function main() {
@@ -50,7 +65,10 @@ function main() {
 
   local kill_option=$(kill_menu)
 
-  kill_process "$pid" "$kill_option"
+  local verification=$(verfication)
+  if [ "$verification" == "Yes" ]; then
+    kill_process "$pid" "$kill_option"
+  fi
 }
 
 main

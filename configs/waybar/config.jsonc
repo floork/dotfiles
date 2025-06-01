@@ -1,7 +1,7 @@
 {
   "layer": "top",
   "position": "top",
-  "modules-left": ["group/system_info", "hyprland/workspaces"],
+  "modules-left": ["group/system_info", "river/tags"],
   "modules-center": ["group/center_block"],
   "modules-right": ["tray", "group/audio_network", "custom/work"],
   "group/system_info": {
@@ -17,7 +17,8 @@
   },
   "group/center_block": {
     "orientation": "horizontal",
-    "modules": ["hyprland/language", "clock", "custom/weather"],
+    // "modules": ["hyprland/language", "clock", "custom/weather"],
+    "modules": ["clock", "custom/weather"],
   },
   "group/audio_network": {
     "orientation": "horizontal",
@@ -51,12 +52,22 @@
     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
     "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
   },
-  "hyprland/workspaces": {
-    "format": "{name}: {icon}",
-    "format-icons": {
-      "active": "",
-      "default": "",
-    },
+"river/tags": {
+    "num-tags": 9, // The number of tag buttons you want to potentially display
+    // Use the "default" (empty) icon for all labels
+    "tag-labels": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "disable-click": false, // Allow clicking to switch/toggle tags
+    "hide-vacant": true // This is crucial: hide tags that have no windows
   },
   "tray": {
     "icon-size": 21,

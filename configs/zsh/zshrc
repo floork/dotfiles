@@ -71,6 +71,8 @@ export QT_QPA_PLATFORM=xcb
 export BAT_CONFIG_PATH="~/.config/bat/config"
 export CMAKE_TOOLCHAIN_FILE=~/.config/cmake/CMakeToolchain.cmake
 export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
+export APP_LAUNCHER=wofi
+
 
 #------------------------------
 # Language Environments

@@ -120,6 +120,8 @@
     - { src: "walker", dest: ".config/walker" }
     - { src: "waybar", dest: ".config/waybar" }
     - { src: "wofi", dest: ".config/wofi" }
+    - { src: "river", dest: ".config/river" }
+
     # terminal
     - { src: "alacritty", dest: ".config/alacritty" }
     - { src: "ghostty", dest: ".config/ghostty" }

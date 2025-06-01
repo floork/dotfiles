@@ -13,6 +13,59 @@
   margin: 0 0;
 }
 
+/* ========= River Tags (Workspaces) ========= */
+#river-tags {
+  border-radius: 5px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  background: #2c2c2c;
+  padding: 0rem 1rem;
+}
+
+#river-tags button {
+  color: #babbf1;
+  border-radius: 5px;
+  padding: 0rem 0.4rem;
+}
+
+#river-tags button.focused {
+  color: #99d1db;
+  border-radius: 5px;
+}
+
+#river-tags button:hover {
+  color: #85c1dc;
+  border-radius: 5px;
+}
+
+/* ========= River Tags ========= */
+#tags {
+  border-radius: 5px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  background: #2c2c2c;
+  padding: 0rem 1rem;
+}
+
+#tags button {
+  color: #babbf1;
+  border-radius: 5px;
+  padding: 0rem 0.4rem;
+  min-width: 25px; /* Added for consistent sizing, good for single-digit tags */
+  background-color: transparent; /* Ensure no default background */
+  border: none; /* Ensure no default border */
+}
+
+#tags button.focused{
+  color: #babbf1;
+  border-radius: 5px;
+}
+
+#tags button:hover {
+  color: #babbf1;
+  border-radius: 0;
+}
+
 /* ========= Workspaces ========= */
 #workspaces {
   border-radius: 5px;

@@ -55,17 +55,6 @@
 "river/tags": {
     "num-tags": 10, // The number of tag buttons you want to potentially display
     // Use the "default" (empty) icon for all labels
-    "tag-labels": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
-    ],
     "disable-click": false, // Allow clicking to switch/toggle tags
     "hide-vacant": true // This is crucial: hide tags that have no windows
   },

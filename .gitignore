@@ -6,4 +6,4 @@ configs/wezterm/wezterm
 configs/zsh/prompt.zsh.zwc
 configs/systemd/user/**
 configs/docker/buildx/**
-config/gh/hosts.yml
+configs/gh/hosts.yml

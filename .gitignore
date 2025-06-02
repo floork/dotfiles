@@ -7,3 +7,4 @@ configs/zsh/prompt.zsh.zwc
 configs/systemd/user/**
 configs/docker/buildx/**
 configs/gh/hosts.yml
+configs/ncspot/userstate.cbor

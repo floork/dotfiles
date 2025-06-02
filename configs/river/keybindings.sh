@@ -1,7 +1,8 @@
 #!/bin/sh
 
 mainMod=Super
-APP_LAUNCHER="wofi --show drun"
+APP_LAUNCHER="wofi"
+APP_LAUNCHER_DMENU="${APP_LAUNCHER} -d"
 
 # Basic window management
 riverctl map normal "$mainMod" Q close
@@ -31,7 +32,7 @@ riverctl map normal "$mainMod" X spawn "ghostty" # Assuming ghostty is your term
 riverctl map normal "$mainMod" Space spawn "$APP_LAUNCHER"
 riverctl map normal "$mainMod" E spawn "thunar"
 riverctl map normal "$mainMod" N spawn "obsidian"
-riverctl map normal "$mainMod" V spawn "bash -c 'cliphist list | $APP_LAUNCHER | cliphist decode | wl-copy'"
+riverctl map normal "$mainMod" V spawn "bash -c 'cliphist list | $APP_LAUNCHER_DMENU | cliphist decode | wl-copy'"
 riverctl map normal "$mainMod" M spawn "thunderbird"
 riverctl map normal "$mainMod" S spawn "spotify" # Re-added for clarity in this section
 

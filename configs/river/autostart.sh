@@ -2,6 +2,7 @@
 
 # Autostart applications
 riverctl spawn "waybar"
+riverctl spawn "mako"
 riverctl spawn "pypr" # For pyprpaper
 riverctl spawn "wl-paste --watch cliphist store"
 riverctl spawn "nm-applet"

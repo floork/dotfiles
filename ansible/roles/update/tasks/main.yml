@@ -112,6 +112,7 @@
 
     # Desktop applications
     - { src: "dunst", dest: ".config/dunst" }
+    - { src: "mako", dest: ".config/mako" }
     - { src: "fuzzel", dest: ".config/fuzzel" }
     - { src: "gromit-mpx/gromit-mpx.ini", dest: ".config/gromit-mpx.ini" }
     - { src: "gromit-mpx/gromit-mpx.cfg", dest: ".config/gromit-mpx.cfg" }

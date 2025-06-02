@@ -14,6 +14,8 @@ systemctl --user restart xdg-desktop-portal.service
 . "$HOME/.config/river/autostart.sh" || echo "Warning: autostart.sh not found!" >&2
 . "$HOME/.config/river/rules.sh" || echo "Warning: rules.sh not found!" >&2
 
+. "$HOME/.config/river/idle.sh" || echo "Warning: idle.sh not found!" >&2
+
 echo "River configuration loaded."
 
 work_monitor_left="DP-1"

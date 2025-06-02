@@ -16,6 +16,7 @@ riverctl rule-add -app-id "popup" float # Generic, might need refinement
 
 riverctl rule-add -app-id "xwaylandvideobridge" float
 riverctl rule-add -app-id "kruler" float
+riverctl rule-add -app-id "org.kde.kruler" float
 riverctl rule-add -app-id "Gromit-mpx" float
 riverctl rule-add -app-id "Gromit-mpx" stick
 

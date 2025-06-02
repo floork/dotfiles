@@ -46,10 +46,10 @@ riverctl map normal "$mainMod"+Shift B spawn "blueman-manager"
 riverctl map normal "$mainMod"+Shift E spawn "element-desktop"
 
 # System and Utility:
-riverctl map normal "$mainMod" P spawn "powermenu"
+riverctl map normal "$mainMod" P spawn "$HOME/.local/bin/powermenu"
 riverctl map normal "$mainMod"+Shift S spawn "grimblast copysave area \"$HOME/Pictures/Screenshots/$(date +%d.%m.%Y-%H:%M:%S).png\""
 riverctl map normal "$mainMod"+Shift R spawn "pkill waybar && waybar &" || waybar
-riverctl map normal "$mainMod"+Shift K spawn "killProc"
+riverctl map normal "$mainMod"+Shift K spawn "$HOME/.local/bin/killProc"
 
 # Lock:
 riverctl map normal "$mainMod"+Shift I spawn "hyprlock"

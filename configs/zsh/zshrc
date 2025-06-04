@@ -16,8 +16,6 @@ setopt interactive_comments
 unsetopt prompt_sp
 stty stop undef
 
-autoload -Uz history-beginning-search # History search
-
 #------------------------------
 # History Configuration
 #------------------------------
@@ -30,18 +28,13 @@ HISTCONTROL=ignoreboth
 #------------------------------
 # Custom ZSH Bindings
 #------------------------------
-### Navigation
-bindkey "\e[1;5D" backward-word # Ctrl + Left Arrow: Move backward one word
-bindkey "\e[1;5C" forward-word  # Ctrl + Right Arrow: Move forward one word
-
-### History Search
-bindkey "^[[A" history-beginning-search-backward # Up Arrow: Search backward through history
-bindkey "^[[B" history-beginning-search-forward  # Down Arrow: Search forward through history
-bindkey "^[[A" history-search-backward           # Up Arrow: Search backward through history (alternate)
-bindkey "^[[B" history-search-forward            # Down Arrow: Search forward through history (alternate)
-bindkey "^[[A" history-beginning-search-backward # Up Arrow: Search backward through history for the current command prefix
-bindkey "^[[B" history-beginning-search-forward  # Down Arrow: Search forward through history for the current command prefix
-bindkey '^R' history-incremental-search-backward
+#––– history-prefix search –––
+autoload -Uz history-beginning-search-backward \
+              history-beginning-search-forward
+bindkey '\e[A'  history-beginning-search-backward
+bindkey '\e[B'  history-beginning-search-forward
+bindkey '\eOA' history-beginning-search-backward
+bindkey '\eOB' history-beginning-search-forward
 
 ### Text Manipulation
 bindkey "\e[3;5~" kill-word       # Ctrl + Del: Delete word after cursor

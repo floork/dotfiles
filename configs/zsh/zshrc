@@ -16,6 +16,9 @@ setopt interactive_comments
 unsetopt prompt_sp
 stty stop undef
 
+# add ~/.config/zsh/completions to fpath
+fpath=(~/.config/zsh/completions $fpath)
+
 #------------------------------
 # History Configuration
 #------------------------------

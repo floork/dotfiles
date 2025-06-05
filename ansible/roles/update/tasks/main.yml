@@ -71,7 +71,7 @@
     - { src: "fish", dest: ".config/fish" }
     # zsh
     - { src: "zsh/zshrc", dest: ".zshrc" }
-    - { src: "zsh/prompt.zsh", dest: ".config/zsh/prompt.zsh" }
+    - { src: "zsh/", dest: ".config/zsh" }
     # shared resources
     - { src: "shell/aliasrc", dest: ".aliasrc" }
     - { src: "shell/functionsrc", dest: ".functionsrc" }

@@ -122,6 +122,7 @@
     - { src: "waybar", dest: ".config/waybar" }
     - { src: "wofi", dest: ".config/wofi" }
     - { src: "river", dest: ".config/river" }
+    - { src: "way-display", dest: ".config/way-display" }
 
     # terminal
     - { src: "alacritty", dest: ".config/alacritty" }

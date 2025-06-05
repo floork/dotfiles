@@ -1,0 +1,137 @@
+arrange:
+  mode: row # Aligns monitors horizontally
+  align: top # Aligns the top edges of monitors
+
+scaling:
+  auto_scale: false # Global disable for auto-scaling
+  min: 1.0          # Default minimum if auto-scaling were on
+
+change:
+  success_cmd:
+    - notify-send "way-displays ${CALLBACK_LEVEL}" "${CALLBACK_MSG}"
+
+# VRR blacklist by panel ID
+VRR_OFF:
+  - "0x313D" # For eDP-1 (AU Optronics 0x313D)
+  # Add other panel IDs here if they cause issues with VRR
+
+# Specific scale overrides by monitor description
+SCALE:
+  # Laptop
+  - NAME_DESC: 'AU Optronics 0x313D (eDP-1)'
+    SCALE: 1.0
+  # Work Monitors
+  - NAME_DESC: 'LG Electronics 24MB35 501NDVW7E103' # Work Left
+    SCALE: 1.0
+  - NAME_DESC: 'Lenovo Group Limited LEN T27h-2L VNA70516' # Work Middle
+    SCALE: 1.0
+  - NAME_DESC: 'LG Electronics 24MB35 502NDYG75410' # Work Right
+    SCALE: 1.0
+  # Home Monitors
+  - NAME_DESC: 'Dell Inc. DELL P2419H 6YY3095V1DTB' # Home Left
+    SCALE: 1.0
+  - NAME_DESC: 'Fujitsu Siemens Computers GmbH L22T-3 LED YV5F024754' # Home Right
+    SCALE: 1.0
+  # If HDMI-A-1 (or any other monitor) needs a specific scale via its description,
+  # add its 'desc' and desired 'SCALE' here.
+
+outputs:
+  # Laptop internal display (eDP-1)
+  eDP-1:
+    enabled: true
+    mode: # Your specific preferred mode for eDP-1
+      width: 1920
+      height: 1080
+      refresh: 60049
+    position: # Position for laptop screen
+      x: 0
+      y: 0
+    auto_scale: false # Crucial to respect the SCALE block or explicit scale
+    vrr: false
+    transform: normal
+    primary: true # Laptop screen is primary by default
+
+  # --- WORK MONITORS ---
+  # Work Left Monitor (desc:LG Electronics 24MB35 501NDVW7E103)
+  # ❗ REPLACE 'INTERFACE_NAME_WORK_LEFT' with its actual interface name (e.g., DP-1)
+  INTERFACE_NAME_WORK_LEFT:
+    enabled: true # Set to false if you don't want it active by default when connected
+    mode:
+      preferred: true
+    position: # Work setup starts at 0,0 for the leftmost monitor
+      x: 0
+      y: 0
+    auto_scale: false
+    vrr: false
+    transform: normal
+    primary: false # Adjust if this should be primary in work setup
+
+  # Work Middle Monitor (desc:Lenovo Group Limited LEN T27h-2L VNA70516)
+  # ❗ REPLACE 'INTERFACE_NAME_WORK_MIDDLE' with its actual interface name (e.g., DP-2)
+  INTERFACE_NAME_WORK_MIDDLE:
+    enabled: true
+    mode:
+      preferred: true
+    position: # Next to the left monitor (assuming 1920 width for left)
+      x: 1920 # Adjust if left monitor has different width
+      y: 0
+    auto_scale: false
+    vrr: false
+    transform: normal
+    primary: false
+
+  # Work Right Monitor (desc:LG Electronics 24MB35 502NDYG75410)
+  # ❗ REPLACE 'INTERFACE_NAME_WORK_RIGHT' with its actual interface name (e.g., DP-3)
+  INTERFACE_NAME_WORK_RIGHT:
+    enabled: true
+    mode:
+      preferred: true
+    position: # Next to the middle monitor (assuming 1920+2560 width for left+middle)
+      x: 4480 # (1920 + 2560 = 4480, from your Hyprland config)
+      y: 0
+    auto_scale: false
+    vrr: false
+    transform: normal
+    primary: false
+
+  # --- HOME MONITORS ---
+  # Home Left Monitor (desc:Dell Inc. DELL P2419H 6YY3095V1DTB)
+  # ❗ REPLACE 'INTERFACE_NAME_HOME_LEFT' with its actual interface name
+  INTERFACE_NAME_HOME_LEFT:
+    enabled: true
+    mode:
+      preferred: true
+    position: # Assuming home setup also starts at 0,0 for the leftmost
+      x: 0
+      y: 0
+    auto_scale: false
+    vrr: false
+    transform: normal
+    primary: false # Adjust if this should be primary in home setup
+
+  # Home Right Monitor (desc:Fujitsu Siemens Computers GmbH L22T-3 LED YV5F024754)
+  # ❗ REPLACE 'INTERFACE_NAME_HOME_RIGHT' with its actual interface name
+  INTERFACE_NAME_HOME_RIGHT:
+    enabled: true
+    mode:
+      preferred: true
+    position: # Next to the home left monitor (assuming 1920 width for left)
+      x: 1920 # Adjust if home left monitor has different width
+      y: 0
+    auto_scale: false
+    vrr: false
+    transform: normal
+    primary: false
+
+  # Generic HDMI-A-1 configuration (if you still use it sometimes)
+  HDMI-A-1:
+    enabled: true # Or false if not commonly used
+    mode:
+      preferred: true
+    # position: # Let 'arrange' handle it, or specify x, y if fixed
+    auto_scale: false
+    scale: 1.0 # Explicit scale 1.0, unless its NAME_DESC is in the SCALE block
+    vrr: false
+    transform: normal
+    primary: false
+    # mirror: eDP-1 # Uncomment if you want HDMI-A-1 to mirror eDP-1

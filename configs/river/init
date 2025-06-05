@@ -16,11 +16,17 @@ systemctl --user restart xdg-desktop-portal.service
 
 . "$HOME/.config/river/idle.sh" || echo "Warning: idle.sh not found!" >&2
 
-echo "River configuration loaded."
+# Monitor configuration
+riverctl spawn 'mako > "/tmp/mako.${XDG_VTNR}.${USER}.log" 2>&1 &'
+riverctl spawn 'way-displays > /tmp/way-displays.${XDG_VTNR}.${USER}.log 2>&1 &'
 
 work_monitor_left="DP-1"
 work_monitor_middle="HDMI-A-1"
 work_monitor_right="DP-2"
+# Live wallpaper
+riverctl spawn 'swww-daemon'
+WALLPAPERPATH="/home/floork/dotfiles/configs/live-wallpapers/"
+riverctl spawn 'swww img "${WALLPAPERPATH}$(ls "${WALLPAPERPATH}" | shuf -n 1)"'
 
 wlr-randr --output "$work_monitor_left" --mode 1920x1080 --pos 0x0 --transform normal
 wlr-randr --output "$work_monitor_middle" --mode 2560x1440 --pos 1920x0 --transform normal

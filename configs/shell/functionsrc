@@ -161,7 +161,9 @@ function fix-trashy() {
 
   source /etc/os-release
   if [ "$ID" = "nixos" ]; then
-    compdef -d trash
+    if type compdef &>/dev/null; then
+      compdef -d trash
+    fi
   fi
 }
 fix-trashy

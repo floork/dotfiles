@@ -21,8 +21,6 @@ riverctl spawn 'mako > "/tmp/mako.${XDG_VTNR}.${USER}.log" 2>&1 &'
 riverctl spawn 'way-displays > /tmp/way-displays.${XDG_VTNR}.${USER}.log 2>&1 &'
 
 # Live wallpaper
-riverctl spawn 'swww-daemon'
-WALLPAPERPATH="/home/floork/dotfiles/configs/live-wallpapers/"
-riverctl spawn 'swww img "${WALLPAPERPATH}$(ls "${WALLPAPERPATH}" | shuf -n 1)"'
+. "$HOME/.config/river/wallpaper.sh"
 
 echo "River configuration loaded."

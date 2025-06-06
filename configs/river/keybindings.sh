@@ -52,7 +52,7 @@ riverctl map normal "$mainMod"+Shift R spawn "pkill waybar && waybar &" || wayba
 riverctl map normal "$mainMod"+Shift K spawn "$HOME/.local/bin/killProc"
 
 # Lock:
-riverctl map normal "$mainMod"+Shift I spawn "hyprlock"
+riverctl map normal "$mainMod"+Shift I spawn "swaylock -f -c 000000"
 
 # Pyprpaper (Assuming pypr is available)
 riverctl map normal "$mainMod" Z spawn "pypr zoom ++0.5"

@@ -21,6 +21,6 @@ riverctl spawn 'mako > "/tmp/mako.${XDG_VTNR}.${USER}.log" 2>&1 &'
 riverctl spawn 'way-displays > /tmp/way-displays.${XDG_VTNR}.${USER}.log 2>&1 &'
 
 # Live wallpaper
-. "$HOME/.config/river/wallpaper.sh"
+riverctl spawn "$HOME/.config/river/wallpaper.sh"
 
 echo "River configuration loaded."

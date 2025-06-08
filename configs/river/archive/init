@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Import Wayland display into user environment
+systemctl --user import-environment WAYLAND_DISPLAY
+
+# Restart xdg-desktop-portal services
+systemctl --user restart xdg-desktop-portal-wlr.service
+systemctl --user restart xdg-desktop-portal.service
+
+# Source other configuration files
+# The order generally matters for dependencies (e.g., config before keybindings)
+. "$HOME/.config/river/config.sh" || echo "Warning: config.sh not found!" >&2
+. "$HOME/.config/river/keybindings.sh" || echo "Warning: keybindings.sh not found!" >&2
+. "$HOME/.config/river/autostart.sh" || echo "Warning: autostart.sh not found!" >&2
+. "$HOME/.config/river/rules.sh" || echo "Warning: rules.sh not found!" >&2
+
+. "$HOME/.config/river/idle.sh" || echo "Warning: idle.sh not found!" >&2
+
+# Monitor configuration
+riverctl spawn 'mako > "/tmp/mako.${XDG_VTNR}.${USER}.log" 2>&1 &'
+riverctl spawn 'way-displays > /tmp/way-displays.${XDG_VTNR}.${USER}.log 2>&1 &'
+
+# Live wallpaper
+riverctl spawn "$HOME/.config/river/wallpaper.sh"
+
+echo "River configuration loaded."

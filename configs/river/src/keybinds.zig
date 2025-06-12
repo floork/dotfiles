@@ -90,7 +90,7 @@ pub fn run(alloc: std.mem.Allocator) !void {
         .{ .mode = "normal", .bind = main_mod ++ " P", .event = "spawn '$HOME/.local/bin/powermenu' " },
         .{ .mode = "normal", .bind = main_mod ++ "+Shift S", .event = "spawn '$HOME/.local/bin/screenshot'" },
         .{ .mode = "normal", .bind = main_mod ++ "+Shift R", .event = "spawn 'pkill waybar && waybar &'   " },
-        .{ .mode = "normal", .bind = main_mod ++ "+Shift K", .event = "spawn '$HOME/.local/bin/killProc'  " },
+        .{ .mode = "normal", .bind = main_mod ++ "+" ++ alt_key ++ " K", .event = "spawn '$HOME/.local/bin/killProc'  " },
         // Lock:
         .{ .mode = "normal", .bind = main_mod ++ "+Shift I", .event = "spawn 'swaylock -f -c 000000'" },
         // # Pyprpaper (Assuming pypr is available)

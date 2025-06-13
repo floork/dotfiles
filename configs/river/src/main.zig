@@ -74,7 +74,7 @@ fn issueNotify(alloc: std.mem.Allocator) !void {
         .{ warn_count, err_count },
     );
 
-    try cmd.run(&.{ "notify-send", urgency, "Started with", body });
+    try cmd.run(&.{ "notify-send", "--urgency", urgency, "RIVER: Started with", body });
 }
 
 pub fn main() !void {
@@ -82,21 +82,21 @@ pub fn main() !void {
     defer arena.deinit();
     const alloc = arena.allocator();
 
-    const log_path = blk: {
-        const home = try std.process.getEnvVarOwned(alloc, "HOME");
-        defer alloc.free(home);
-        break :blk try std.fmt.allocPrint(alloc, "{s}/.river.log", .{home});
+    const home = std.process.getEnvVarOwned(alloc, "HOME") catch |e| {
+        std.log.err("Failed to get $HOME: {}", .{e});
+        return e;
     };
-    defer alloc.free(log_path);
+    defer alloc.free(home);
 
-    var maybe_file: ?std.fs.File =
-        std.fs.cwd().createFile(log_path, .{ .truncate = true }) catch null;
-    log_file = maybe_file;
+    const path_buf = try std.fmt.allocPrint(alloc, "{s}/.river.log", .{home});
+    defer alloc.free(path_buf);
 
-    if (maybe_file) |*f| {
-        defer f.close();
-    }
-    defer issues_arena.deinit();
+    const file = try std.fs.cwd().createFile(
+        path_buf,
+        .{ .truncate = true },
+    );
+    log_file = file;
+    defer file.close();
 
     try init.run(alloc);
     try config.run(alloc);

@@ -95,9 +95,6 @@ pub fn run(alloc: std.mem.Allocator) !void {
         defer swwW_daemon_cmd.deinit();
         std.log.info("Starting swww-daemon", .{});
 
-        // Use `run_unsafe` with shell redirection to /dev/null and `&`
-        // This causes the shell to redirect output BEFORE it backgrounds the process.
-        // The Zig program will still wait for `sh -c` to exit (which is quick after forking).
         try swwW_daemon_cmd.run_unsafe("swww-daemon > /dev/null 2>&1 &");
 
         std.time.sleep(100 * std.time.ns_per_ms);

@@ -4,6 +4,7 @@ const common = @import("common.zig");
 const progs = [_][]const []const u8{
     &[_][]const u8{"waybar"},
     &[_][]const u8{"mako"},
+    &[_][]const u8{"swww-daemon"},
     &[_][]const u8{"pypr"},
     &[_][]const u8{ "wl-paste", "--watch", "cliphist", "store" },
     &[_][]const u8{"nm-applet"},

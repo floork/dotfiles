@@ -22,27 +22,24 @@ var log_file: ?std.fs.File = null;
 pub fn customLogFn(
     comptime level: std.log.Level,
     comptime scope: @Type(.enum_literal),
-    comptime fmt_str: []const u8,
+    comptime message: []const u8,
     args: anytype,
 ) void {
     // Let Zig's default logger keep doing its job
-    std.log.defaultLog(level, scope, fmt_str, args);
+    std.log.defaultLog(level, scope, message, args);
 
-    if (log_file) |*f| {
-        var w = f.writer();
-        w.print("[{s}] ", .{level.asText()}) catch |e|
-            std.debug.panic("log write failed: {}", .{e});
-        w.print(fmt_str, args) catch |e|
-            std.debug.panic("log write failed: {}", .{e});
-        w.print("\n", .{}) catch |e|
-            std.debug.panic("log write failed: {}", .{e});
+    if (log_file) |file| {
+        var writer = file.writer();
+        writer.print("[{s}] ", .{level.asText()}) catch {};
+        writer.print(message, args) catch {};
+        writer.print("\n", .{}) catch {};
     }
 
     switch (level) {
         .warn, .err => {
             const msg = std.fmt.allocPrint(
                 issues_arena.allocator(),
-                fmt_str,
+                message,
                 args,
             ) catch unreachable;
             runtime_issues.append(.{ .level = level, .message = msg }) catch unreachable;

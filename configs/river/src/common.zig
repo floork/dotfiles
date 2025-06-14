@@ -67,3 +67,44 @@ pub const Command = struct {
         }
     }
 };
+
+pub fn check_available(alloc: std.mem.Allocator, to_check: []const u8) !bool {
+    var cmd = Command{ .allocator = alloc };
+    defer cmd.deinit();
+
+    const shell_command_str = try std.fmt.allocPrint(alloc, "command -v {s}", .{to_check});
+    defer alloc.free(shell_command_str);
+
+    try cmd.run(&[_][]const u8{ "/bin/sh", "-c", shell_command_str });
+
+    if (cmd.exit_code) |code| {
+        switch (code) {
+            .Exited => |val| {
+                return val == 0;
+            },
+            else => {
+                std.log.warn("Shell command for '{s}' exited with non-zero code: {any}", .{ to_check, code });
+                return false;
+            },
+        }
+    }
+
+    return false; // Assume not available if no exit code
+}
+
+pub fn check_running(alloc: std.mem.Allocator, to_check: []const u8) !bool {
+    var cmd = Command{ .allocator = alloc };
+    defer cmd.deinit();
+    try cmd.run(&[_][]const u8{ "pgrep", "-x", to_check });
+
+    if (cmd.exit_code) |code| {
+        switch (code) {
+            .Exited => |val| {
+                return val == 0;
+            },
+            else => return false,
+        }
+    }
+
+    return true;
+}

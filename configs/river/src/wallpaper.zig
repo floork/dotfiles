@@ -42,54 +42,13 @@ fn get_random_wallpaper(alloc: std.mem.Allocator) ![]const u8 {
     return try alloc.dupe(u8, selected_wallpaper);
 }
 
-fn check_available(alloc: std.mem.Allocator, to_check: []const u8) !bool {
-    var cmd = common.Command{ .allocator = alloc };
-    defer cmd.deinit();
-
-    const shell_command_str = try std.fmt.allocPrint(alloc, "command -v {s}", .{to_check});
-    defer alloc.free(shell_command_str);
-
-    try cmd.run(&[_][]const u8{ "/bin/sh", "-c", shell_command_str });
-
-    if (cmd.exit_code) |code| {
-        switch (code) {
-            .Exited => |val| {
-                return val == 0;
-            },
-            else => {
-                std.log.warn("Shell command for '{s}' exited with non-zero code: {any}", .{ to_check, code });
-                return false;
-            },
-        }
-    }
-
-    return false; // Assume not available if no exit code
-}
-
-fn check_running(alloc: std.mem.Allocator, to_check: []const u8) !bool {
-    var cmd = common.Command{ .allocator = alloc };
-    defer cmd.deinit();
-    try cmd.run(&[_][]const u8{ "pgrep", "-x", to_check });
-
-    if (cmd.exit_code) |code| {
-        switch (code) {
-            .Exited => |val| {
-                return val == 0;
-            },
-            else => return false,
-        }
-    }
-
-    return true;
-}
-
 pub fn run(alloc: std.mem.Allocator) !void {
-    if (!(try check_available(alloc, "swww"))) {
+    if (!(try common.check_available(alloc, "swww"))) {
         std.log.warn("swww is not available", .{});
         return;
     }
 
-    if (!(try check_running(alloc, "swww-daemon"))) {
+    if (!(try common.check_running(alloc, "swww-daemon"))) {
         std.log.warn("swww-daemon is not running", .{});
         var swwW_daemon_cmd = common.Command{ .allocator = alloc };
         defer swwW_daemon_cmd.deinit();

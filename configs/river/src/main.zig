@@ -74,6 +74,10 @@ fn issueNotify(alloc: std.mem.Allocator) !void {
         .{ warn_count, err_count },
     );
 
+    if (!try common.check_available(alloc, "notify-send")) {
+        return;
+    }
+
     try cmd.run(&.{ "notify-send", "--urgency", urgency, "RIVER: Started with", body });
 }
 

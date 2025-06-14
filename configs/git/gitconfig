@@ -1,7 +1,7 @@
 [user]
-  email = florian_alexander.mros@tu-dresden.de
+  email = mail@floork.dev
   name = Florian Mros
-  signingKey = 970BFFDE20269FF4
+  signingKey = C6044A91BFEFDEEF
 
 [alias]
   # Shortcut for cloning a repository without checking out a working directory

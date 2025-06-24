@@ -35,7 +35,7 @@ pub fn run(alloc: std.mem.Allocator) !void {
     const app_launcher = try get_launcher(alloc);
     defer if (app_launcher) |ptr| alloc.free(ptr);
 
-    const launcher = app_launcher orelse "walker";
+    const launcher = app_launcher orelse "wofi";
 
     var buffer: [64]u8 = undefined;
     const dmenu = try std.fmt.bufPrint(&buffer, "{s}-d", .{launcher});
@@ -66,10 +66,10 @@ pub fn run(alloc: std.mem.Allocator) !void {
         .{ .mode = "normal", .bind = main_mod ++ "+Shift K", .event = "swap up   " },
         .{ .mode = "normal", .bind = main_mod ++ "+Shift J", .event = "swap down " },
         // Layout control
-        .{ .mode = "normal", .bind = main_mod ++ "+Control H", .event = "send-layout-cmd rivercarro 'set-main-size -0.05'" },
-        .{ .mode = "normal", .bind = main_mod ++ "+Control L", .event = "send-layout-cmd rivercarro 'set-main-size +0.05'" },
-        .{ .mode = "normal", .bind = main_mod ++ "+Control K", .event = "send-layout-cmd rivercarro 'focus-cycle next'   " },
-        .{ .mode = "normal", .bind = main_mod ++ "+Control J", .event = "send-layout-cmd rivercarro 'focus-cycle prev'   " },
+        .{ .mode = "normal", .bind = main_mod ++ "+Control H", .event = "focus-output left" },
+        .{ .mode = "normal", .bind = main_mod ++ "+Control L", .event = "focus-output right" },
+        .{ .mode = "normal", .bind = main_mod ++ "+Control K", .event = "focus-output up" },
+        .{ .mode = "normal", .bind = main_mod ++ "+Control J", .event = "focus-output down" },
         // Application Launchers
         .{ .mode = "normal", .bind = main_mod ++ " X", .event = "spawn 'ghostty'" },
         .{ .mode = "normal", .bind = main_mod ++ " Space", .event = spawn_launcher },
